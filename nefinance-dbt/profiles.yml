@@ -1,21 +1,21 @@
-tasty_bytes:
+nefinance_intelligence:
   target: dev
   outputs:
     dev:
       type: snowflake
-      account: 'not needed'
-      user: 'not needed'
-      role: accountadmin
-      database: tasty_bytes_dbt_db
-      schema: dev
-      warehouse: PC_FIVETRAN_WH
+      account: ""
+      user: ""
+      role: ACCOUNTADMIN
+      database: NEFINANCE_DB
+      schema: DEV
+      warehouse: COMPUTE_WH
       threads: 8
     prod:
       type: snowflake
-      account: 'not needed'
-      user: 'not needed'
-      role: accountadmin
-      database: tasty_bytes_dbt_db
-      schema: prod
-      warehouse: tasty_bytes_dbt_wh
+      account: ""
+      user: ""
+      role: ACCOUNTADMIN
+      database: NEFINANCE_DB
+      schema: PROD
+      warehouse: COMPUTE_WH
       threads: 8

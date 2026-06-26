@@ -1,0 +1,208 @@
+version: 2
+
+models:
+
+  ###########################################################################
+  # STOCK PRICES
+  ###########################################################################
+
+  - name: stg_sp500_prices
+    description: >
+      Cleaned and standardized daily stock price data for S&P 500 companies.
+      Used as the primary staging model for market price analytics.
+
+    config:
+      tags:
+        - staging
+        - finance
+        - market
+
+    columns:
+
+      - name: symbol
+        description: Stock ticker symbol.
+        tests:
+          - not_null
+
+      - name: trading_date
+        description: Trading date.
+        tests:
+          - not_null
+
+      - name: open
+        description: Opening price.
+
+      - name: high
+        description: Highest trading price.
+
+      - name: low
+        description: Lowest trading price.
+
+      - name: close
+        description: Closing price.
+
+      - name: volume
+        description: Daily traded volume.
+
+      - name: loaded_at
+        description: Timestamp when record entered the staging layer.
+
+  ###########################################################################
+  # FINANCIAL STATEMENTS
+  ###########################################################################
+
+  - name: stg_short_financials
+    description: >
+      Standardized company financial statement metrics used for
+      fundamental analysis.
+
+    config:
+      tags:
+        - staging
+        - finance
+        - fundamentals
+
+    columns:
+
+      - name: ticker
+        description: Company ticker.
+        tests:
+          - not_null
+
+      - name: company
+        description: Company name.
+
+      - name: fiscal_year
+        description: Fiscal reporting year.
+
+      - name: revenue
+        description: Total revenue.
+
+      - name: gross_profit
+        description: Gross profit.
+
+      - name: operating_income
+        description: Operating income.
+
+      - name: net_income
+        description: Net income.
+
+      - name: eps
+        description: Earnings per share.
+
+      - name: total_assets
+        description: Total company assets.
+
+      - name: total_liabilities
+        description: Total liabilities.
+
+      - name: loaded_at
+        description: Staging load timestamp.
+
+  ###########################################################################
+  # CNBC
+  ###########################################################################
+
+  - name: stg_cnbc_headlines
+    description: >
+      Cleaned CNBC financial news headlines.
+
+    config:
+      tags:
+        - staging
+        - finance
+        - news
+
+    columns:
+
+      - name: published_at
+        description: Publication timestamp.
+
+      - name: title
+        description: News headline.
+        tests:
+          - not_null
+
+      - name: description
+        description: Short news summary.
+
+      - name: url
+        description: Original article URL.
+
+      - name: source
+        description: News publisher.
+
+      - name: loaded_at
+        description: Staging load timestamp.
+
+  ###########################################################################
+  # Reuters
+  ###########################################################################
+
+  - name: stg_reuters_headlines
+    description: >
+      Cleaned Reuters financial news headlines.
+
+    config:
+      tags:
+        - staging
+        - finance
+        - news
+
+    columns:
+
+      - name: published_at
+        description: Publication timestamp.
+
+      - name: title
+        description: News headline.
+        tests:
+          - not_null
+
+      - name: description
+        description: Short article description.
+
+      - name: url
+        description: Original article URL.
+
+      - name: source
+        description: News source.
+
+      - name: loaded_at
+        description: Staging load timestamp.
+
+  ###########################################################################
+  # Guardian
+  ###########################################################################
+
+  - name: stg_guardian_headlines
+    description: >
+      Cleaned Guardian business news headlines.
+
+    config:
+      tags:
+        - staging
+        - finance
+        - news
+
+    columns:
+
+      - name: published_at
+        description: Publication timestamp.
+
+      - name: title
+        description: News headline.
+        tests:
+          - not_null
+
+      - name: description
+        description: Article description.
+
+      - name: url
+        description: Original article URL.
+
+      - name: source
+        description: News source.
+
+      - name: loaded_at
+        description: Staging load timestamp.

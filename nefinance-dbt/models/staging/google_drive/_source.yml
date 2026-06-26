@@ -1,0 +1,34 @@
+version: 2
+
+sources:
+  - name: google_drive
+    description: >
+      Raw financial datasets loaded from Google Drive into Snowflake using
+      Fivetran. These tables represent the Bronze layer and should not be
+      queried directly by downstream analytics models.
+
+    database: PC_FIVETRAN_DB
+    schema: GOOGLE_DRIVE
+
+    tables:
+
+      - name: SP_500_HISTORICAL_DATA
+        description: >
+          Historical daily OHLCV stock prices for S&P 500 companies.
+
+      - name: SHORT_FINANCIALS
+        description: >
+          Company financial statement metrics including revenue,
+          net income, assets, liabilities and EPS.
+
+      - name: CNBC_HEADLINES
+        description: >
+          Financial news headlines collected from CNBC.
+
+      - name: REUTERS_HEADLINES
+        description: >
+          Financial news headlines collected from Reuters.
+
+      - name: GUARDIAN_HEADLINES
+        description: >
+          Business and market news headlines collected from The Guardian.

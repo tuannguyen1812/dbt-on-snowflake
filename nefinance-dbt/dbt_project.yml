@@ -1,8 +1,8 @@
 ## Project
-name: tasty_bytes
+name: nefinance_intelligence
 version: "1.0"
 config-version: 2
-profile: tasty_bytes
+profile: nefinance_intelligence
 
 ## Sources
 model-paths: [models]
@@ -18,7 +18,7 @@ clean-targets: [target, dbt_modules]
 
 ## Models
 models:
-  tasty_bytes:
+  nefinance_intelligence:
     staging:
       +materialized: view
     marts:

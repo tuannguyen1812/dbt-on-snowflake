@@ -18,5 +18,4 @@ SELECT
 FROM tb_101.raw.customer_loyalty cl
 JOIN tb_101.raw.order_header oh
 ON cl.customer_id = oh.customer_id
-GROUP BY cl.customer_id, cl.city, cl.country, cl.first_name,
-cl.last_name, cl.phone_number, cl.e_mail;
+GROUP BY 1,2,3,4,5,6,7;

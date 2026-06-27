@@ -19,12 +19,12 @@ models:
 
     columns:
 
-      - name: symbol
+      - name: ticker
         description: Stock ticker symbol.
         tests:
           - not_null
 
-      - name: trading_date
+      - name: date
         description: Trading date.
         tests:
           - not_null
@@ -40,11 +40,14 @@ models:
 
       - name: close
         description: Closing price.
+      
+      - name: adj_close
+        description: adjusted Closing price.
 
       - name: volume
         description: Daily traded volume.
 
-      - name: loaded_at
+      - name: _fivetran_synced
         description: Timestamp when record entered the staging layer.
 
   ###########################################################################
@@ -64,7 +67,7 @@ models:
 
     columns:
 
-      - name: ticker
+      - name: tickerPC_FIVETRAN_DB.GOOGLE_DRIVE.SP_500_HISTORICAL_DATA
         description: Company ticker.
         tests:
           - not_null

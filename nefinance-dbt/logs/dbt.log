@@ -395,3 +395,1311 @@ Object does not exist, or operation cannot be performed.
 [0m02:09:10.312042 [debug] [Dummy-1   ]: Resource report: {"command_name": "compile", "command_success": false, "command_wall_clock_time": 3.2735548, "process_in_blocks": "0", "process_kernel_time": 0.67, "process_mem_max_rss": "477080", "process_out_blocks": "0", "process_user_time": 5.08}
 [0m02:09:10.312663 [debug] [Dummy-1   ]: Command `cli compile` failed at 02:09:10.312403 after 3.27 seconds
 [0m02:09:10.313160 [debug] [Dummy-1   ]: Flushing usage events
+
+
+============================== 08:16:47.006271 | b24448b6-ee13-4adf-9391-f7a450c9f92e ==============================
+[0m08:16:47.006271 [info ] [Dummy-1   ]: Running with dbt=1.9.4
+[0m08:16:47.007106 [debug] [Dummy-1   ]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'fail_fast': 'False', 'debug': 'False', 'log_path': '/tmp/dbt/logs', 'version_check': 'True', 'profiles_dir': '/tmp/dbt/', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'False', 'quiet': 'False', 'no_print': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'invocation_command': 'dbt ', 'static_parser': 'True', 'introspect': 'True', 'target_path': '/tmp/dbt/target/', 'log_format': 'default', 'send_anonymous_usage_stats': 'False'}
+[0m08:16:47.290490 [info ] [Dummy-1   ]: Registered adapter: snowflake=1.9.2
+[0m08:16:47.834554 [error] [Dummy-1   ]: Encountered an error:
+Compilation Error
+  dbt found 1 package(s) specified in packages.yml, but only 0 package(s) installed in dbt_packages. Run "dbt deps" to install package dependencies.
+[0m08:16:47.836291 [debug] [Dummy-1   ]: Resource report: {"command_name": "run", "command_success": false, "command_wall_clock_time": 0.9020333, "process_in_blocks": "0", "process_kernel_time": 0.49, "process_mem_max_rss": "383324", "process_out_blocks": "0", "process_user_time": 3.45}
+[0m08:16:47.836924 [debug] [Dummy-1   ]: Command `cli run` failed at 08:16:47.836679 after 0.90 seconds
+[0m08:16:47.837473 [debug] [Dummy-1   ]: Flushing usage events
+
+
+============================== 08:17:10.249307 | b755a9a3-3635-417e-a1e8-f7611f5b6845 ==============================
+[0m08:17:10.249307 [info ] [Dummy-1   ]: Running with dbt=1.9.4
+[0m08:17:10.250188 [debug] [Dummy-1   ]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'debug': 'False', 'fail_fast': 'False', 'log_path': '/tmp/dbt/logs', 'version_check': 'True', 'profiles_dir': '/tmp/dbt/', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'None', 'quiet': 'False', 'no_print': 'None', 'log_format': 'default', 'static_parser': 'True', 'introspect': 'True', 'invocation_command': 'dbt ', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'send_anonymous_usage_stats': 'False'}
+[0m08:17:10.431871 [debug] [Dummy-1   ]: Set downloads directory='/tmp/dbt-downloads-o4ms1ok1'
+[0m08:17:10.432610 [debug] [Dummy-1   ]: Making package index registry request: GET https://hub.getdbt.com/api/v1/index.json
+[0m08:17:10.436013 [debug] [Dummy-1   ]: External call exception: HTTPSConnectionPool(host='hub.getdbt.com', port=443): Max retries exceeded with url: /api/v1/index.json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0xfdf1984d8ad0>: Failed to establish a new connection: [Errno 16] Device or resource busy'))
+[0m08:17:10.436506 [debug] [Dummy-1   ]: Retrying external call. Attempt: 0 Max attempts: 5
+[0m08:17:11.438151 [debug] [Dummy-1   ]: Making package index registry request: GET https://hub.getdbt.com/api/v1/index.json
+[0m08:17:11.439945 [debug] [Dummy-1   ]: External call exception: HTTPSConnectionPool(host='hub.getdbt.com', port=443): Max retries exceeded with url: /api/v1/index.json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0xfdf1984dac50>: Failed to establish a new connection: [Errno 16] Device or resource busy'))
+[0m08:17:11.440420 [debug] [Dummy-1   ]: Retrying external call. Attempt: 1 Max attempts: 5
+[0m08:17:12.441654 [debug] [Dummy-1   ]: Making package index registry request: GET https://hub.getdbt.com/api/v1/index.json
+[0m08:17:12.443518 [debug] [Dummy-1   ]: External call exception: HTTPSConnectionPool(host='hub.getdbt.com', port=443): Max retries exceeded with url: /api/v1/index.json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0xfdf1984ecad0>: Failed to establish a new connection: [Errno 16] Device or resource busy'))
+[0m08:17:12.443999 [debug] [Dummy-1   ]: Retrying external call. Attempt: 2 Max attempts: 5
+[0m08:17:13.444746 [debug] [Dummy-1   ]: Making package index registry request: GET https://hub.getdbt.com/api/v1/index.json
+[0m08:17:13.446482 [debug] [Dummy-1   ]: External call exception: HTTPSConnectionPool(host='hub.getdbt.com', port=443): Max retries exceeded with url: /api/v1/index.json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0xfdf1984ee910>: Failed to establish a new connection: [Errno 16] Device or resource busy'))
+[0m08:17:13.446981 [debug] [Dummy-1   ]: Retrying external call. Attempt: 3 Max attempts: 5
+[0m08:17:14.448278 [debug] [Dummy-1   ]: Making package index registry request: GET https://hub.getdbt.com/api/v1/index.json
+[0m08:17:14.450027 [debug] [Dummy-1   ]: External call exception: HTTPSConnectionPool(host='hub.getdbt.com', port=443): Max retries exceeded with url: /api/v1/index.json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0xfdf1984f8750>: Failed to establish a new connection: [Errno 16] Device or resource busy'))
+[0m08:17:14.450483 [debug] [Dummy-1   ]: Retrying external call. Attempt: 4 Max attempts: 5
+[0m08:17:15.451652 [debug] [Dummy-1   ]: Making package index registry request: GET https://hub.getdbt.com/api/v1/index.json
+[0m08:17:15.453467 [error] [Dummy-1   ]: Encountered an error:
+External connection exception occurred: HTTPSConnectionPool(host='hub.getdbt.com', port=443): Max retries exceeded with url: /api/v1/index.json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0xfdf1984fa590>: Failed to establish a new connection: [Errno 16] Device or resource busy'))
+[0m08:17:15.467866 [error] [Dummy-1   ]: Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/socket.py", line 974, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 16] Device or resource busy
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0xfdf1984d8ad0>: Failed to establish a new connection: [Errno 16] Device or resource busy
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='hub.getdbt.com', port=443): Max retries exceeded with url: /api/v1/index.json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0xfdf1984d8ad0>: Failed to establish a new connection: [Errno 16] Device or resource busy'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt_common/utils/connection.py", line 21, in connection_exception_retry
+    return fn()
+           ^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt/clients/registry.py", line 168, in _get_index
+    resp = requests.get(url, timeout=30)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='hub.getdbt.com', port=443): Max retries exceeded with url: /api/v1/index.json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0xfdf1984d8ad0>: Failed to establish a new connection: [Errno 16] Device or resource busy'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/socket.py", line 974, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 16] Device or resource busy
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0xfdf1984dac50>: Failed to establish a new connection: [Errno 16] Device or resource busy
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='hub.getdbt.com', port=443): Max retries exceeded with url: /api/v1/index.json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0xfdf1984dac50>: Failed to establish a new connection: [Errno 16] Device or resource busy'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt_common/utils/connection.py", line 21, in connection_exception_retry
+    return fn()
+           ^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt/clients/registry.py", line 168, in _get_index
+    resp = requests.get(url, timeout=30)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='hub.getdbt.com', port=443): Max retries exceeded with url: /api/v1/index.json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0xfdf1984dac50>: Failed to establish a new connection: [Errno 16] Device or resource busy'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/socket.py", line 974, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 16] Device or resource busy
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0xfdf1984ecad0>: Failed to establish a new connection: [Errno 16] Device or resource busy
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='hub.getdbt.com', port=443): Max retries exceeded with url: /api/v1/index.json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0xfdf1984ecad0>: Failed to establish a new connection: [Errno 16] Device or resource busy'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt_common/utils/connection.py", line 21, in connection_exception_retry
+    return fn()
+           ^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt/clients/registry.py", line 168, in _get_index
+    resp = requests.get(url, timeout=30)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='hub.getdbt.com', port=443): Max retries exceeded with url: /api/v1/index.json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0xfdf1984ecad0>: Failed to establish a new connection: [Errno 16] Device or resource busy'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/socket.py", line 974, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 16] Device or resource busy
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0xfdf1984ee910>: Failed to establish a new connection: [Errno 16] Device or resource busy
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='hub.getdbt.com', port=443): Max retries exceeded with url: /api/v1/index.json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0xfdf1984ee910>: Failed to establish a new connection: [Errno 16] Device or resource busy'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt_common/utils/connection.py", line 21, in connection_exception_retry
+    return fn()
+           ^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt/clients/registry.py", line 168, in _get_index
+    resp = requests.get(url, timeout=30)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='hub.getdbt.com', port=443): Max retries exceeded with url: /api/v1/index.json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0xfdf1984ee910>: Failed to establish a new connection: [Errno 16] Device or resource busy'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/socket.py", line 974, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 16] Device or resource busy
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0xfdf1984f8750>: Failed to establish a new connection: [Errno 16] Device or resource busy
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='hub.getdbt.com', port=443): Max retries exceeded with url: /api/v1/index.json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0xfdf1984f8750>: Failed to establish a new connection: [Errno 16] Device or resource busy'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt_common/utils/connection.py", line 21, in connection_exception_retry
+    return fn()
+           ^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt/clients/registry.py", line 168, in _get_index
+    resp = requests.get(url, timeout=30)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='hub.getdbt.com', port=443): Max retries exceeded with url: /api/v1/index.json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0xfdf1984f8750>: Failed to establish a new connection: [Errno 16] Device or resource busy'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/util/connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/socket.py", line 974, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 16] Device or resource busy
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connection.py", line 704, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0xfdf1984fa590>: Failed to establish a new connection: [Errno 16] Device or resource busy
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='hub.getdbt.com', port=443): Max retries exceeded with url: /api/v1/index.json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0xfdf1984fa590>: Failed to establish a new connection: [Errno 16] Device or resource busy'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt_common/utils/connection.py", line 21, in connection_exception_retry
+    return fn()
+           ^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt/clients/registry.py", line 168, in _get_index
+    resp = requests.get(url, timeout=30)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='hub.getdbt.com', port=443): Max retries exceeded with url: /api/v1/index.json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0xfdf1984fa590>: Failed to establish a new connection: [Errno 16] Device or resource busy'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt/cli/requires.py", line 153, in wrapper
+    result, success = func(*args, **kwargs)
+                      ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt/cli/requires.py", line 103, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt/cli/requires.py", line 218, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt/cli/requires.py", line 264, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt/cli/main.py", line 455, in deps
+    results = task.run()
+              ^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt/task/deps.py", line 211, in run
+    self.lock()
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt/task/deps.py", line 187, in lock
+    resolved_deps = resolve_packages(packages, self.project, self.cli_vars)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt/deps/resolver.py", line 131, in resolve_packages
+    target = final[package].resolved().fetch_metadata(project, renderer)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt/deps/registry.py", line 98, in resolved
+    self._check_in_index()
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt/deps/registry.py", line 75, in _check_in_index
+    index = registry.index_cached()
+            ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt/utils.py", line 127, in __call__
+    value = self.func(*args)
+            ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt/clients/registry.py", line 189, in index
+    return connection_exception_retry(get_index_fn, 5)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt_common/utils/connection.py", line 34, in connection_exception_retry
+    return connection_exception_retry(fn, max_attempts, attempt + 1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt_common/utils/connection.py", line 34, in connection_exception_retry
+    return connection_exception_retry(fn, max_attempts, attempt + 1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt_common/utils/connection.py", line 34, in connection_exception_retry
+    return connection_exception_retry(fn, max_attempts, attempt + 1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  [Previous line repeated 2 more times]
+  File "/usr/lib/python_udf/7572a8db11e712fed6beb756e6c14cdfd320d48237f422b7a5b1ae764f1db134/lib/python3.11/site-packages/dbt_common/utils/connection.py", line 36, in connection_exception_retry
+    raise ConnectionError("External connection exception occurred: " + str(exc))
+dbt_common.exceptions.connection.ConnectionError: External connection exception occurred: HTTPSConnectionPool(host='hub.getdbt.com', port=443): Max retries exceeded with url: /api/v1/index.json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0xfdf1984fa590>: Failed to establish a new connection: [Errno 16] Device or resource busy'))
+
+[0m08:17:15.470978 [debug] [Dummy-1   ]: Resource report: {"command_name": "deps", "command_success": false, "command_wall_clock_time": 5.2941513, "process_in_blocks": "0", "process_kernel_time": 0.39, "process_mem_max_rss": "402892", "process_out_blocks": "0", "process_user_time": 3.03}
+[0m08:17:15.471601 [debug] [Dummy-1   ]: Command `cli deps` failed at 08:17:15.471338 after 5.30 seconds
+[0m08:17:15.472147 [debug] [Dummy-1   ]: Flushing usage events
+
+
+============================== 08:23:39.320873 | 24f6f734-ccb0-41eb-848a-993c54f79197 ==============================
+[0m08:23:39.320873 [info ] [Dummy-1   ]: Running with dbt=1.9.4
+[0m08:23:39.321717 [debug] [Dummy-1   ]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/tmp/dbt/', 'debug': 'False', 'fail_fast': 'False', 'log_path': '/tmp/dbt/logs', 'version_check': 'True', 'warn_error': 'None', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'None', 'quiet': 'False', 'no_print': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'static_parser': 'True', 'log_format': 'default', 'introspect': 'True', 'target_path': 'None', 'invocation_command': 'dbt ', 'send_anonymous_usage_stats': 'False'}
+[0m08:23:39.496675 [info ] [Dummy-1   ]: Warning: No packages were found in packages.yml
+[0m08:23:39.497500 [info ] [Dummy-1   ]: Warning: No packages were found in packages.yml
+[0m08:23:39.499159 [debug] [Dummy-1   ]: Resource report: {"command_name": "deps", "command_success": true, "command_wall_clock_time": 0.26150635, "process_in_blocks": "0", "process_kernel_time": 0.35, "process_mem_max_rss": "388148", "process_out_blocks": "0", "process_user_time": 3.02}
+[0m08:23:39.499777 [debug] [Dummy-1   ]: Command `cli deps` succeeded at 08:23:39.499532 after 0.26 seconds
+[0m08:23:39.500266 [debug] [Dummy-1   ]: Flushing usage events
+
+
+============================== 08:24:04.675502 | 6fc8401c-c027-4ae9-863a-eda6cf9942cd ==============================
+[0m08:24:04.675502 [info ] [Dummy-1   ]: Running with dbt=1.9.4
+[0m08:24:04.676362 [debug] [Dummy-1   ]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/tmp/dbt/', 'debug': 'False', 'fail_fast': 'False', 'log_path': '/tmp/dbt/logs', 'warn_error': 'None', 'version_check': 'True', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'None', 'quiet': 'False', 'no_print': 'None', 'log_format': 'default', 'introspect': 'True', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'target_path': '/tmp/dbt/target/', 'invocation_command': 'dbt ', 'send_anonymous_usage_stats': 'False'}
+[0m08:24:04.951290 [info ] [Dummy-1   ]: Registered adapter: snowflake=1.9.2
+[0m08:24:05.522656 [debug] [Dummy-1   ]: checksum: 53ed91fada2233efb98368d1716b44ab532c83a9c293cf1890b7905d5b45fb25, vars: {}, profile: , target: dev, version: 1.9.4
+[0m08:24:05.724248 [info ] [Dummy-1   ]: Unable to do partial parsing because profile has changed
+[0m08:24:06.582727 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Did not find matching node for patch with name 'stg_sp500_prices' in the 'models' section of file 'models/staging/google_drive/_model.yml'
+[0m08:24:06.588354 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Did not find matching node for patch with name 'stg_short_financials' in the 'models' section of file 'models/staging/google_drive/_model.yml'
+[0m08:24:06.593140 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Did not find matching node for patch with name 'stg_cnbc_headlines' in the 'models' section of file 'models/staging/google_drive/_model.yml'
+[0m08:24:06.594616 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Did not find matching node for patch with name 'stg_reuters_headlines' in the 'models' section of file 'models/staging/google_drive/_model.yml'
+[0m08:24:06.596041 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Did not find matching node for patch with name 'stg_guardian_headlines' in the 'models' section of file 'models/staging/google_drive/_model.yml'
+[0m08:24:06.739334 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Test 'test.nefinance_intelligence.not_null_stg_sp500_prices_symbol.d8ecfb5c48' (models/staging/google_drive/_model.yml) depends on a node named 'stg_sp500_prices' in package '' which was not found
+[0m08:24:06.740286 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Test 'test.nefinance_intelligence.not_null_stg_sp500_prices_trading_date.a496a1db52' (models/staging/google_drive/_model.yml) depends on a node named 'stg_sp500_prices' in package '' which was not found
+[0m08:24:06.741074 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Test 'test.nefinance_intelligence.not_null_stg_short_financials_ticker.645b26c8dc' (models/staging/google_drive/_model.yml) depends on a node named 'stg_short_financials' in package '' which was not found
+[0m08:24:06.741703 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Test 'test.nefinance_intelligence.not_null_stg_cnbc_headlines_title.b0b7f523b0' (models/staging/google_drive/_model.yml) depends on a node named 'stg_cnbc_headlines' in package '' which was not found
+[0m08:24:06.742256 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Test 'test.nefinance_intelligence.not_null_stg_reuters_headlines_title.384204f338' (models/staging/google_drive/_model.yml) depends on a node named 'stg_reuters_headlines' in package '' which was not found
+[0m08:24:06.742789 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Test 'test.nefinance_intelligence.not_null_stg_guardian_headlines_title.e1198b2105' (models/staging/google_drive/_model.yml) depends on a node named 'stg_guardian_headlines' in package '' which was not found
+[0m08:24:06.843375 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 2 unused configuration paths:
+- models.nefinance_intelligence.staging
+- models.nefinance_intelligence.marts
+[0m08:24:06.889630 [info ] [Dummy-1   ]: Found 5 sources, 475 macros
+[0m08:24:06.891638 [warn ] [Dummy-1   ]: Nothing to do. Try checking your model configs and model specification args
+[0m08:24:06.892327 [debug] [Dummy-1   ]: Command end result
+[0m08:24:06.958822 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m08:24:06.960798 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m08:24:06.963630 [debug] [Dummy-1   ]: Wrote artifact RunExecutionResult to /tmp/dbt/target/run_results.json
+[0m08:24:06.965951 [debug] [Dummy-1   ]: Acquiring new snowflake connection 'generate_catalog'
+[0m08:24:06.966376 [info ] [Dummy-1   ]: Building catalog
+[0m08:24:06.978521 [debug] [ThreadPool]: Acquiring new snowflake connection 'PC_FIVETRAN_DB.information_schema'
+[0m08:24:07.065457 [debug] [ThreadPool]: Using snowflake connection "PC_FIVETRAN_DB.information_schema"
+[0m08:24:07.066356 [debug] [ThreadPool]: On PC_FIVETRAN_DB.information_schema: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "connection_name": "PC_FIVETRAN_DB.information_schema"} */
+with tables as (
+            select
+        table_catalog as "table_database",
+        table_schema as "table_schema",
+        table_name as "table_name",
+        case
+            when is_dynamic = 'YES' and table_type = 'BASE TABLE' THEN 'DYNAMIC TABLE'
+            else table_type
+        end as "table_type",
+        comment as "table_comment",
+
+        -- note: this is the _role_ that owns the table
+        table_owner as "table_owner",
+
+        'Clustering Key' as "stats:clustering_key:label",
+        clustering_key as "stats:clustering_key:value",
+        'The key used to cluster this table' as "stats:clustering_key:description",
+        (clustering_key is not null) as "stats:clustering_key:include",
+
+        'Row Count' as "stats:row_count:label",
+        row_count as "stats:row_count:value",
+        'An approximate count of rows in this table' as "stats:row_count:description",
+        (row_count is not null) as "stats:row_count:include",
+
+        'Approximate Size' as "stats:bytes:label",
+        bytes as "stats:bytes:value",
+        'Approximate size of the table as reported by Snowflake' as "stats:bytes:description",
+        (bytes is not null) as "stats:bytes:include",
+
+        'Last Modified' as "stats:last_modified:label",
+        to_varchar(convert_timezone('UTC', last_altered), 'yyyy-mm-dd HH24:MI'||'UTC') as "stats:last_modified:value",
+        'The timestamp for last update/change' as "stats:last_modified:description",
+        (last_altered is not null and table_type='BASE TABLE') as "stats:last_modified:include"
+    from PC_FIVETRAN_DB.INFORMATION_SCHEMA.tables
+            where (
+                (
+                    
+    "table_schema" ilike 'GOOGLE_DRIVE' and upper("table_schema") = upper('GOOGLE_DRIVE')
+
+                    and 
+    "table_name" ilike 'CNBC_HEADLINES' and upper("table_name") = upper('CNBC_HEADLINES')
+
+                )
+             or 
+                (
+                    
+    "table_schema" ilike 'GOOGLE_DRIVE' and upper("table_schema") = upper('GOOGLE_DRIVE')
+
+                    and 
+    "table_name" ilike 'SP_500_HISTORICAL_DATA' and upper("table_name") = upper('SP_500_HISTORICAL_DATA')
+
+                )
+             or 
+                (
+                    
+    "table_schema" ilike 'GOOGLE_DRIVE' and upper("table_schema") = upper('GOOGLE_DRIVE')
+
+                    and 
+    "table_name" ilike 'SHORT_FINANCIALS' and upper("table_name") = upper('SHORT_FINANCIALS')
+
+                )
+             or 
+                (
+                    
+    "table_schema" ilike 'GOOGLE_DRIVE' and upper("table_schema") = upper('GOOGLE_DRIVE')
+
+                    and 
+    "table_name" ilike 'GUARDIAN_HEADLINES' and upper("table_name") = upper('GUARDIAN_HEADLINES')
+
+                )
+             or 
+                (
+                    
+    "table_schema" ilike 'GOOGLE_DRIVE' and upper("table_schema") = upper('GOOGLE_DRIVE')
+
+                    and 
+    "table_name" ilike 'REUTERS_HEADLINES' and upper("table_name") = upper('REUTERS_HEADLINES')
+
+                )
+            )
+        ),
+        columns as (
+            select
+        table_catalog as "table_database",
+        table_schema as "table_schema",
+        table_name as "table_name",
+
+        column_name as "column_name",
+        ordinal_position as "column_index",
+        data_type as "column_type",
+        comment as "column_comment"
+    from PC_FIVETRAN_DB.INFORMATION_SCHEMA.columns
+            where (
+                (
+                    
+    "table_schema" ilike 'GOOGLE_DRIVE' and upper("table_schema") = upper('GOOGLE_DRIVE')
+
+                    and 
+    "table_name" ilike 'CNBC_HEADLINES' and upper("table_name") = upper('CNBC_HEADLINES')
+
+                )
+             or 
+                (
+                    
+    "table_schema" ilike 'GOOGLE_DRIVE' and upper("table_schema") = upper('GOOGLE_DRIVE')
+
+                    and 
+    "table_name" ilike 'SP_500_HISTORICAL_DATA' and upper("table_name") = upper('SP_500_HISTORICAL_DATA')
+
+                )
+             or 
+                (
+                    
+    "table_schema" ilike 'GOOGLE_DRIVE' and upper("table_schema") = upper('GOOGLE_DRIVE')
+
+                    and 
+    "table_name" ilike 'SHORT_FINANCIALS' and upper("table_name") = upper('SHORT_FINANCIALS')
+
+                )
+             or 
+                (
+                    
+    "table_schema" ilike 'GOOGLE_DRIVE' and upper("table_schema") = upper('GOOGLE_DRIVE')
+
+                    and 
+    "table_name" ilike 'GUARDIAN_HEADLINES' and upper("table_name") = upper('GUARDIAN_HEADLINES')
+
+                )
+             or 
+                (
+                    
+    "table_schema" ilike 'GOOGLE_DRIVE' and upper("table_schema") = upper('GOOGLE_DRIVE')
+
+                    and 
+    "table_name" ilike 'REUTERS_HEADLINES' and upper("table_name") = upper('REUTERS_HEADLINES')
+
+                )
+            )
+        )
+        select *
+    from tables
+    join columns using ("table_database", "table_schema", "table_name")
+    order by "column_index"
+[0m08:24:07.067009 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m08:24:10.359474 [debug] [ThreadPool]: SQL status: SUCCESS 43 in 3.292 seconds
+[0m08:24:10.389811 [debug] [Dummy-1   ]: Wrote artifact CatalogArtifact to /tmp/dbt/target/catalog.json
+[0m08:24:10.411643 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m08:24:10.413464 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m08:24:10.413933 [info ] [Dummy-1   ]: Catalog written to /tmp/dbt/target/catalog.json
+[0m08:24:10.415636 [debug] [Dummy-1   ]: Resource report: {"command_name": "generate", "command_success": true, "command_wall_clock_time": 5.8125753, "process_in_blocks": "0", "process_kernel_time": 0.74, "process_mem_max_rss": "421316", "process_out_blocks": "0", "process_user_time": 4.84}
+[0m08:24:10.416278 [debug] [Dummy-1   ]: Command `cli docs generate` succeeded at 08:24:10.416026 after 5.81 seconds
+[0m08:24:10.416799 [debug] [Dummy-1   ]: Connection 'generate_catalog' was properly closed.
+[0m08:24:10.417272 [debug] [Dummy-1   ]: Connection 'PC_FIVETRAN_DB.information_schema' was properly closed.
+[0m08:24:10.417713 [debug] [Dummy-1   ]: Flushing usage events
+
+
+============================== 08:24:43.230822 | 78afc842-31e1-48bf-b3aa-5fc846bdb154 ==============================
+[0m08:24:43.230822 [info ] [Dummy-1   ]: Running with dbt=1.9.4
+[0m08:24:43.231679 [debug] [Dummy-1   ]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'fail_fast': 'False', 'profiles_dir': '/tmp/dbt/', 'log_path': '/tmp/dbt/logs', 'debug': 'False', 'version_check': 'True', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'False', 'quiet': 'False', 'no_print': 'None', 'log_format': 'default', 'introspect': 'True', 'invocation_command': 'dbt ', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'target_path': '/tmp/dbt/target/', 'static_parser': 'True', 'send_anonymous_usage_stats': 'False'}
+[0m08:24:43.505121 [info ] [Dummy-1   ]: Registered adapter: snowflake=1.9.2
+[0m08:24:44.066970 [debug] [Dummy-1   ]: checksum: 53ed91fada2233efb98368d1716b44ab532c83a9c293cf1890b7905d5b45fb25, vars: {}, profile: , target: dev, version: 1.9.4
+[0m08:24:44.232752 [debug] [Dummy-1   ]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m08:24:44.233279 [debug] [Dummy-1   ]: Partial parsing enabled, no changes found, skipping parsing
+[0m08:24:44.234847 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 2 unused configuration paths:
+- models.nefinance_intelligence.marts
+- models.nefinance_intelligence.staging
+[0m08:24:44.383660 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m08:24:44.385396 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m08:24:44.424614 [info ] [Dummy-1   ]: Found 5 sources, 475 macros
+[0m08:24:44.426437 [warn ] [Dummy-1   ]: Nothing to do. Try checking your model configs and model specification args
+[0m08:24:44.428357 [debug] [Dummy-1   ]: Command end result
+[0m08:24:44.449468 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m08:24:44.451059 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m08:24:44.454003 [debug] [Dummy-1   ]: Wrote artifact RunExecutionResult to /tmp/dbt/target/run_results.json
+[0m08:24:44.455648 [debug] [Dummy-1   ]: Resource report: {"command_name": "run", "command_success": true, "command_wall_clock_time": 1.2969122, "process_in_blocks": "0", "process_kernel_time": 0.77, "process_mem_max_rss": "391924", "process_out_blocks": "0", "process_user_time": 3.57}
+[0m08:24:44.456341 [debug] [Dummy-1   ]: Command `cli run` succeeded at 08:24:44.456062 after 1.30 seconds
+[0m08:24:44.456905 [debug] [Dummy-1   ]: Flushing usage events
+
+
+============================== 08:31:42.958092 | ec631839-5565-4f44-bb28-bd829c9eb432 ==============================
+[0m08:31:42.958092 [info ] [Dummy-1   ]: Running with dbt=1.9.4
+[0m08:31:42.958985 [debug] [Dummy-1   ]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/tmp/dbt/', 'version_check': 'True', 'warn_error': 'None', 'log_path': '/tmp/dbt/logs', 'fail_fast': 'False', 'debug': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'None', 'quiet': 'False', 'no_print': 'None', 'log_format': 'default', 'invocation_command': 'dbt ', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'static_parser': 'True', 'target_path': '/tmp/dbt/target/', 'introspect': 'True', 'send_anonymous_usage_stats': 'False'}
+[0m08:31:43.232751 [info ] [Dummy-1   ]: Registered adapter: snowflake=1.9.2
+[0m08:31:43.786649 [debug] [Dummy-1   ]: checksum: 53ed91fada2233efb98368d1716b44ab532c83a9c293cf1890b7905d5b45fb25, vars: {}, profile: , target: dev, version: 1.9.4
+[0m08:31:43.954662 [debug] [Dummy-1   ]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m08:31:43.955254 [debug] [Dummy-1   ]: Partial parsing enabled, no changes found, skipping parsing
+[0m08:31:43.956891 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 2 unused configuration paths:
+- models.nefinance_intelligence.staging
+- models.nefinance_intelligence.marts
+[0m08:31:44.106516 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m08:31:44.108326 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m08:31:44.161044 [info ] [Dummy-1   ]: Found 5 sources, 475 macros
+[0m08:31:44.162805 [warn ] [Dummy-1   ]: Nothing to do. Try checking your model configs and model specification args
+[0m08:31:44.164733 [debug] [Dummy-1   ]: Command end result
+[0m08:31:44.185891 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m08:31:44.187427 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m08:31:44.190565 [debug] [Dummy-1   ]: Wrote artifact RunExecutionResult to /tmp/dbt/target/run_results.json
+[0m08:31:44.192176 [debug] [Dummy-1   ]: Resource report: {"command_name": "test", "command_success": true, "command_wall_clock_time": 1.3058188, "process_in_blocks": "0", "process_kernel_time": 0.73, "process_mem_max_rss": "395568", "process_out_blocks": "0", "process_user_time": 3.62}
+[0m08:31:44.192830 [debug] [Dummy-1   ]: Command `cli test` succeeded at 08:31:44.192577 after 1.31 seconds
+[0m08:31:44.193363 [debug] [Dummy-1   ]: Flushing usage events
+
+
+============================== 08:32:47.420862 | 0c52655a-7edc-4e01-97f9-9d0fe10fd5f6 ==============================
+[0m08:32:47.420862 [info ] [Dummy-1   ]: Running with dbt=1.9.4
+[0m08:32:47.421690 [debug] [Dummy-1   ]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/tmp/dbt/', 'version_check': 'True', 'warn_error': 'None', 'log_path': '/tmp/dbt/logs', 'fail_fast': 'False', 'debug': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'empty': 'False', 'log_format': 'default', 'introspect': 'True', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'invocation_command': 'dbt ', 'target_path': '/tmp/dbt/target/', 'static_parser': 'True', 'send_anonymous_usage_stats': 'False'}
+[0m08:32:47.694100 [info ] [Dummy-1   ]: Registered adapter: snowflake=1.9.2
+[0m08:32:48.251829 [debug] [Dummy-1   ]: checksum: 53ed91fada2233efb98368d1716b44ab532c83a9c293cf1890b7905d5b45fb25, vars: {}, profile: , target: dev, version: 1.9.4
+[0m08:32:48.419468 [debug] [Dummy-1   ]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m08:32:48.420024 [debug] [Dummy-1   ]: Partial parsing enabled, no changes found, skipping parsing
+[0m08:32:48.421607 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 2 unused configuration paths:
+- models.nefinance_intelligence.marts
+- models.nefinance_intelligence.staging
+[0m08:32:48.571455 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m08:32:48.573274 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m08:32:48.605445 [info ] [Dummy-1   ]: Found 5 sources, 475 macros
+[0m08:32:48.607291 [warn ] [Dummy-1   ]: Nothing to do. Try checking your model configs and model specification args
+[0m08:32:48.609246 [debug] [Dummy-1   ]: Command end result
+[0m08:32:48.630418 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m08:32:48.632128 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m08:32:48.635147 [debug] [Dummy-1   ]: Wrote artifact RunExecutionResult to /tmp/dbt/target/run_results.json
+[0m08:32:48.636720 [debug] [Dummy-1   ]: Resource report: {"command_name": "compile", "command_success": true, "command_wall_clock_time": 1.2880801, "process_in_blocks": "0", "process_kernel_time": 0.86, "process_mem_max_rss": "395228", "process_out_blocks": "0", "process_user_time": 3.5}
+[0m08:32:48.637380 [debug] [Dummy-1   ]: Command `cli compile` succeeded at 08:32:48.637136 after 1.29 seconds
+[0m08:32:48.637960 [debug] [Dummy-1   ]: Flushing usage events
+
+
+============================== 17:44:14.186998 | 8279b1ec-b291-411a-be1f-d3bcdf2baafe ==============================
+[0m17:44:14.186998 [info ] [Dummy-1   ]: Running with dbt=1.9.4
+[0m17:44:14.187851 [debug] [Dummy-1   ]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'debug': 'False', 'fail_fast': 'False', 'log_path': '/tmp/dbt/logs', 'version_check': 'True', 'profiles_dir': '/tmp/dbt/', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'False', 'quiet': 'False', 'no_print': 'None', 'log_format': 'default', 'static_parser': 'True', 'introspect': 'True', 'invocation_command': 'dbt ', 'target_path': '/tmp/dbt/target/', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'send_anonymous_usage_stats': 'False'}
+[0m17:44:14.460338 [info ] [Dummy-1   ]: Registered adapter: snowflake=1.9.2
+[0m17:44:15.009893 [debug] [Dummy-1   ]: checksum: 53ed91fada2233efb98368d1716b44ab532c83a9c293cf1890b7905d5b45fb25, vars: {}, profile: , target: dev, version: 1.9.4
+[0m17:44:15.183854 [debug] [Dummy-1   ]: Partial parsing enabled: 0 files deleted, 1 files added, 1 files changed.
+[0m17:44:15.184601 [debug] [Dummy-1   ]: Partial parsing: added file: nefinance_intelligence://models/staging/google_drive/stg_sp500_pricces.sql
+[0m17:44:15.185382 [debug] [Dummy-1   ]: Partial parsing: updated file: nefinance_intelligence://models/staging/google_drive/_model.yml
+[0m17:44:15.602518 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Did not find matching node for patch with name 'stg_short_financials' in the 'models' section of file 'models/staging/google_drive/_model.yml'
+[0m17:44:15.719625 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Test 'test.nefinance_intelligence.not_null_stg_short_financials_tickerPC_FIVETRAN_DB_GOOGLE_DRIVE_SP_500_HISTORICAL_DATA.a6722224ab' (models/staging/google_drive/_model.yml) depends on a node named 'stg_short_financials' in package '' which was not found
+[0m17:44:15.802867 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 1 unused configuration paths:
+- models.nefinance_intelligence.marts
+[0m17:44:15.900623 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m17:44:15.902394 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m17:44:15.939216 [info ] [Dummy-1   ]: Found 1 model, 5 sources, 475 macros
+[0m17:44:15.941198 [info ] [Dummy-1   ]: 
+[0m17:44:15.941668 [info ] [Dummy-1   ]: Concurrency: 8 threads (target='dev')
+[0m17:44:15.942086 [info ] [Dummy-1   ]: 
+[0m17:44:15.942765 [debug] [Dummy-1   ]: Acquiring new snowflake connection 'master'
+[0m17:44:15.944188 [debug] [ThreadPool]: Acquiring new snowflake connection 'list_NEFINANCE_DB'
+[0m17:44:16.022737 [debug] [ThreadPool]: Using snowflake connection "list_NEFINANCE_DB"
+[0m17:44:16.023340 [debug] [ThreadPool]: On list_NEFINANCE_DB: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "connection_name": "list_NEFINANCE_DB"} */
+show terse schemas in database NEFINANCE_DB
+    limit 10000
+[0m17:44:16.023822 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m17:44:16.250697 [debug] [ThreadPool]: SQL status: SUCCESS 6 in 0.227 seconds
+[0m17:44:16.253987 [debug] [ThreadPool]: Acquiring new snowflake connection 'list_NEFINANCE_DB_DEV'
+[0m17:44:16.266078 [debug] [ThreadPool]: Using snowflake connection "list_NEFINANCE_DB_DEV"
+[0m17:44:16.266594 [debug] [ThreadPool]: On list_NEFINANCE_DB_DEV: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "connection_name": "list_NEFINANCE_DB_DEV"} */
+alter session set quoted_identifiers_ignore_case = false;
+[0m17:44:16.267038 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m17:44:16.471135 [debug] [ThreadPool]: SQL status: SUCCESS 1 in 0.204 seconds
+[0m17:44:16.475517 [debug] [ThreadPool]: Using snowflake connection "list_NEFINANCE_DB_DEV"
+[0m17:44:16.476029 [debug] [ThreadPool]: On list_NEFINANCE_DB_DEV: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "connection_name": "list_NEFINANCE_DB_DEV"} */
+show objects in NEFINANCE_DB.DEV
+    limit 10000
+    
+;
+[0m17:44:16.529866 [debug] [ThreadPool]: SQL status: SUCCESS 0 in 0.053 seconds
+[0m17:44:16.531738 [debug] [ThreadPool]: Using snowflake connection "list_NEFINANCE_DB_DEV"
+[0m17:44:16.532215 [debug] [ThreadPool]: On list_NEFINANCE_DB_DEV: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "connection_name": "list_NEFINANCE_DB_DEV"} */
+alter session unset quoted_identifiers_ignore_case;
+[0m17:44:16.566645 [debug] [ThreadPool]: SQL status: SUCCESS 1 in 0.034 seconds
+[0m17:44:16.574376 [debug] [Thread-2 (]: Began running node model.nefinance_intelligence.stg_sp500_pricces
+[0m17:44:16.575145 [info ] [Thread-2 (]: 1 of 1 START sql view model DEV.stg_sp500_pricces .............................. [RUN]
+[0m17:44:16.575802 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly list_NEFINANCE_DB_DEV, now model.nefinance_intelligence.stg_sp500_pricces)
+[0m17:44:16.576313 [debug] [Thread-2 (]: Began compiling node model.nefinance_intelligence.stg_sp500_pricces
+[0m17:44:16.584772 [debug] [Thread-2 (]: Writing injected SQL for node "model.nefinance_intelligence.stg_sp500_pricces"
+[0m17:44:16.585573 [debug] [Thread-2 (]: Began executing node model.nefinance_intelligence.stg_sp500_pricces
+[0m17:44:16.623611 [debug] [Thread-2 (]: Writing runtime sql for node "model.nefinance_intelligence.stg_sp500_pricces"
+[0m17:44:16.624818 [debug] [Thread-2 (]: Using snowflake connection "model.nefinance_intelligence.stg_sp500_pricces"
+[0m17:44:16.625330 [debug] [Thread-2 (]: On model.nefinance_intelligence.stg_sp500_pricces: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "node_id": "model.nefinance_intelligence.stg_sp500_pricces"} */
+create or replace   view NEFINANCE_DB.DEV.stg_sp500_pricces
+  
+   as (
+    -- stg_sp500_prices.sql
+
+with source as (
+
+    select *
+
+    from PC_FIVETRAN_DB.GOOGLE_DRIVE.SP_500_HISTORICAL_DATA
+
+)
+
+select
+    symbol,
+    date,
+    close
+from source
+  );
+[0m17:44:16.625845 [debug] [Thread-2 (]: Opening a new connection, currently in state init
+[0m17:44:16.852563 [debug] [Thread-2 (]: Snowflake adapter: Snowflake query id: 01c5518c-000d-cef5-0000-f8a9000182aa
+[0m17:44:16.853149 [debug] [Thread-2 (]: Snowflake adapter: Snowflake error: 000904 (42000): SQL compilation error: error line 15 at position 4
+invalid identifier 'SYMBOL'
+[0m17:44:16.857251 [debug] [Thread-2 (]: Database Error in model stg_sp500_pricces (models/staging/google_drive/stg_sp500_pricces.sql)
+  000904 (42000): SQL compilation error: error line 15 at position 4
+  invalid identifier 'SYMBOL'
+  compiled code at /tmp/dbt/target/run/nefinance_intelligence/models/staging/google_drive/stg_sp500_pricces.sql
+[0m17:44:16.859859 [error] [Thread-2 (]: 1 of 1 ERROR creating sql view model DEV.stg_sp500_pricces ..................... [[31mERROR[0m in 0.28s]
+[0m17:44:16.860576 [debug] [Thread-2 (]: Finished running node model.nefinance_intelligence.stg_sp500_pricces
+[0m17:44:16.861295 [debug] [Thread-12 ]: Marking all children of 'model.nefinance_intelligence.stg_sp500_pricces' to be skipped because of status 'error'.  Reason: Database Error in model stg_sp500_pricces (models/staging/google_drive/stg_sp500_pricces.sql)
+  000904 (42000): SQL compilation error: error line 15 at position 4
+  invalid identifier 'SYMBOL'
+  compiled code at /tmp/dbt/target/run/nefinance_intelligence/models/staging/google_drive/stg_sp500_pricces.sql.
+[0m17:44:16.864503 [debug] [Dummy-1   ]: Connection 'master' was properly closed.
+[0m17:44:16.865041 [debug] [Dummy-1   ]: Connection 'list_NEFINANCE_DB' was properly closed.
+[0m17:44:16.865441 [debug] [Dummy-1   ]: Connection 'model.nefinance_intelligence.stg_sp500_pricces' was properly closed.
+[0m17:44:16.865894 [info ] [Dummy-1   ]: 
+[0m17:44:16.866347 [info ] [Dummy-1   ]: Finished running 1 view model in 0 hours 0 minutes and 0.92 seconds (0.92s).
+[0m17:44:16.867099 [debug] [Dummy-1   ]: Command end result
+[0m17:44:16.888544 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m17:44:16.890200 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m17:44:16.895651 [debug] [Dummy-1   ]: Wrote artifact RunExecutionResult to /tmp/dbt/target/run_results.json
+[0m17:44:16.896085 [info ] [Dummy-1   ]: 
+[0m17:44:16.896633 [info ] [Dummy-1   ]: [31mCompleted with 1 error, 0 partial successes, and 0 warnings:[0m
+[0m17:44:16.897089 [info ] [Dummy-1   ]: 
+[0m17:44:16.897639 [error] [Dummy-1   ]:   Database Error in model stg_sp500_pricces (models/staging/google_drive/stg_sp500_pricces.sql)
+  000904 (42000): SQL compilation error: error line 15 at position 4
+  invalid identifier 'SYMBOL'
+  compiled code at /tmp/dbt/target/run/nefinance_intelligence/models/staging/google_drive/stg_sp500_pricces.sql
+[0m17:44:16.898112 [info ] [Dummy-1   ]: 
+[0m17:44:16.898617 [info ] [Dummy-1   ]: Done. PASS=0 WARN=0 ERROR=1 SKIP=0 TOTAL=1
+[0m17:44:16.900155 [debug] [Dummy-1   ]: Resource report: {"command_name": "run", "command_success": false, "command_wall_clock_time": 2.7855554, "process_in_blocks": "0", "process_kernel_time": 0.81, "process_mem_max_rss": "529348", "process_out_blocks": "0", "process_user_time": 4.33}
+[0m17:44:16.900742 [debug] [Dummy-1   ]: Command `cli run` failed at 17:44:16.900506 after 2.79 seconds
+[0m17:44:16.901222 [debug] [Dummy-1   ]: Flushing usage events
+
+
+============================== 19:34:46.530078 | 4675b5ae-a401-4943-8607-183cfe333e9b ==============================
+[0m19:34:46.530078 [info ] [Dummy-1   ]: Running with dbt=1.9.4
+[0m19:34:46.530925 [debug] [Dummy-1   ]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/tmp/dbt/', 'debug': 'False', 'fail_fast': 'False', 'log_path': '/tmp/dbt/logs', 'version_check': 'True', 'warn_error': 'None', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'False', 'quiet': 'False', 'no_print': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'introspect': 'True', 'invocation_command': 'dbt ', 'static_parser': 'True', 'target_path': '/tmp/dbt/target/', 'log_format': 'default', 'send_anonymous_usage_stats': 'False'}
+[0m19:34:46.806689 [info ] [Dummy-1   ]: Registered adapter: snowflake=1.9.2
+[0m19:34:47.376279 [debug] [Dummy-1   ]: checksum: 53ed91fada2233efb98368d1716b44ab532c83a9c293cf1890b7905d5b45fb25, vars: {}, profile: , target: dev, version: 1.9.4
+[0m19:34:47.562818 [debug] [Dummy-1   ]: Partial parsing enabled: 0 files deleted, 0 files added, 2 files changed.
+[0m19:34:47.563811 [debug] [Dummy-1   ]: Partial parsing: updated file: nefinance_intelligence://models/staging/google_drive/_model.yml
+[0m19:34:47.564405 [debug] [Dummy-1   ]: Partial parsing: updated file: nefinance_intelligence://models/staging/google_drive/stg_sp500_pricces.sql
+[0m19:34:47.963844 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Did not find matching node for patch with name 'stg_sp500_prices' in the 'models' section of file 'models/staging/google_drive/_model.yml'
+[0m19:34:48.082100 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Test 'test.nefinance_intelligence.not_null_stg_sp500_prices_ticker.7356742854' (models/staging/google_drive/_model.yml) depends on a node named 'stg_sp500_prices' in package '' which was not found
+[0m19:34:48.082839 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Test 'test.nefinance_intelligence.not_null_stg_sp500_prices_date.4324c2782e' (models/staging/google_drive/_model.yml) depends on a node named 'stg_sp500_prices' in package '' which was not found
+[0m19:34:48.164789 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 1 unused configuration paths:
+- models.nefinance_intelligence.marts
+[0m19:34:48.263292 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m19:34:48.265128 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m19:34:48.304572 [info ] [Dummy-1   ]: Found 1 model, 5 sources, 475 macros
+[0m19:34:48.306585 [info ] [Dummy-1   ]: 
+[0m19:34:48.307086 [info ] [Dummy-1   ]: Concurrency: 8 threads (target='dev')
+[0m19:34:48.307486 [info ] [Dummy-1   ]: 
+[0m19:34:48.308208 [debug] [Dummy-1   ]: Acquiring new snowflake connection 'master'
+[0m19:34:48.309798 [debug] [ThreadPool]: Acquiring new snowflake connection 'list_NEFINANCE_DB'
+[0m19:34:48.425274 [debug] [ThreadPool]: Using snowflake connection "list_NEFINANCE_DB"
+[0m19:34:48.425858 [debug] [ThreadPool]: On list_NEFINANCE_DB: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "connection_name": "list_NEFINANCE_DB"} */
+show terse schemas in database NEFINANCE_DB
+    limit 10000
+[0m19:34:48.426335 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m19:34:48.693020 [debug] [ThreadPool]: SQL status: SUCCESS 6 in 0.267 seconds
+[0m19:34:48.696475 [debug] [ThreadPool]: Acquiring new snowflake connection 'list_NEFINANCE_DB_DEV'
+[0m19:34:48.708579 [debug] [ThreadPool]: Using snowflake connection "list_NEFINANCE_DB_DEV"
+[0m19:34:48.709082 [debug] [ThreadPool]: On list_NEFINANCE_DB_DEV: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "connection_name": "list_NEFINANCE_DB_DEV"} */
+alter session set quoted_identifiers_ignore_case = false;
+[0m19:34:48.709529 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m19:34:48.943703 [debug] [ThreadPool]: SQL status: SUCCESS 1 in 0.234 seconds
+[0m19:34:48.948070 [debug] [ThreadPool]: Using snowflake connection "list_NEFINANCE_DB_DEV"
+[0m19:34:48.948754 [debug] [ThreadPool]: On list_NEFINANCE_DB_DEV: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "connection_name": "list_NEFINANCE_DB_DEV"} */
+show objects in NEFINANCE_DB.DEV
+    limit 10000
+    
+;
+[0m19:34:49.020076 [debug] [ThreadPool]: SQL status: SUCCESS 0 in 0.071 seconds
+[0m19:34:49.021891 [debug] [ThreadPool]: Using snowflake connection "list_NEFINANCE_DB_DEV"
+[0m19:34:49.022397 [debug] [ThreadPool]: On list_NEFINANCE_DB_DEV: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "connection_name": "list_NEFINANCE_DB_DEV"} */
+alter session unset quoted_identifiers_ignore_case;
+[0m19:34:49.065405 [debug] [ThreadPool]: SQL status: SUCCESS 1 in 0.042 seconds
+[0m19:34:49.074088 [debug] [Thread-2 (]: Began running node model.nefinance_intelligence.stg_sp500_pricces
+[0m19:34:49.074868 [info ] [Thread-2 (]: 1 of 1 START sql view model DEV.stg_sp500_pricces .............................. [RUN]
+[0m19:34:49.075561 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly list_NEFINANCE_DB_DEV, now model.nefinance_intelligence.stg_sp500_pricces)
+[0m19:34:49.076074 [debug] [Thread-2 (]: Began compiling node model.nefinance_intelligence.stg_sp500_pricces
+[0m19:34:49.085362 [debug] [Thread-2 (]: Writing injected SQL for node "model.nefinance_intelligence.stg_sp500_pricces"
+[0m19:34:49.086112 [debug] [Thread-2 (]: Began executing node model.nefinance_intelligence.stg_sp500_pricces
+[0m19:34:49.124994 [debug] [Thread-2 (]: Writing runtime sql for node "model.nefinance_intelligence.stg_sp500_pricces"
+[0m19:34:49.126148 [debug] [Thread-2 (]: Using snowflake connection "model.nefinance_intelligence.stg_sp500_pricces"
+[0m19:34:49.126743 [debug] [Thread-2 (]: On model.nefinance_intelligence.stg_sp500_pricces: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "node_id": "model.nefinance_intelligence.stg_sp500_pricces"} */
+create or replace   view NEFINANCE_DB.DEV.stg_sp500_pricces
+  
+   as (
+    -- stg_sp500_prices.sql
+
+with source as (
+
+    select *
+
+    from PC_FIVETRAN_DB.GOOGLE_DRIVE.SP_500_HISTORICAL_DATA
+
+)
+
+select
+    ticker,
+    date,
+    close
+from source
+  );
+[0m19:34:49.127272 [debug] [Thread-2 (]: Opening a new connection, currently in state init
+[0m19:34:49.489515 [debug] [Thread-2 (]: SQL status: SUCCESS 1 in 0.362 seconds
+[0m19:34:49.516233 [info ] [Thread-2 (]: 1 of 1 OK created sql view model DEV.stg_sp500_pricces ......................... [[32mSUCCESS 1[0m in 0.44s]
+[0m19:34:49.517005 [debug] [Thread-2 (]: Finished running node model.nefinance_intelligence.stg_sp500_pricces
+[0m19:34:49.520123 [debug] [Dummy-1   ]: Connection 'master' was properly closed.
+[0m19:34:49.520587 [debug] [Dummy-1   ]: Connection 'list_NEFINANCE_DB' was properly closed.
+[0m19:34:49.520994 [debug] [Dummy-1   ]: Connection 'model.nefinance_intelligence.stg_sp500_pricces' was properly closed.
+[0m19:34:49.521423 [info ] [Dummy-1   ]: 
+[0m19:34:49.521861 [info ] [Dummy-1   ]: Finished running 1 view model in 0 hours 0 minutes and 1.21 seconds (1.21s).
+[0m19:34:49.522591 [debug] [Dummy-1   ]: Command end result
+[0m19:34:49.545247 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m19:34:49.546910 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m19:34:49.552431 [debug] [Dummy-1   ]: Wrote artifact RunExecutionResult to /tmp/dbt/target/run_results.json
+[0m19:34:49.552863 [info ] [Dummy-1   ]: 
+[0m19:34:49.553443 [info ] [Dummy-1   ]: [32mCompleted successfully[0m
+[0m19:34:49.553919 [info ] [Dummy-1   ]: 
+[0m19:34:49.554403 [info ] [Dummy-1   ]: Done. PASS=1 WARN=0 ERROR=0 SKIP=0 TOTAL=1
+[0m19:34:49.555965 [debug] [Dummy-1   ]: Resource report: {"command_name": "run", "command_success": true, "command_wall_clock_time": 3.0985165, "process_in_blocks": "0", "process_kernel_time": 0.84, "process_mem_max_rss": "529568", "process_out_blocks": "0", "process_user_time": 4.42}
+[0m19:34:49.556567 [debug] [Dummy-1   ]: Command `cli run` succeeded at 19:34:49.556322 after 3.10 seconds
+[0m19:34:49.557063 [debug] [Dummy-1   ]: Flushing usage events
+
+
+============================== 19:36:26.381002 | 530a2492-a1a7-4155-a0b8-13de3c1189f2 ==============================
+[0m19:36:26.381002 [info ] [Dummy-1   ]: Running with dbt=1.9.4
+[0m19:36:26.381825 [debug] [Dummy-1   ]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/tmp/dbt/', 'fail_fast': 'False', 'debug': 'False', 'log_path': '/tmp/dbt/logs', 'version_check': 'True', 'warn_error': 'None', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'empty': 'False', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'invocation_command': 'dbt ', 'static_parser': 'True', 'log_format': 'default', 'target_path': '/tmp/dbt/target/', 'introspect': 'True', 'send_anonymous_usage_stats': 'False'}
+[0m19:36:26.654963 [info ] [Dummy-1   ]: Registered adapter: snowflake=1.9.2
+[0m19:36:27.229876 [debug] [Dummy-1   ]: checksum: 53ed91fada2233efb98368d1716b44ab532c83a9c293cf1890b7905d5b45fb25, vars: {}, profile: , target: dev, version: 1.9.4
+[0m19:36:27.421335 [debug] [Dummy-1   ]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m19:36:27.421908 [debug] [Dummy-1   ]: Partial parsing enabled, no changes found, skipping parsing
+[0m19:36:27.429103 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 1 unused configuration paths:
+- models.nefinance_intelligence.marts
+[0m19:36:27.608285 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m19:36:27.610161 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m19:36:27.669302 [info ] [Dummy-1   ]: Found 1 model, 5 sources, 475 macros
+[0m19:36:27.671462 [info ] [Dummy-1   ]: 
+[0m19:36:27.672018 [info ] [Dummy-1   ]: Concurrency: 8 threads (target='dev')
+[0m19:36:27.672447 [info ] [Dummy-1   ]: 
+[0m19:36:27.673187 [debug] [Dummy-1   ]: Acquiring new snowflake connection 'master'
+[0m19:36:27.674692 [debug] [ThreadPool]: Acquiring new snowflake connection 'list_NEFINANCE_DB'
+[0m19:36:27.776501 [debug] [ThreadPool]: Using snowflake connection "list_NEFINANCE_DB"
+[0m19:36:27.777090 [debug] [ThreadPool]: On list_NEFINANCE_DB: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "connection_name": "list_NEFINANCE_DB"} */
+show terse schemas in database NEFINANCE_DB
+    limit 10000
+[0m19:36:27.777569 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m19:36:28.019277 [debug] [ThreadPool]: SQL status: SUCCESS 6 in 0.241 seconds
+[0m19:36:28.022713 [debug] [ThreadPool]: Acquiring new snowflake connection 'list_NEFINANCE_DB_DEV'
+[0m19:36:28.034942 [debug] [ThreadPool]: Using snowflake connection "list_NEFINANCE_DB_DEV"
+[0m19:36:28.035451 [debug] [ThreadPool]: On list_NEFINANCE_DB_DEV: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "connection_name": "list_NEFINANCE_DB_DEV"} */
+alter session set quoted_identifiers_ignore_case = false;
+[0m19:36:28.035912 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m19:36:28.260248 [debug] [ThreadPool]: SQL status: SUCCESS 1 in 0.224 seconds
+[0m19:36:28.264635 [debug] [ThreadPool]: Using snowflake connection "list_NEFINANCE_DB_DEV"
+[0m19:36:28.265114 [debug] [ThreadPool]: On list_NEFINANCE_DB_DEV: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "connection_name": "list_NEFINANCE_DB_DEV"} */
+show objects in NEFINANCE_DB.DEV
+    limit 10000
+    
+;
+[0m19:36:28.331350 [debug] [ThreadPool]: SQL status: SUCCESS 1 in 0.066 seconds
+[0m19:36:28.333207 [debug] [ThreadPool]: Using snowflake connection "list_NEFINANCE_DB_DEV"
+[0m19:36:28.333677 [debug] [ThreadPool]: On list_NEFINANCE_DB_DEV: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "connection_name": "list_NEFINANCE_DB_DEV"} */
+alter session unset quoted_identifiers_ignore_case;
+[0m19:36:28.368810 [debug] [ThreadPool]: SQL status: SUCCESS 1 in 0.035 seconds
+[0m19:36:28.377111 [debug] [Thread-2 (]: Began running node model.nefinance_intelligence.stg_sp500_pricces
+[0m19:36:28.377861 [info ] [Thread-2 (]: 1 of 1 START sql view model DEV.stg_sp500_pricces .............................. [RUN]
+[0m19:36:28.378590 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly list_NEFINANCE_DB_DEV, now model.nefinance_intelligence.stg_sp500_pricces)
+[0m19:36:28.379096 [debug] [Thread-2 (]: Began compiling node model.nefinance_intelligence.stg_sp500_pricces
+[0m19:36:28.388341 [debug] [Thread-2 (]: Writing injected SQL for node "model.nefinance_intelligence.stg_sp500_pricces"
+[0m19:36:28.389060 [debug] [Thread-2 (]: Began executing node model.nefinance_intelligence.stg_sp500_pricces
+[0m19:36:28.425676 [debug] [Thread-2 (]: Writing runtime sql for node "model.nefinance_intelligence.stg_sp500_pricces"
+[0m19:36:28.426810 [debug] [Thread-2 (]: Using snowflake connection "model.nefinance_intelligence.stg_sp500_pricces"
+[0m19:36:28.427357 [debug] [Thread-2 (]: On model.nefinance_intelligence.stg_sp500_pricces: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "node_id": "model.nefinance_intelligence.stg_sp500_pricces"} */
+create or replace   view NEFINANCE_DB.DEV.stg_sp500_pricces
+  
+   as (
+    -- stg_sp500_prices.sql
+
+with source as (
+
+    select *
+
+    from PC_FIVETRAN_DB.GOOGLE_DRIVE.SP_500_HISTORICAL_DATA
+
+)
+
+select
+    ticker,
+    date,
+    close
+from source
+  );
+[0m19:36:28.427903 [debug] [Thread-2 (]: Opening a new connection, currently in state init
+[0m19:36:28.720271 [debug] [Thread-2 (]: SQL status: SUCCESS 1 in 0.292 seconds
+[0m19:36:28.749221 [info ] [Thread-2 (]: 1 of 1 OK created sql view model DEV.stg_sp500_pricces ......................... [[32mSUCCESS 1[0m in 0.37s]
+[0m19:36:28.749987 [debug] [Thread-2 (]: Finished running node model.nefinance_intelligence.stg_sp500_pricces
+[0m19:36:28.752935 [debug] [Dummy-1   ]: Connection 'master' was properly closed.
+[0m19:36:28.753414 [debug] [Dummy-1   ]: Connection 'list_NEFINANCE_DB' was properly closed.
+[0m19:36:28.753819 [debug] [Dummy-1   ]: Connection 'model.nefinance_intelligence.stg_sp500_pricces' was properly closed.
+[0m19:36:28.754250 [info ] [Dummy-1   ]: 
+[0m19:36:28.754697 [info ] [Dummy-1   ]: Finished running 1 view model in 0 hours 0 minutes and 1.08 seconds (1.08s).
+[0m19:36:28.755445 [debug] [Dummy-1   ]: Command end result
+[0m19:36:28.778067 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m19:36:28.779766 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m19:36:28.785300 [debug] [Dummy-1   ]: Wrote artifact RunExecutionResult to /tmp/dbt/target/run_results.json
+[0m19:36:28.785729 [info ] [Dummy-1   ]: 
+[0m19:36:28.786306 [info ] [Dummy-1   ]: [32mCompleted successfully[0m
+[0m19:36:28.786760 [info ] [Dummy-1   ]: 
+[0m19:36:28.787211 [info ] [Dummy-1   ]: Done. PASS=1 WARN=0 ERROR=0 SKIP=0 TOTAL=1
+[0m19:36:28.788780 [debug] [Dummy-1   ]: Resource report: {"command_name": "build", "command_success": true, "command_wall_clock_time": 2.4801557, "process_in_blocks": "0", "process_kernel_time": 0.67, "process_mem_max_rss": "486940", "process_out_blocks": "0", "process_user_time": 4.11}
+[0m19:36:28.789347 [debug] [Dummy-1   ]: Command `cli build` succeeded at 19:36:28.789118 after 2.48 seconds
+[0m19:36:28.789813 [debug] [Dummy-1   ]: Flushing usage events
+
+
+============================== 19:49:28.445316 | dc21419d-27da-4228-b2e7-7d6366ab1ea5 ==============================
+[0m19:49:28.445316 [info ] [Dummy-1   ]: Running with dbt=1.9.4
+[0m19:49:28.446145 [debug] [Dummy-1   ]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/tmp/dbt/', 'version_check': 'True', 'fail_fast': 'False', 'log_path': '/tmp/dbt/logs', 'debug': 'False', 'warn_error': 'None', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'False', 'quiet': 'False', 'no_print': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'invocation_command': 'dbt ', 'log_format': 'default', 'static_parser': 'True', 'target_path': '/tmp/dbt/target/', 'introspect': 'True', 'send_anonymous_usage_stats': 'False'}
+[0m19:49:28.717578 [info ] [Dummy-1   ]: Registered adapter: snowflake=1.9.2
+[0m19:49:29.256612 [debug] [Dummy-1   ]: checksum: 53ed91fada2233efb98368d1716b44ab532c83a9c293cf1890b7905d5b45fb25, vars: {}, profile: , target: dev, version: 1.9.4
+[0m19:49:29.443765 [debug] [Dummy-1   ]: Partial parsing enabled: 1 files deleted, 1 files added, 0 files changed.
+[0m19:49:29.444479 [debug] [Dummy-1   ]: Partial parsing: added file: nefinance_intelligence://models/staging/google_drive/stg_sp500_prices.sql
+[0m19:49:29.444929 [debug] [Dummy-1   ]: Partial parsing: deleted file: nefinance_intelligence://models/staging/google_drive/stg_sp500_pricces.sql
+[0m19:49:29.834259 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 1 unused configuration paths:
+- models.nefinance_intelligence.marts
+[0m19:49:29.930320 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m19:49:29.932053 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m19:49:29.989940 [info ] [Dummy-1   ]: Found 1 model, 5 sources, 475 macros
+[0m19:49:29.992100 [info ] [Dummy-1   ]: 
+[0m19:49:29.992594 [info ] [Dummy-1   ]: Concurrency: 8 threads (target='dev')
+[0m19:49:29.993020 [info ] [Dummy-1   ]: 
+[0m19:49:29.993687 [debug] [Dummy-1   ]: Acquiring new snowflake connection 'master'
+[0m19:49:29.995281 [debug] [ThreadPool]: Acquiring new snowflake connection 'list_NEFINANCE_DB'
+[0m19:49:30.077063 [debug] [ThreadPool]: Using snowflake connection "list_NEFINANCE_DB"
+[0m19:49:30.077606 [debug] [ThreadPool]: On list_NEFINANCE_DB: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "connection_name": "list_NEFINANCE_DB"} */
+show terse schemas in database NEFINANCE_DB
+    limit 10000
+[0m19:49:30.078029 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m19:49:30.331497 [debug] [ThreadPool]: SQL status: SUCCESS 6 in 0.253 seconds
+[0m19:49:30.334762 [debug] [ThreadPool]: Acquiring new snowflake connection 'list_NEFINANCE_DB_DEV'
+[0m19:49:30.346905 [debug] [ThreadPool]: Using snowflake connection "list_NEFINANCE_DB_DEV"
+[0m19:49:30.347401 [debug] [ThreadPool]: On list_NEFINANCE_DB_DEV: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "connection_name": "list_NEFINANCE_DB_DEV"} */
+alter session set quoted_identifiers_ignore_case = false;
+[0m19:49:30.347833 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m19:49:30.575476 [debug] [ThreadPool]: SQL status: SUCCESS 1 in 0.227 seconds
+[0m19:49:30.579921 [debug] [ThreadPool]: Using snowflake connection "list_NEFINANCE_DB_DEV"
+[0m19:49:30.580447 [debug] [ThreadPool]: On list_NEFINANCE_DB_DEV: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "connection_name": "list_NEFINANCE_DB_DEV"} */
+show objects in NEFINANCE_DB.DEV
+    limit 10000
+    
+;
+[0m19:49:30.652243 [debug] [ThreadPool]: SQL status: SUCCESS 1 in 0.071 seconds
+[0m19:49:30.654089 [debug] [ThreadPool]: Using snowflake connection "list_NEFINANCE_DB_DEV"
+[0m19:49:30.654558 [debug] [ThreadPool]: On list_NEFINANCE_DB_DEV: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "connection_name": "list_NEFINANCE_DB_DEV"} */
+alter session unset quoted_identifiers_ignore_case;
+[0m19:49:30.690929 [debug] [ThreadPool]: SQL status: SUCCESS 1 in 0.036 seconds
+[0m19:49:30.699108 [debug] [Thread-2 (]: Began running node model.nefinance_intelligence.stg_sp500_prices
+[0m19:49:30.699862 [info ] [Thread-2 (]: 1 of 1 START sql view model DEV.stg_sp500_prices ............................... [RUN]
+[0m19:49:30.700492 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly list_NEFINANCE_DB_DEV, now model.nefinance_intelligence.stg_sp500_prices)
+[0m19:49:30.700960 [debug] [Thread-2 (]: Began compiling node model.nefinance_intelligence.stg_sp500_prices
+[0m19:49:30.709367 [debug] [Thread-2 (]: Writing injected SQL for node "model.nefinance_intelligence.stg_sp500_prices"
+[0m19:49:30.710063 [debug] [Thread-2 (]: Began executing node model.nefinance_intelligence.stg_sp500_prices
+[0m19:49:30.746886 [debug] [Thread-2 (]: Writing runtime sql for node "model.nefinance_intelligence.stg_sp500_prices"
+[0m19:49:30.747876 [debug] [Thread-2 (]: Using snowflake connection "model.nefinance_intelligence.stg_sp500_prices"
+[0m19:49:30.748427 [debug] [Thread-2 (]: On model.nefinance_intelligence.stg_sp500_prices: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "node_id": "model.nefinance_intelligence.stg_sp500_prices"} */
+create or replace   view NEFINANCE_DB.DEV.stg_sp500_prices
+  
+   as (
+    -- stg_sp500_prices.sql
+
+    select *
+
+    from PC_FIVETRAN_DB.GOOGLE_DRIVE.SP_500_HISTORICAL_DATA
+  );
+[0m19:49:30.748899 [debug] [Thread-2 (]: Opening a new connection, currently in state init
+[0m19:49:31.062653 [debug] [Thread-2 (]: SQL status: SUCCESS 1 in 0.314 seconds
+[0m19:49:31.089081 [info ] [Thread-2 (]: 1 of 1 OK created sql view model DEV.stg_sp500_prices .......................... [[32mSUCCESS 1[0m in 0.39s]
+[0m19:49:31.089802 [debug] [Thread-2 (]: Finished running node model.nefinance_intelligence.stg_sp500_prices
+[0m19:49:31.092608 [debug] [Dummy-1   ]: Connection 'master' was properly closed.
+[0m19:49:31.093049 [debug] [Dummy-1   ]: Connection 'list_NEFINANCE_DB' was properly closed.
+[0m19:49:31.093424 [debug] [Dummy-1   ]: Connection 'model.nefinance_intelligence.stg_sp500_prices' was properly closed.
+[0m19:49:31.093840 [info ] [Dummy-1   ]: 
+[0m19:49:31.094266 [info ] [Dummy-1   ]: Finished running 1 view model in 0 hours 0 minutes and 1.10 seconds (1.10s).
+[0m19:49:31.094971 [debug] [Dummy-1   ]: Command end result
+[0m19:49:31.117062 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m19:49:31.118677 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m19:49:31.124168 [debug] [Dummy-1   ]: Wrote artifact RunExecutionResult to /tmp/dbt/target/run_results.json
+[0m19:49:31.124590 [info ] [Dummy-1   ]: 
+[0m19:49:31.125155 [info ] [Dummy-1   ]: [32mCompleted successfully[0m
+[0m19:49:31.125573 [info ] [Dummy-1   ]: 
+[0m19:49:31.126006 [info ] [Dummy-1   ]: Done. PASS=1 WARN=0 ERROR=0 SKIP=0 TOTAL=1
+[0m19:49:31.127490 [debug] [Dummy-1   ]: Resource report: {"command_name": "build", "command_success": true, "command_wall_clock_time": 2.7537425, "process_in_blocks": "0", "process_kernel_time": 0.75, "process_mem_max_rss": "534524", "process_out_blocks": "0", "process_user_time": 4.21}
+[0m19:49:31.128064 [debug] [Dummy-1   ]: Command `cli build` succeeded at 19:49:31.127838 after 2.75 seconds
+[0m19:49:31.128597 [debug] [Dummy-1   ]: Flushing usage events
+
+
+============================== 19:50:13.366805 | a3edf601-a19f-4dcd-95b4-fa39a7d837ea ==============================
+[0m19:50:13.366805 [info ] [Dummy-1   ]: Running with dbt=1.9.4
+[0m19:50:13.367621 [debug] [Dummy-1   ]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/tmp/dbt/', 'fail_fast': 'False', 'warn_error': 'None', 'log_path': '/tmp/dbt/logs', 'version_check': 'True', 'debug': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'empty': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'introspect': 'True', 'static_parser': 'True', 'log_format': 'default', 'target_path': '/tmp/dbt/target/', 'invocation_command': 'dbt ', 'send_anonymous_usage_stats': 'False'}
+[0m19:50:13.641313 [info ] [Dummy-1   ]: Registered adapter: snowflake=1.9.2
+[0m19:50:14.203162 [debug] [Dummy-1   ]: checksum: 53ed91fada2233efb98368d1716b44ab532c83a9c293cf1890b7905d5b45fb25, vars: {}, profile: , target: dev, version: 1.9.4
+[0m19:50:14.389567 [debug] [Dummy-1   ]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m19:50:14.390150 [debug] [Dummy-1   ]: Partial parsing enabled, no changes found, skipping parsing
+[0m19:50:14.396885 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 1 unused configuration paths:
+- models.nefinance_intelligence.marts
+[0m19:50:14.576073 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m19:50:14.578077 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m19:50:14.632156 [info ] [Dummy-1   ]: Found 1 model, 5 sources, 475 macros
+[0m19:50:14.633954 [warn ] [Dummy-1   ]: Nothing to do. Try checking your model configs and model specification args
+[0m19:50:14.636864 [debug] [Dummy-1   ]: Command end result
+[0m19:50:14.658519 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m19:50:14.660285 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m19:50:14.663419 [debug] [Dummy-1   ]: Wrote artifact RunExecutionResult to /tmp/dbt/target/run_results.json
+[0m19:50:14.665027 [debug] [Dummy-1   ]: Resource report: {"command_name": "test", "command_success": true, "command_wall_clock_time": 1.3703929, "process_in_blocks": "0", "process_kernel_time": 0.75, "process_mem_max_rss": "391380", "process_out_blocks": "0", "process_user_time": 3.65}
+[0m19:50:14.666371 [debug] [Dummy-1   ]: Command `cli test` succeeded at 19:50:14.666053 after 1.37 seconds
+[0m19:50:14.667035 [debug] [Dummy-1   ]: Flushing usage events
+
+
+============================== 19:51:44.631212 | 13ffc2a0-4498-46e0-9122-f1493d9d0d9d ==============================
+[0m19:51:44.631212 [info ] [Dummy-1   ]: Running with dbt=1.9.4
+[0m19:51:44.632082 [debug] [Dummy-1   ]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'debug': 'False', 'version_check': 'True', 'log_path': '/tmp/dbt/logs', 'fail_fast': 'False', 'profiles_dir': '/tmp/dbt/', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'empty': 'None', 'log_format': 'default', 'invocation_command': 'dbt ', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'static_parser': 'True', 'target_path': '/tmp/dbt/target/', 'introspect': 'True', 'send_anonymous_usage_stats': 'False'}
+[0m19:51:44.904878 [info ] [Dummy-1   ]: Registered adapter: snowflake=1.9.2
+[0m19:51:45.482367 [debug] [Dummy-1   ]: checksum: 53ed91fada2233efb98368d1716b44ab532c83a9c293cf1890b7905d5b45fb25, vars: {}, profile: , target: dev, version: 1.9.4
+[0m19:51:45.673888 [debug] [Dummy-1   ]: Partial parsing enabled: 0 files deleted, 1 files added, 0 files changed.
+[0m19:51:45.674629 [debug] [Dummy-1   ]: Partial parsing: added file: nefinance_intelligence://tests/no_negative_value_stock_price.sql
+[0m19:51:45.869758 [error] [Dummy-1   ]: Encountered an error:
+Compilation Error in test no_negative_value_stock_price (tests/no_negative_value_stock_price.sql)
+  The name argument to ref() must be a string, got <class 'dbt_common.clients.jinja.create_undefined.<locals>.Undefined'>
+[0m19:51:45.871795 [debug] [Dummy-1   ]: Resource report: {"command_name": "test", "command_success": false, "command_wall_clock_time": 1.3131217, "process_in_blocks": "0", "process_kernel_time": 0.73, "process_mem_max_rss": "392376", "process_out_blocks": "0", "process_user_time": 3.66}
+[0m19:51:45.872434 [debug] [Dummy-1   ]: Command `cli test` failed at 19:51:45.872178 after 1.31 seconds
+[0m19:51:45.873032 [debug] [Dummy-1   ]: Flushing usage events
+
+
+============================== 19:52:31.411274 | f98fa7b1-f23c-487b-9a65-551f31bdd9b1 ==============================
+[0m19:52:31.411274 [info ] [Dummy-1   ]: Running with dbt=1.9.4
+[0m19:52:31.412116 [debug] [Dummy-1   ]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/tmp/dbt/', 'fail_fast': 'False', 'version_check': 'True', 'log_path': '/tmp/dbt/logs', 'debug': 'False', 'warn_error': 'None', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'None', 'quiet': 'False', 'no_print': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'invocation_command': 'dbt ', 'introspect': 'True', 'static_parser': 'True', 'target_path': '/tmp/dbt/target/', 'log_format': 'default', 'send_anonymous_usage_stats': 'False'}
+[0m19:52:31.684673 [info ] [Dummy-1   ]: Registered adapter: snowflake=1.9.2
+[0m19:52:32.235453 [debug] [Dummy-1   ]: checksum: 53ed91fada2233efb98368d1716b44ab532c83a9c293cf1890b7905d5b45fb25, vars: {}, profile: , target: dev, version: 1.9.4
+[0m19:52:32.422875 [debug] [Dummy-1   ]: Partial parsing enabled: 0 files deleted, 1 files added, 0 files changed.
+[0m19:52:32.423635 [debug] [Dummy-1   ]: Partial parsing: added file: nefinance_intelligence://tests/no_negative_value_stock_price.sql
+[0m19:52:32.628512 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Test 'test.nefinance_intelligence.no_negative_value_stock_price' (tests/no_negative_value_stock_price.sql) depends on a node named 'stg_sp_500_prices' in package '' which was not found
+[0m19:52:32.712612 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 1 unused configuration paths:
+- models.nefinance_intelligence.marts
+[0m19:52:32.821834 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m19:52:32.823618 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m19:52:32.876994 [info ] [Dummy-1   ]: Found 1 model, 5 sources, 475 macros
+[0m19:52:32.878910 [warn ] [Dummy-1   ]: Nothing to do. Try checking your model configs and model specification args
+[0m19:52:32.879600 [debug] [Dummy-1   ]: Command end result
+[0m19:52:32.902128 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m19:52:32.903710 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m19:52:32.906787 [debug] [Dummy-1   ]: Wrote artifact RunExecutionResult to /tmp/dbt/target/run_results.json
+[0m19:52:32.908492 [debug] [Dummy-1   ]: Resource report: {"command_name": "test", "command_success": true, "command_wall_clock_time": 1.5689687, "process_in_blocks": "0", "process_kernel_time": 0.78, "process_mem_max_rss": "401252", "process_out_blocks": "0", "process_user_time": 3.85}
+[0m19:52:32.909167 [debug] [Dummy-1   ]: Command `cli test` succeeded at 19:52:32.908887 after 1.57 seconds
+[0m19:52:32.909736 [debug] [Dummy-1   ]: Flushing usage events
+
+
+============================== 19:54:11.053270 | 45cdcc60-3c74-4143-89b9-5e6485b122f4 ==============================
+[0m19:54:11.053270 [info ] [Dummy-1   ]: Running with dbt=1.9.4
+[0m19:54:11.054134 [debug] [Dummy-1   ]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'debug': 'False', 'version_check': 'True', 'log_path': '/tmp/dbt/logs', 'fail_fast': 'False', 'profiles_dir': '/tmp/dbt/', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'None', 'quiet': 'False', 'no_print': 'None', 'log_format': 'default', 'static_parser': 'True', 'introspect': 'True', 'invocation_command': 'dbt ', 'target_path': '/tmp/dbt/target/', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'send_anonymous_usage_stats': 'False'}
+[0m19:54:11.328694 [info ] [Dummy-1   ]: Registered adapter: snowflake=1.9.2
+[0m19:54:11.890151 [debug] [Dummy-1   ]: checksum: 53ed91fada2233efb98368d1716b44ab532c83a9c293cf1890b7905d5b45fb25, vars: {}, profile: , target: dev, version: 1.9.4
+[0m19:54:12.089823 [debug] [Dummy-1   ]: Partial parsing enabled: 0 files deleted, 0 files added, 1 files changed.
+[0m19:54:12.090616 [debug] [Dummy-1   ]: Partial parsing: updated file: nefinance_intelligence://tests/no_negative_value_stock_price.sql
+[0m19:54:12.374325 [warn ] [Dummy-1   ]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 1 unused configuration paths:
+- models.nefinance_intelligence.marts
+[0m19:54:12.483433 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m19:54:12.485190 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m19:54:12.537660 [info ] [Dummy-1   ]: Found 1 model, 1 test, 5 sources, 475 macros
+[0m19:54:12.539659 [info ] [Dummy-1   ]: 
+[0m19:54:12.540242 [info ] [Dummy-1   ]: Concurrency: 8 threads (target='dev')
+[0m19:54:12.540731 [info ] [Dummy-1   ]: 
+[0m19:54:12.541495 [debug] [Dummy-1   ]: Acquiring new snowflake connection 'master'
+[0m19:54:12.543299 [debug] [ThreadPool]: Acquiring new snowflake connection 'list_NEFINANCE_DB_DEV'
+[0m19:54:12.628414 [debug] [ThreadPool]: Using snowflake connection "list_NEFINANCE_DB_DEV"
+[0m19:54:12.629008 [debug] [ThreadPool]: On list_NEFINANCE_DB_DEV: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "connection_name": "list_NEFINANCE_DB_DEV"} */
+alter session set quoted_identifiers_ignore_case = false;
+[0m19:54:12.629481 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m19:54:12.856983 [debug] [ThreadPool]: SQL status: SUCCESS 1 in 0.227 seconds
+[0m19:54:12.861630 [debug] [ThreadPool]: Using snowflake connection "list_NEFINANCE_DB_DEV"
+[0m19:54:12.862122 [debug] [ThreadPool]: On list_NEFINANCE_DB_DEV: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "connection_name": "list_NEFINANCE_DB_DEV"} */
+show objects in NEFINANCE_DB.DEV
+    limit 10000
+    
+;
+[0m19:54:12.931188 [debug] [ThreadPool]: SQL status: SUCCESS 2 in 0.069 seconds
+[0m19:54:12.933195 [debug] [ThreadPool]: Using snowflake connection "list_NEFINANCE_DB_DEV"
+[0m19:54:12.933671 [debug] [ThreadPool]: On list_NEFINANCE_DB_DEV: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "connection_name": "list_NEFINANCE_DB_DEV"} */
+alter session unset quoted_identifiers_ignore_case;
+[0m19:54:12.970184 [debug] [ThreadPool]: SQL status: SUCCESS 1 in 0.036 seconds
+[0m19:54:12.979051 [debug] [Thread-2 (]: Began running node test.nefinance_intelligence.no_negative_value_stock_price
+[0m19:54:12.979676 [info ] [Thread-2 (]: 1 of 1 START test no_negative_value_stock_price ................................ [RUN]
+[0m19:54:12.980576 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly list_NEFINANCE_DB_DEV, now test.nefinance_intelligence.no_negative_value_stock_price)
+[0m19:54:12.981085 [debug] [Thread-2 (]: Began compiling node test.nefinance_intelligence.no_negative_value_stock_price
+[0m19:54:12.989302 [debug] [Thread-2 (]: Writing injected SQL for node "test.nefinance_intelligence.no_negative_value_stock_price"
+[0m19:54:12.990063 [debug] [Thread-2 (]: Began executing node test.nefinance_intelligence.no_negative_value_stock_price
+[0m19:54:13.012476 [debug] [Thread-2 (]: Writing runtime sql for node "test.nefinance_intelligence.no_negative_value_stock_price"
+[0m19:54:13.013555 [debug] [Thread-2 (]: Using snowflake connection "test.nefinance_intelligence.no_negative_value_stock_price"
+[0m19:54:13.014120 [debug] [Thread-2 (]: On test.nefinance_intelligence.no_negative_value_stock_price: /* {"app": "dbt", "dbt_version": "1.9.4", "profile_name": "nefinance_intelligence", "target_name": "dev", "node_id": "test.nefinance_intelligence.no_negative_value_stock_price"} */
+select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      Select * 
+FROM NEFINANCE_DB.DEV.stg_sp500_prices
+WHERE close > 0
+      
+    ) dbt_internal_test
+[0m19:54:13.014650 [debug] [Thread-2 (]: Opening a new connection, currently in state init
+[0m19:54:13.426128 [debug] [Thread-2 (]: SQL status: SUCCESS 1 in 0.411 seconds
+[0m19:54:13.435163 [error] [Thread-2 (]: 1 of 1 FAIL 2703531 no_negative_value_stock_price .............................. [[31mFAIL 2703531[0m in 0.45s]
+[0m19:54:13.435962 [debug] [Thread-2 (]: Finished running node test.nefinance_intelligence.no_negative_value_stock_price
+[0m19:54:13.438879 [debug] [Dummy-1   ]: Connection 'master' was properly closed.
+[0m19:54:13.439361 [debug] [Dummy-1   ]: Connection 'test.nefinance_intelligence.no_negative_value_stock_price' was properly closed.
+[0m19:54:13.439855 [info ] [Dummy-1   ]: 
+[0m19:54:13.440334 [info ] [Dummy-1   ]: Finished running 1 test in 0 hours 0 minutes and 0.90 seconds (0.90s).
+[0m19:54:13.441110 [debug] [Dummy-1   ]: Command end result
+[0m19:54:13.464378 [debug] [Dummy-1   ]: Wrote artifact WritableManifest to /tmp/dbt/target/manifest.json
+[0m19:54:13.466125 [debug] [Dummy-1   ]: Wrote artifact SemanticManifest to /tmp/dbt/target/semantic_manifest.json
+[0m19:54:13.472557 [debug] [Dummy-1   ]: Wrote artifact RunExecutionResult to /tmp/dbt/target/run_results.json
+[0m19:54:13.472994 [info ] [Dummy-1   ]: 
+[0m19:54:13.473518 [info ] [Dummy-1   ]: [31mCompleted with 1 error, 0 partial successes, and 0 warnings:[0m
+[0m19:54:13.473956 [info ] [Dummy-1   ]: 
+[0m19:54:13.474518 [error] [Dummy-1   ]: [31mFailure in test no_negative_value_stock_price (tests/no_negative_value_stock_price.sql)[0m
+[0m19:54:13.475038 [error] [Dummy-1   ]:   Got 2703531 results, configured to fail if != 0
+[0m19:54:13.475434 [info ] [Dummy-1   ]: 
+[0m19:54:13.475908 [info ] [Dummy-1   ]:   compiled code at /tmp/dbt/target/compiled/nefinance_intelligence/tests/no_negative_value_stock_price.sql
+[0m19:54:13.476315 [info ] [Dummy-1   ]: 
+[0m19:54:13.476752 [info ] [Dummy-1   ]: Done. PASS=0 WARN=0 ERROR=1 SKIP=0 TOTAL=1
+[0m19:54:13.478387 [debug] [Dummy-1   ]: Resource report: {"command_name": "test", "command_success": false, "command_wall_clock_time": 2.4967158, "process_in_blocks": "0", "process_kernel_time": 0.69, "process_mem_max_rss": "484152", "process_out_blocks": "0", "process_user_time": 4.09}
+[0m19:54:13.479048 [debug] [Dummy-1   ]: Command `cli test` failed at 19:54:13.478776 after 2.50 seconds
+[0m19:54:13.479605 [debug] [Dummy-1   ]: Flushing usage events

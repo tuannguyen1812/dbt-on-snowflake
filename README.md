@@ -27,4 +27,4 @@ This project's goal is to build an end-to-end data pipeline for NE Finance Intel
 
 ## 1. Pipeline Description
 
-![Data Pipeline Architecture] (https://github.com/tuannguyen1812/dbt-on-snowflake/blob/main/nefinance_data_pipeline.png)
+![Data Pipeline Architecture](nefinance_data_pipeline.png)

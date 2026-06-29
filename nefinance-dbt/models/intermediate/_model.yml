@@ -1,0 +1,218 @@
+version: 2
+
+models:
+  - name: int_nefinance_accounts
+    description: Business-ready account attributes with normalized dimensions and lifecycle status.
+    columns:
+      - name: account_id
+        description: Source account identifier.
+        tests:
+          - not_null
+          - unique
+      - name: account_lifecycle_status
+        description: Derived account lifecycle status of active, trial, or churned.
+      - name: seat_band
+        description: Business size band based on purchased seats.
+
+  - name: int_nefinance_subscriptions
+    description: Cleaned subscription records with normalized plan fields, dates, status, and per-seat revenue metrics.
+    columns:
+      - name: subscription_id
+        description: Source subscription identifier.
+        tests:
+          - not_null
+          - unique
+      - name: account_id
+        description: Account that owns the subscription.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('int_nefinance_accounts')
+              field: account_id
+      - name: subscription_status
+        description: Derived status based on trial, churn, start, and end dates.
+
+  - name: int_nefinance_subscription_mrr_movements
+    description: Subscription-level MRR movement classification for new, expansion, contraction, churn, renewal, and trial activity.
+    columns:
+      - name: subscription_id
+        description: Source subscription identifier.
+        tests:
+          - not_null
+      - name: account_id
+        description: Account affected by the MRR movement.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('int_nefinance_accounts')
+              field: account_id
+      - name: mrr_movement_type
+        description: Revenue movement category derived from subscription flags and MRR changes.
+        tests:
+          - accepted_values:
+              values: ['new', 'expansion', 'contraction', 'churn', 'renewal', 'trial']
+
+  - name: int_nefinance_account_revenue_monthly
+    description: Account-month revenue movement summary used by finance marts for MRR, ARR, expansion, contraction, and churn metrics.
+    columns:
+      - name: account_revenue_month_key
+        description: Surrogate key for account and revenue month.
+        tests:
+          - not_null
+          - unique
+      - name: account_id
+        description: Account represented by the monthly revenue row.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('int_nefinance_accounts')
+              field: account_id
+      - name: revenue_month
+        description: Month associated with the revenue movement summary.
+        tests:
+          - not_null
+
+  - name: int_nefinance_account_feature_usage_daily
+    description: Daily feature usage aggregated to account, subscription, feature, and usage date.
+    columns:
+      - name: account_feature_usage_day_key
+        description: Surrogate key for the account, subscription, feature, and usage day grain.
+        tests:
+          - not_null
+          - unique
+      - name: subscription_id
+        description: Subscription associated with the usage event.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('int_nefinance_subscriptions')
+              field: subscription_id
+      - name: usage_date
+        description: Date of product usage.
+        tests:
+          - not_null
+
+  - name: int_nefinance_account_support_health
+    description: Account-level support health rollup with ticket volume, priority, escalation, response, resolution, and satisfaction metrics.
+    columns:
+      - name: account_id
+        description: Account represented by the support rollup.
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('int_nefinance_accounts')
+              field: account_id
+      - name: support_health_status
+        description: Derived support health status of healthy, monitored, or at_risk.
+        tests:
+          - accepted_values:
+              values: ['healthy', 'monitored', 'at_risk']
+
+  - name: int_nefinance_churn_events_enriched
+    description: Churn events joined to account context with normalized reason categories and churn month.
+    columns:
+      - name: churn_event_id
+        description: Source churn event identifier.
+        tests:
+          - not_null
+          - unique
+      - name: account_id
+        description: Account associated with the churn event.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('int_nefinance_accounts')
+              field: account_id
+      - name: reason_category
+        description: Business grouping for churn reasons.
+        tests:
+          - accepted_values:
+              values: ['commercial', 'product', 'service', 'adoption', 'other']
+
+  - name: int_nefinance_account_health
+    description: Account health model combining account profile, revenue, recent usage, support health, and churn history.
+    columns:
+      - name: account_id
+        description: Source account identifier.
+        tests:
+          - not_null
+          - unique
+      - name: customer_health_status
+        description: Derived customer health classification for Customer Success workflows.
+        tests:
+          - accepted_values:
+              values: ['healthy', 'monitor', 'at_risk', 'churned']
+
+  - name: int_market_news_daily
+    description: Incremental daily financial news rollup by source and derived news topic using cached article-level sentiment.
+    columns:
+      - name: market_news_day_key
+        description: Surrogate key for source, published date, and news topic.
+        tests:
+          - not_null
+          - unique
+      - name: published_date
+        description: Published date for the news articles.
+        tests:
+          - not_null
+      - name: news_topic
+        description: Derived topic based on headline and description keywords.
+      - name: dominant_sentiment
+        description: Most common article-level sentiment for the daily source/topic group.
+        tests:
+          - accepted_values:
+              values: ['Positive', 'Neutral', 'Negative']
+
+  - name: int_market_news_sentiment
+    description: Incremental article-level financial news sentiment cache. Snowflake Cortex only runs for new article keys to avoid repeated AI credit usage.
+    columns:
+      - name: news_article_key
+        description: Stable hash key for the source, published date, headline, and description.
+        tests:
+          - not_null
+          - unique
+      - name: published_date
+        description: Published date for the news article.
+        tests:
+          - not_null
+      - name: sentiment
+        description: Normalized Snowflake Cortex sentiment classification.
+        tests:
+          - accepted_values:
+              values: ['Positive', 'Neutral', 'Negative']
+      - name: sentiment_classified_at
+        description: Timestamp when Snowflake Cortex classified the article sentiment.
+
+  - name: int_market_prices_daily
+    description: Incremental daily market price model with returns, rolling averages, and 52-week positioning.
+    columns:
+      - name: market_price_day_key
+        description: Surrogate key for ticker and price date.
+        tests:
+          - not_null
+          - unique
+      - name: ticker
+        description: Stock ticker symbol.
+        tests:
+          - not_null
+      - name: price_date
+        description: Trading date.
+        tests:
+          - not_null
+
+  - name: int_market_company_financials
+    description: Company-year fundamentals with liquidity, leverage, profitability, and share-based ratios.
+    columns:
+      - name: company_financial_year_key
+        description: Surrogate key for ticker and fiscal year.
+        tests:
+          - not_null
+      - name: ticker
+        description: Stock ticker symbol.
+        tests:
+          - not_null
+      - name: fiscal_year
+        description: Fiscal year for the reported financials.
+        tests:
+          - not_null

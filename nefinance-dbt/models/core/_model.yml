@@ -1,0 +1,277 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: Conformed date dimension covering the observed source date range plus a five-year future buffer.
+    columns:
+      - name: date_key
+        description: Numeric date key in YYYYMMDD format.
+        tests:
+          - not_null
+          - unique
+      - name: date_day
+        description: Calendar date.
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_account
+    description: Conformed account dimension with current profile, lifecycle, support, and customer health attributes.
+    columns:
+      - name: account_key
+        description: Surrogate key for the account.
+        tests:
+          - not_null
+          - unique
+      - name: account_id
+        description: Source account identifier.
+        tests:
+          - not_null
+          - unique
+      - name: customer_health_status
+        description: Current customer health classification.
+        tests:
+          - accepted_values:
+              values: ['healthy', 'monitor', 'at_risk', 'churned']
+
+  - name: dim_subscription
+    description: Conformed subscription dimension with current plan, billing, lifecycle, and commercial attributes.
+    columns:
+      - name: subscription_key
+        description: Surrogate key for the subscription.
+        tests:
+          - not_null
+          - unique
+      - name: account_key
+        description: Foreign key to dim_account.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_account')
+              field: account_key
+      - name: subscription_id
+        description: Source subscription identifier.
+        tests:
+          - not_null
+          - unique
+      - name: subscription_status
+        description: Derived subscription status.
+        tests:
+          - accepted_values:
+              values: ['active', 'trial', 'churned', 'ended', 'scheduled']
+
+  - name: dim_feature
+    description: Conformed feature dimension derived from product usage.
+    columns:
+      - name: feature_key
+        description: Surrogate key for the product feature.
+        tests:
+          - not_null
+          - unique
+      - name: feature_name
+        description: Normalized feature name.
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_market_company
+    description: Conformed market company dimension for public ticker-based analysis.
+    columns:
+      - name: company_key
+        description: Surrogate key for the market company.
+        tests:
+          - not_null
+          - unique
+      - name: ticker
+        description: Stock ticker symbol.
+        tests:
+          - not_null
+          - unique
+
+  - name: fct_account_revenue_monthly
+    description: Incremental account-month revenue fact for MRR, ARR, NRR, GRR, expansion, contraction, and churn.
+    columns:
+      - name: account_revenue_month_key
+        description: Primary key for account and revenue month.
+        tests:
+          - not_null
+          - unique
+      - name: account_key
+        description: Foreign key to dim_account.
+        tests:
+          - relationships:
+              to: ref('dim_account')
+              field: account_key
+      - name: revenue_month_date_key
+        description: Foreign key to dim_date for the first day of the revenue month.
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: date_key
+
+  - name: fct_subscription_mrr_movements
+    description: Incremental subscription movement fact for new, expansion, contraction, churn, renewal, and trial MRR events.
+    columns:
+      - name: subscription_mrr_movement_key
+        description: Primary key for subscription movement date.
+        tests:
+          - not_null
+          - unique
+      - name: account_key
+        description: Foreign key to dim_account.
+        tests:
+          - relationships:
+              to: ref('dim_account')
+              field: account_key
+      - name: subscription_key
+        description: Foreign key to dim_subscription.
+        tests:
+          - relationships:
+              to: ref('dim_subscription')
+              field: subscription_key
+      - name: movement_date_key
+        description: Foreign key to dim_date.
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: date_key
+      - name: mrr_movement_type
+        description: Business movement category.
+        tests:
+          - accepted_values:
+              values: ['new', 'expansion', 'contraction', 'churn', 'renewal', 'trial']
+
+  - name: fct_feature_usage_daily
+    description: Incremental daily product usage fact at account, subscription, feature, and date grain.
+    columns:
+      - name: account_feature_usage_day_key
+        description: Primary key for account, subscription, feature, and usage date.
+        tests:
+          - not_null
+          - unique
+      - name: account_key
+        description: Foreign key to dim_account.
+        tests:
+          - relationships:
+              to: ref('dim_account')
+              field: account_key
+      - name: subscription_key
+        description: Foreign key to dim_subscription.
+        tests:
+          - relationships:
+              to: ref('dim_subscription')
+              field: subscription_key
+      - name: feature_key
+        description: Foreign key to dim_feature.
+        tests:
+          - relationships:
+              to: ref('dim_feature')
+              field: feature_key
+      - name: usage_date_key
+        description: Foreign key to dim_date.
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: date_key
+
+  - name: fct_support_ticket
+    description: Incremental support ticket fact at one row per ticket.
+    columns:
+      - name: ticket_key
+        description: Surrogate key for the support ticket.
+        tests:
+          - not_null
+          - unique
+      - name: account_key
+        description: Foreign key to dim_account.
+        tests:
+          - relationships:
+              to: ref('dim_account')
+              field: account_key
+      - name: submitted_date_key
+        description: Foreign key to dim_date for ticket submission date.
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: date_key
+
+  - name: fct_churn_event
+    description: Incremental churn event fact at one row per churn event.
+    columns:
+      - name: churn_event_key
+        description: Surrogate key for the churn event.
+        tests:
+          - not_null
+          - unique
+      - name: account_key
+        description: Foreign key to dim_account.
+        tests:
+          - relationships:
+              to: ref('dim_account')
+              field: account_key
+      - name: churn_date_key
+        description: Foreign key to dim_date for churn date.
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: date_key
+      - name: reason_category
+        description: Business grouping for churn reasons.
+        tests:
+          - accepted_values:
+              values: ['commercial', 'product', 'service', 'adoption', 'other']
+
+  - name: fct_market_price_daily
+    description: Incremental daily market price fact with returns, rolling averages, and 52-week position metrics.
+    columns:
+      - name: market_price_day_key
+        description: Primary key for ticker and price date.
+        tests:
+          - not_null
+          - unique
+      - name: company_key
+        description: Foreign key to dim_market_company.
+        tests:
+          - relationships:
+              to: ref('dim_market_company')
+              field: company_key
+      - name: price_date_key
+        description: Foreign key to dim_date.
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: date_key
+
+  - name: fct_company_financials_yearly
+    description: Incremental company-year financial fundamentals fact with liquidity, leverage, and profitability metrics.
+    columns:
+      - name: company_financial_year_key
+        description: Primary key for ticker and fiscal year.
+        tests:
+          - not_null
+      - name: company_key
+        description: Foreign key to dim_market_company.
+        tests:
+          - relationships:
+              to: ref('dim_market_company')
+              field: company_key
+
+  - name: fct_financial_news_daily
+    description: Incremental daily financial news sentiment fact by source, published date, and news topic.
+    columns:
+      - name: market_news_day_key
+        description: Primary key for source, published date, and news topic.
+        tests:
+          - not_null
+          - unique
+      - name: published_date_key
+        description: Foreign key to dim_date.
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: date_key
+      - name: dominant_sentiment
+        description: Most common sentiment for the daily news group.
+        tests:
+          - accepted_values:
+              values: ['Positive', 'Neutral', 'Negative']

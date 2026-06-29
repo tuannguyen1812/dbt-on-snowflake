@@ -1,0 +1,100 @@
+version: 2
+
+models:
+
+  - name: stg_nefinance_accounts
+    description: Cleaned account dimension.
+
+    columns:
+
+      - name: account_id
+        tests:
+          - unique
+          - not_null
+
+      - name: account_name
+        tests:
+          - not_null
+
+      - name: signup_date
+        tests:
+          - not_null
+
+      - name: loaded_at
+
+  - name: stg_nefinance_subscriptions
+    description: Cleaned subscription records.
+
+    columns:
+
+      - name: subscription_id
+        tests:
+          - unique
+          - not_null
+
+      - name: account_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_nefinance_accounts')
+              field: account_id
+
+      - name: start_date
+
+      - name: end_date
+
+      - name: mrr_amount
+
+      - name: arr_amount
+
+  - name: stg_nefinance_feature_usage
+    description: Feature usage events.
+
+    columns:
+
+      - name: usage_id
+        tests:
+          - not_null
+
+      - name: subscription_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_nefinance_subscriptions')
+              field: subscription_id
+
+      - name: usage_date
+
+  - name: stg_nefinance_support_tickets
+    description: Customer support tickets.
+
+    columns:
+
+      - name: ticket_id
+        tests:
+          - unique
+          - not_null
+
+      - name: account_id
+        tests:
+          - relationships:
+              to: ref('stg_nefinance_accounts')
+              field: account_id
+
+  - name: stg_nefinance_churn_events
+    description: Customer churn events.
+
+    columns:
+
+      - name: churn_event_id
+        tests:
+          - unique
+          - not_null
+
+      - name: account_id
+        tests:
+          - relationships:
+              to: ref('stg_nefinance_accounts')
+              field: account_id
+
+      - name: churn_date

@@ -1,0 +1,36 @@
+version: 2
+
+sources:
+  - name: nefinance
+
+    description: >
+      SAAS database application
+      
+    database: PC_FIVETRAN_DB
+    schema: NEFINANCE_POSTGRES_PUBLIC
+
+    tables:
+      - name: NEFINANCE_ACCOUNTS
+        description: >
+          Customer account master data including company profile,
+          subscription plan, signup information, and churn status.
+
+      - name: NEFINANCE_SUBSCRIPTIONS
+        description: >
+          Subscription lifecycle records including billing details,
+          plan information, revenue metrics (MRR/ARR), and renewal status.
+    
+      - name: NEFINANCE_FEATURE_USAGE
+        description: >
+          Product feature usage events capturing customer activity,
+          usage frequency, duration, and application errors.
+    
+      - name: NEFINANCE_SUPPORT_TICKETS
+        description: >
+          Customer support ticket records including response times,
+          resolution metrics, satisfaction scores, and escalation status.
+    
+      - name: NEFINANCE_CHURN_EVENTS
+        description: >
+          Customer churn event records containing churn reasons,
+          refunds, customer feedback, and reactivation indicators.

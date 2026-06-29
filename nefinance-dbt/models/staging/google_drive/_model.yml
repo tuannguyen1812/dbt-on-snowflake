@@ -24,30 +24,30 @@ models:
         tests:
           - not_null
 
-      - name: date
+      - name: price_date
         description: Trading date.
         tests:
           - not_null
 
-      - name: open
+      - name: open_price
         description: Opening price.
 
-      - name: high
+      - name: high_price
         description: Highest trading price.
 
-      - name: low
+      - name: low_price
         description: Lowest trading price.
 
-      - name: close
+      - name: close_price
         description: Closing price.
       
-      - name: adj_close
+      - name: adjusted_close_price
         description: adjusted Closing price.
 
       - name: volume
         description: Daily traded volume.
 
-      - name: _fivetran_synced
+      - name: fivetran_synced_at
         description: Timestamp when record entered the staging layer.
 
   ###########################################################################
@@ -56,156 +56,76 @@ models:
 
   - name: stg_short_financials
     description: >
-      Standardized company financial statement metrics used for
-      fundamental analysis.
-
-    config:
-      tags:
-        - staging
-        - finance
-        - fundamentals
+      Cleaned staging model for company financial statements loaded from
+      Fivetran. One record represents one company's financial snapshot for
+      a reporting period.
 
     columns:
 
-      - name: tickerPC_FIVETRAN_DB.GOOGLE_DRIVE.SP_500_HISTORICAL_DATA
-        description: Company ticker.
+      - name: ticker
+        description: Stock ticker symbol.
         tests:
           - not_null
 
-      - name: company
-        description: Company name.
+      - name: cik
+        description: SEC company identifier.
+        tests:
+          - not_null
 
       - name: fiscal_year
         description: Fiscal reporting year.
+        tests:
+          - not_null
 
-      - name: revenue
-        description: Total revenue.
+      - name: price
+        description: Stock closing price on price_date.
 
-      - name: gross_profit
-        description: Gross profit.
+      - name: price_date
+        description: Date of stock price.
+        tests:
+          - not_null
 
-      - name: operating_income
-        description: Operating income.
+      - name: report_date
+        description: Financial statement reporting date.
+        tests:
+          - not_null
 
-      - name: net_income
+      - name: assets
+        description: Total assets.
+
+      - name: assets_current
+        description: Current assets.
+
+      - name: cash_and_cash_equivalents
+        description: Cash and cash equivalents.
+
+      - name: common_stock_shares_issued
+        description: Total shares issued.
+
+      - name: common_stock_value
+        description: Common stock value.
+
+      - name: income_tax_expense_benefit
+        description: Income tax expense or benefit.
+
+      - name: liabilities_current
+        description: Current liabilities.
+
+      - name: operating_income_loss
+        description: Operating income or loss.
+
+      - name: stockholders_equity
+        description: Shareholders' equity.
+
+      - name: net_income_loss
         description: Net income.
 
-      - name: eps
-        description: Earnings per share.
-
-      - name: total_assets
-        description: Total company assets.
-
-      - name: total_liabilities
+      - name: liabilities
         description: Total liabilities.
 
       - name: loaded_at
-        description: Staging load timestamp.
-
-  ###########################################################################
-  # CNBC
-  ###########################################################################
-
-  - name: stg_cnbc_headlines
-    description: >
-      Cleaned CNBC financial news headlines.
-
-    config:
-      tags:
-        - staging
-        - finance
-        - news
-
-    columns:
-
-      - name: published_at
-        description: Publication timestamp.
-
-      - name: title
-        description: News headline.
+        description: Timestamp when Fivetran loaded the record.
         tests:
           - not_null
 
-      - name: description
-        description: Short news summary.
-
-      - name: url
-        description: Original article URL.
-
-      - name: source
-        description: News publisher.
-
-      - name: loaded_at
-        description: Staging load timestamp.
-
-  ###########################################################################
-  # Reuters
-  ###########################################################################
-
-  - name: stg_reuters_headlines
-    description: >
-      Cleaned Reuters financial news headlines.
-
-    config:
-      tags:
-        - staging
-        - finance
-        - news
-
-    columns:
-
-      - name: published_at
-        description: Publication timestamp.
-
-      - name: title
-        description: News headline.
-        tests:
-          - not_null
-
-      - name: description
-        description: Short article description.
-
-      - name: url
-        description: Original article URL.
-
-      - name: source
-        description: News source.
-
-      - name: loaded_at
-        description: Staging load timestamp.
-
-  ###########################################################################
-  # Guardian
-  ###########################################################################
-
-  - name: stg_guardian_headlines
-    description: >
-      Cleaned Guardian business news headlines.
-
-    config:
-      tags:
-        - staging
-        - finance
-        - news
-
-    columns:
-
-      - name: published_at
-        description: Publication timestamp.
-
-      - name: title
-        description: News headline.
-        tests:
-          - not_null
-
-      - name: description
-        description: Article description.
-
-      - name: url
-        description: Original article URL.
-
-      - name: source
-        description: News source.
-
-      - name: loaded_at
-        description: Staging load timestamp.
+  

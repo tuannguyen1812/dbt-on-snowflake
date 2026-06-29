@@ -1,0 +1,147 @@
+version: 2
+
+models:
+  - name: mart_market__watchlist_daily
+    description: Market watching mart at ticker and trading day grain, combining price action, rolling indicators, fundamentals, and cached market news sentiment.
+    columns:
+      - name: market_price_day_key
+        description: Primary key for ticker and price date.
+        tests:
+          - not_null
+          - unique
+      - name: company_key
+        description: Foreign key to the conformed market company dimension.
+        tests:
+          - relationships:
+              to: ref('dim_market_company')
+              field: company_key
+      - name: price_date_key
+        description: Foreign key to the conformed date dimension.
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: date_key
+      - name: market_watch_signal
+        description: Dashboard-ready market watch classification.
+        tests:
+          - accepted_values:
+              values: ['bullish_watch', 'risk_watch', 'near_52w_high', 'below_52w_high', 'normal']
+
+  - name: mart_market__news_sentiment_daily
+    description: Market news mart at source, published date, and topic grain using cached Snowflake Cortex sentiment from the intermediate layer.
+    columns:
+      - name: market_news_day_key
+        description: Primary key for source, published date, and news topic.
+        tests:
+          - not_null
+          - unique
+      - name: published_date_key
+        description: Foreign key to the conformed date dimension.
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: date_key
+      - name: dominant_sentiment
+        description: Most common sentiment for the daily source/topic group.
+        tests:
+          - accepted_values:
+              values: ['Positive', 'Neutral', 'Negative']
+      - name: market_tone_signal
+        description: Dashboard-ready market tone classification.
+        tests:
+          - accepted_values:
+              values: ['positive_market_tone', 'neutral_market_tone', 'negative_market_tone']
+
+  - name: mart_market__ticker_snapshot
+    description: Current market snapshot at one row per ticker for watchlist cards and executive monitoring.
+    columns:
+      - name: company_key
+        description: Foreign key to the conformed market company dimension.
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('dim_market_company')
+              field: company_key
+      - name: ticker
+        description: Stock ticker symbol.
+        tests:
+          - not_null
+          - unique
+      - name: watch_status
+        description: Current watch status based on price action, 52-week position, and market sentiment.
+        tests:
+          - accepted_values:
+              values: ['risk_watch', 'momentum_watch', 'near_high', 'normal']
+
+  - name: mart_saas__business_performance_monthly
+    description: SaaS performance mart at company-month grain for MRR, ARR, NRR, GRR, churn, expansion, product usage, support, and account health.
+    columns:
+      - name: business_performance_month_key
+        description: Primary key for the performance month.
+        tests:
+          - not_null
+          - unique
+      - name: performance_month_date_key
+        description: Foreign key to the conformed date dimension for the first day of the month.
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: date_key
+      - name: performance_month
+        description: Month represented by the KPI row.
+        tests:
+          - not_null
+      - name: business_performance_status
+        description: Summary status for business performance monitoring.
+        tests:
+          - accepted_values:
+              values: ['needs_attention', 'expanding', 'stable']
+
+  - name: mart_saas__account_health
+    description: SaaS account health mart at one row per account for Customer Success prioritization and revenue risk workflows.
+    columns:
+      - name: account_key
+        description: Foreign key to the conformed account dimension.
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('dim_account')
+              field: account_key
+      - name: account_id
+        description: Source account identifier.
+        tests:
+          - not_null
+          - unique
+      - name: account_action_status
+        description: Recommended account action category.
+        tests:
+          - accepted_values:
+              values: ['churned', 'at_risk', 'growth_opportunity', 'healthy']
+
+  - name: mart_saas__feature_adoption_monthly
+    description: SaaS product mart at feature and month grain for adoption, engagement, beta usage, and quality monitoring.
+    columns:
+      - name: feature_adoption_month_key
+        description: Primary key for feature and usage month.
+        tests:
+          - not_null
+          - unique
+      - name: feature_key
+        description: Foreign key to the conformed feature dimension.
+        tests:
+          - relationships:
+              to: ref('dim_feature')
+              field: feature_key
+      - name: usage_month_date_key
+        description: Foreign key to the conformed date dimension for the first day of the usage month.
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: date_key
+      - name: feature_adoption_status
+        description: Dashboard-ready feature adoption and quality status.
+        tests:
+          - accepted_values:
+              values: ['scaled_adoption', 'quality_watch', 'low_adoption', 'steady']

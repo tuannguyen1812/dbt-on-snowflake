@@ -1,39 +1,30 @@
-# Getting Started with dbt Projects on Snowflake
+# [Fivetran-snowflake-dbt-sigma] NE Finance Intelligence
 
-## Overview
+## Client Profile
 
-This repository contains an example dbt project for [dbt Projects on Snowflake](https://docs.snowflake.com/en/user-guide/data-engineering/dbt-projects-on-snowflake). It uses the fictitious **Tasty Bytes** food truck brand as sample data and walks through environment setup, data modeling, CI/CD, and scheduling — all running natively inside Snowflake.
+| Field | Information |
+| --- | --- |
+| Company Name | NE Finance Intelligence |
+| Industry | Financial watching and analysis SaaS |
+| Need | Full data pipeline |
+| Requirements | Easy to maintain; role-based security; embedded dashboard |
+| Summary | NE Finance Intelligence needs a secure, maintainable data pipeline with embedded dashboard capability for financial watching and analysis. |
 
-This repository is based on these Snowflake tutorials:
-- [Get started with dbt Projects on Snowflake](https://docs.snowflake.com/en/user-guide/tutorials/dbt-projects-on-snowflake-getting-started-tutorial)
-- [Set up CI/CD for dbt Projects on Snowflake](https://docs.snowflake.com/en/user-guide/tutorials/dbt-projects-on-snowflake-ci-cd-tutorial)
+## Introduction
 
-## What's Included
+This project's goal is to build an end-to-end data pipeline for NE Finance Intelligence using Fivetran to load data from multiple data sources, including databases, Google Drive, and uploaded files, into Snowflake. Snowflake will be used as the main cloud data warehouse, while dbt will be used inside Snowflake to transform raw data into clean, structured, and analysis-ready models and finally use Sigma as visualization Hub. 
 
-### Setup Scripts (`setup/`)
+## Document Scope
 
-- **`tasty_bytes_setup.sql`** — Creates the warehouse, database, schemas, GitHub integration, network rules, and loads the Tasty Bytes source data from S3 into raw tables.
-- **`ci_cd_setup.sql`** — Creates a GitHub Actions service user with OIDC authentication and optional network policies for CI/CD pipelines.
+| No. | Section | Description |
+| --- | --- | --- |
+| 1 | Pipeline Description | Describes how data moves from databases, Google Drive, and uploaded files through Fivetran into Snowflake, then through dbt transformations and visualization. |
+| 2 | Snowflake Data Structure | Defines the Snowflake database, schemas, raw tables, staging models, marts, and analytical tables. |
+| 3 | Role-Level Security | Explains access control by user roles, permissions, data ownership, and secure dashboard access. |
+| 4 | Cost Control and Scale Plan | Covers warehouse sizing, auto-suspend, query optimization, storage management, and future scaling strategy. |
+| 5 | CI/CD | Describes the development workflow for dbt models, testing, deployment, version control, and automated release process. |
+| 6 | Plan to Improve | Lists future improvements for automation, monitoring, data quality, performance, and dashboard enhancement. |
 
-### dbt Project (`tasty_bytes_dbt_demo/`)
+## 1. Pipeline Description
 
-- **Staging models** — Views that clean and rename columns from raw source tables (orders, trucks, menus, locations, franchises, customer loyalty).
-- **Mart models** — Tables that aggregate business metrics: `orders`, `customer_loyalty_metrics`, and `sales_metrics_by_location` (Python model).
-- **Custom macros** — Schema name generation for multi-environment deployments (dev/prod).
-- **Generic tests** — Reusable test for validating positive amounts.
-
-### CI/CD (`.github/workflows/`)
-
-- **`incoming_pr.yml`** — Runs dbt checks against a dev environment when a PR is opened.
-- **`pr_merged.yml`** — Deploys the dbt project to production when a PR is merged.
-
-### Scheduling (`schedules.sql`)
-
-Task definitions for running the dbt project on a schedule using Snowflake Tasks.
-
-## Quick Start
-
-1. Fork this repository.
-2. Run `tasty_bytes_setup.sql` in a Snowflake worksheet to create the environment and load source data.
-3. Create a [workspace in Snowsight](https://docs.snowflake.com/en/user-guide/ui-snowsight/workspaces) connected to your fork.
-4. Run `dbt deps`, then `dbt run` from the workspace.
+![Data Pipeline Architecture] (nefinance_data_pipeline.png)

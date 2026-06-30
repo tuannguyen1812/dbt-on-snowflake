@@ -38,3 +38,11 @@ This project's goal is to build an end-to-end data pipeline for NE Finance Intel
 
 ![Database Structure](nefinance_database_structure.png)
 
+ ### Layer 1 
+ + **PC_FIVETRAN_DB**: raw ingestion database, Fivetran loads source data here include **GOOGLE_DRIVE** database and **NEFINANCE_POSTGRES_PUBLIC** database. 
+ + **EARNING_CALL**: database storage raw TXT earning call file 
+ + **SNOWFLAKE**: the system database for account metadata, query history, usage, roles, and governance information.
+ + **PC_SIGMA_DB**: The Sigma integration/BI side
+
+ ### Layer 2
+ + **NEFINANCE_DB**: Data transformed will store here with **DEV** for development build and **PROD** for production build. 

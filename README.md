@@ -20,7 +20,7 @@ This project's goal is to build an end-to-end data pipeline for NE Finance Intel
 | --- | --- | --- |
 | 1 | Pipeline Description | Describes how data moves from databases, Google Drive, and uploaded files through Fivetran into Snowflake, then through dbt transformations and visualization. |
 | 2 | Snowflake Data Structure | Defines the Snowflake database, schemas, raw tables, staging models, marts, and analytical tables. |
-| 3 | Role-Level Security | Explains access control by user roles, permissions, data ownership, and secure dashboard access. |
+| 3 | Role-Based Access Control (RBAC) | Explains access control by user roles, permissions, data ownership, and secure dashboard access. |
 | 4 | Cost Control and Scale Plan | Covers warehouse sizing, auto-suspend, query optimization, storage management, and future scaling strategy. |
 | 5 | CI/CD | Describes the development workflow for dbt models, testing, deployment, version control, and automated release process. |
 | 6 | Plan to Improve | Lists future improvements for automation, monitoring, data quality, performance, and dashboard enhancement. |
@@ -46,3 +46,51 @@ This project's goal is to build an end-to-end data pipeline for NE Finance Intel
 
  ### Layer 2
  + **NEFINANCE_DB**: Data transformed will store here with **DEV** for development build and **PROD** for production build. 
+
+ ## 3. Role-Based Access Control (RBAC)
+
+ RBAC CURRENT STATE
+
+### Current State
+
+```text
+ACCOUNTADMIN
++-- SYSADMIN
+    +-- NEFINANCE_ADMIN_ROLE
+    |   +-- Purpose: DDL on NEFINANCE_DB
+    |
+    +-- NEFINANCE_ANALYST_ROLE
+    |   +-- Purpose: SELECT on DEV/PROD
+    |   +-- User: NEFINANCE_ANALYST_USER
+    |       +-- Type: PERSON
+    |       +-- Default warehouse: COMPUTE_WH
+    |
+    +-- NEFINANCE_ETL_ROLE
+    |   +-- Purpose: Read RAW, write DEV
+    |   +-- User: NEFINANCE_ETL_USER
+    |       +-- Type: PERSON
+    |       +-- Default warehouse: DBT_WH
+    |
+    +-- PC_FIVETRAN_ROLE
+    |   +-- Purpose: ETL ingestion
+    |   +-- User: PC_FIVETRAN_USER
+    |       +-- Type: SERVICE
+    |       +-- Default warehouse: PC_FIVETRAN_WH
+    |
+    +-- PC_SIGMA_ROLE
+        +-- Purpose: Sigma connector
+        +-- User: PC_SIGMA_USER
+            +-- Type: SERVICE
+            +-- Default warehouse: PC_SIGMA_WH
+```
+
+### Admin User
+
+```text
+TUANNM
++-- Type: PERSON
++-- Default role: ACCOUNTADMIN
++-- Default warehouse: COMPUTE_WH
++-- Note: Overprivileged default role
+```
+

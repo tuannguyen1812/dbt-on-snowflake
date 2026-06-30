@@ -55,13 +55,13 @@ select * from reuters
 union all
 select * from guardian) 
 SELECT *
-, SNOWFLAKE.CORTEX.COMPLETE(
-        'llama3.1-70b',
-        CONCAT(
-            'Classify this financial news as Positive, Neutral, or Negative. Return only one word. News: ',
-            CONCAT(headline, '. ', description)
-        )
-    ) AS sentiment
+-- , SNOWFLAKE.CORTEX.COMPLETE(
+        
+        -- CONCAT(
+            
+            
+        -- )
+    -- ) AS sentiment
     
     
 FROM data_union

@@ -1,12 +1,12 @@
 
-  create or replace   view NEFINANCE_DB.DEV.int_nefinance_account_support_health
+  create or replace   view NEFINANCE_DB.PROD.int_nefinance_account_support_health
   
    as (
     
 
 with tickets as (
 
-    select * from NEFINANCE_DB.DEV.stg_nefinance_support_tickets
+    select * from NEFINANCE_DB.PROD.stg_nefinance_support_tickets
 
 ),
 

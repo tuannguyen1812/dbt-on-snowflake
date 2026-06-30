@@ -1,18 +1,18 @@
 
-  create or replace   view NEFINANCE_DB.DEV.int_nefinance_account_health
+  create or replace   view NEFINANCE_DB.PROD.int_nefinance_account_health
   
    as (
     
 
 with accounts as (
 
-    select * from NEFINANCE_DB.DEV.int_nefinance_accounts
+    select * from NEFINANCE_DB.PROD.int_nefinance_accounts
 
 ),
 
 revenue_all as (
 
-    select * from NEFINANCE_DB.DEV.int_nefinance_account_revenue_monthly
+    select * from NEFINANCE_DB.PROD.int_nefinance_account_revenue_monthly
 
 ),
 
@@ -68,7 +68,7 @@ usage_30d as (
         sum(error_count) as error_count_30d,
         count(distinct feature_name) as active_features_30d,
         max(usage_date) as latest_usage_date
-    from NEFINANCE_DB.DEV.int_nefinance_account_feature_usage_daily
+    from NEFINANCE_DB.PROD.int_nefinance_account_feature_usage_daily
     where usage_date >= dateadd(day, -30, current_date)
     group by 1
 
@@ -76,7 +76,7 @@ usage_30d as (
 
 support as (
 
-    select * from NEFINANCE_DB.DEV.int_nefinance_account_support_health
+    select * from NEFINANCE_DB.PROD.int_nefinance_account_support_health
 
 ),
 
@@ -87,7 +87,7 @@ churn as (
         max(churn_date) as latest_churn_date,
         count(*) as churn_event_count,
         boolor_agg(is_reactivation) as has_reactivation
-    from NEFINANCE_DB.DEV.int_nefinance_churn_events_enriched
+    from NEFINANCE_DB.PROD.int_nefinance_churn_events_enriched
     group by 1
 
 ),

@@ -2,19 +2,14 @@
 
 with usage as (
 
-    select * from NEFINANCE_DB.DEV.stg_nefinance_feature_usage
-    
-        where cast(usage_date as date) >= (
-            select dateadd(day, -3, coalesce(max(usage_date), to_date('1900-01-01')))
-            from NEFINANCE_DB.DEV.int_nefinance_account_feature_usage_daily
-        )
+    select * from NEFINANCE_DB.PROD.stg_nefinance_feature_usage
     
 
 ),
 
 subscriptions as (
 
-    select * from NEFINANCE_DB.DEV.int_nefinance_subscriptions
+    select * from NEFINANCE_DB.PROD.int_nefinance_subscriptions
 
 ),
 

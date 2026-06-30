@@ -2,7 +2,7 @@
 
 with usage as (
 
-    select * from NEFINANCE_DB.DEV.int_nefinance_account_feature_usage_daily
+    select * from NEFINANCE_DB.PROD.int_nefinance_account_feature_usage_daily
 
 ),
 

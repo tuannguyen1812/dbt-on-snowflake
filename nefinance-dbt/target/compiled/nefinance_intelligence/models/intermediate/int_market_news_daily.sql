@@ -2,7 +2,7 @@
 
 with all_news as (
 
-    select * from NEFINANCE_DB.DEV.int_market_news_sentiment
+    select * from NEFINANCE_DB.PROD.int_market_news_sentiment
 
 ),
 
@@ -13,14 +13,6 @@ impacted_groups as (
         published_date,
         news_topic
     from all_news
-    
-        where sentiment_classified_at >= (
-            select coalesce(
-                max(latest_sentiment_classified_at),
-                to_timestamp_tz('1900-01-01 00:00:00 +00:00')
-            )
-            from NEFINANCE_DB.DEV.int_market_news_daily
-        )
     
     group by 1, 2, 3
 

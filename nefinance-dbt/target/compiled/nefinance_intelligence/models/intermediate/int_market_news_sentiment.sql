@@ -2,7 +2,7 @@
 
 with source as (
 
-    select * from NEFINANCE_DB.DEV.stg_financial_news
+    select * from NEFINANCE_DB.PROD.stg_financial_news
 
 ),
 
@@ -63,12 +63,6 @@ new_articles as (
 
     select *
     from deduplicated
-    
-        where not exists (
-            select 1
-            from NEFINANCE_DB.DEV.int_market_news_sentiment as existing_articles
-            where existing_articles.news_article_key = deduplicated.news_article_key
-        )
     
 
 ),

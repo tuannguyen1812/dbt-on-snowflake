@@ -1,5 +1,5 @@
 
-  create or replace   view NEFINANCE_DB.DEV.stg_nefinance_churn_events
+  create or replace   view NEFINANCE_DB.PROD.stg_nefinance_churn_events
   
    as (
     

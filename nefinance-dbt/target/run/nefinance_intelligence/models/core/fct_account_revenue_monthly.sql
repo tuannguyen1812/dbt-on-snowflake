@@ -1,30 +1,56 @@
--- back compat for old kwarg name
+
   
-  begin;
-    
-        
-            
-	    
-	    
-            
-        
     
 
+        create or replace transient table NEFINANCE_DB.PROD.fct_account_revenue_monthly
+         as
+        (select * from (
+              
+
+with revenue as (
+
+    select * from NEFINANCE_DB.PROD.int_nefinance_account_revenue_monthly
     
 
-    merge into NEFINANCE_DB.DEV.fct_account_revenue_monthly as DBT_INTERNAL_DEST
-        using NEFINANCE_DB.DEV.fct_account_revenue_monthly__dbt_tmp as DBT_INTERNAL_SOURCE
-        on ((DBT_INTERNAL_SOURCE.account_revenue_month_key = DBT_INTERNAL_DEST.account_revenue_month_key))
+),
 
-    
-    when matched then update set
-        "ACCOUNT_REVENUE_MONTH_KEY" = DBT_INTERNAL_SOURCE."ACCOUNT_REVENUE_MONTH_KEY","ACCOUNT_KEY" = DBT_INTERNAL_SOURCE."ACCOUNT_KEY","REVENUE_MONTH_DATE_KEY" = DBT_INTERNAL_SOURCE."REVENUE_MONTH_DATE_KEY","ACCOUNT_ID" = DBT_INTERNAL_SOURCE."ACCOUNT_ID","REVENUE_MONTH" = DBT_INTERNAL_SOURCE."REVENUE_MONTH","SUBSCRIPTION_EVENTS" = DBT_INTERNAL_SOURCE."SUBSCRIPTION_EVENTS","STARTING_MRR" = DBT_INTERNAL_SOURCE."STARTING_MRR","NEW_MRR" = DBT_INTERNAL_SOURCE."NEW_MRR","EXPANSION_MRR" = DBT_INTERNAL_SOURCE."EXPANSION_MRR","CONTRACTION_MRR" = DBT_INTERNAL_SOURCE."CONTRACTION_MRR","CHURN_MRR" = DBT_INTERNAL_SOURCE."CHURN_MRR","NET_MRR_CHANGE" = DBT_INTERNAL_SOURCE."NET_MRR_CHANGE","ENDING_MRR" = DBT_INTERNAL_SOURCE."ENDING_MRR","ENDING_ARR" = DBT_INTERNAL_SOURCE."ENDING_ARR","ENDING_SEATS" = DBT_INTERNAL_SOURCE."ENDING_SEATS","NEW_SUBSCRIPTION_COUNT" = DBT_INTERNAL_SOURCE."NEW_SUBSCRIPTION_COUNT","EXPANSION_COUNT" = DBT_INTERNAL_SOURCE."EXPANSION_COUNT","CONTRACTION_COUNT" = DBT_INTERNAL_SOURCE."CONTRACTION_COUNT","CHURN_COUNT" = DBT_INTERNAL_SOURCE."CHURN_COUNT","TRIAL_SUBSCRIPTION_COUNT" = DBT_INTERNAL_SOURCE."TRIAL_SUBSCRIPTION_COUNT","RETAINED_MRR" = DBT_INTERNAL_SOURCE."RETAINED_MRR","NET_REVENUE_RETENTION_RATE" = DBT_INTERNAL_SOURCE."NET_REVENUE_RETENTION_RATE","GROSS_REVENUE_RETENTION_RATE" = DBT_INTERNAL_SOURCE."GROSS_REVENUE_RETENTION_RATE","LATEST_LOADED_AT" = DBT_INTERNAL_SOURCE."LATEST_LOADED_AT","TRANSFORMED_AT" = DBT_INTERNAL_SOURCE."TRANSFORMED_AT"
-    
+accounts as (
 
-    when not matched then insert
-        ("ACCOUNT_REVENUE_MONTH_KEY", "ACCOUNT_KEY", "REVENUE_MONTH_DATE_KEY", "ACCOUNT_ID", "REVENUE_MONTH", "SUBSCRIPTION_EVENTS", "STARTING_MRR", "NEW_MRR", "EXPANSION_MRR", "CONTRACTION_MRR", "CHURN_MRR", "NET_MRR_CHANGE", "ENDING_MRR", "ENDING_ARR", "ENDING_SEATS", "NEW_SUBSCRIPTION_COUNT", "EXPANSION_COUNT", "CONTRACTION_COUNT", "CHURN_COUNT", "TRIAL_SUBSCRIPTION_COUNT", "RETAINED_MRR", "NET_REVENUE_RETENTION_RATE", "GROSS_REVENUE_RETENTION_RATE", "LATEST_LOADED_AT", "TRANSFORMED_AT")
-    values
-        ("ACCOUNT_REVENUE_MONTH_KEY", "ACCOUNT_KEY", "REVENUE_MONTH_DATE_KEY", "ACCOUNT_ID", "REVENUE_MONTH", "SUBSCRIPTION_EVENTS", "STARTING_MRR", "NEW_MRR", "EXPANSION_MRR", "CONTRACTION_MRR", "CHURN_MRR", "NET_MRR_CHANGE", "ENDING_MRR", "ENDING_ARR", "ENDING_SEATS", "NEW_SUBSCRIPTION_COUNT", "EXPANSION_COUNT", "CONTRACTION_COUNT", "CHURN_COUNT", "TRIAL_SUBSCRIPTION_COUNT", "RETAINED_MRR", "NET_REVENUE_RETENTION_RATE", "GROSS_REVENUE_RETENTION_RATE", "LATEST_LOADED_AT", "TRANSFORMED_AT")
+    select account_key, account_id
+    from NEFINANCE_DB.PROD.dim_account
 
-;
-    commit;
+)
+
+select
+    revenue.account_revenue_month_key,
+    accounts.account_key,
+    to_number(to_varchar(revenue.revenue_month, 'YYYYMMDD')) as revenue_month_date_key,
+    revenue.account_id,
+    revenue.revenue_month,
+    revenue.subscription_events,
+    revenue.starting_mrr,
+    revenue.new_mrr,
+    revenue.expansion_mrr,
+    revenue.contraction_mrr,
+    revenue.churn_mrr,
+    revenue.net_mrr_change,
+    revenue.ending_mrr,
+    revenue.ending_arr,
+    revenue.ending_seats,
+    revenue.new_subscription_count,
+    revenue.expansion_count,
+    revenue.contraction_count,
+    revenue.churn_count,
+    revenue.trial_subscription_count,
+    revenue.starting_mrr + revenue.expansion_mrr - revenue.contraction_mrr - revenue.churn_mrr as retained_mrr,
+    ((revenue.starting_mrr + revenue.expansion_mrr - revenue.contraction_mrr - revenue.churn_mrr) / nullif(revenue.starting_mrr, 0)) as net_revenue_retention_rate,
+    ((revenue.starting_mrr - revenue.contraction_mrr - revenue.churn_mrr) / nullif(revenue.starting_mrr, 0)) as gross_revenue_retention_rate,
+    revenue.latest_loaded_at,
+    current_timestamp as transformed_at
+from revenue
+left join accounts
+    on revenue.account_id = accounts.account_id
+              ) order by (revenue_month, account_id)
+        );
+      alter  table NEFINANCE_DB.PROD.fct_account_revenue_monthly cluster by (revenue_month, account_id);
+  

@@ -1,30 +1,122 @@
--- back compat for old kwarg name
+
   
-  begin;
-    
-        
-            
-	    
-	    
-            
-        
     
 
+        create or replace transient table NEFINANCE_DB.PROD.int_market_news_sentiment
+         as
+        (
+
+with source as (
+
+    select * from NEFINANCE_DB.PROD.stg_financial_news
+
+),
+
+cleaned as (
+
+    select
+        md5(
+            coalesce(lower(trim(source)), 'unknown')
+            || '|'
+            || coalesce(to_varchar(published_date, 'YYYY-MM-DD'), 'unknown')
+            || '|'
+            || coalesce(headline, '')
+            || '|'
+            || coalesce(description, '')
+        ) as news_article_key,
+        coalesce(lower(trim(source)), 'unknown') as source,
+        published_date,
+        headline,
+        description,
+        loaded_at,
+        case
+            when lower(coalesce(headline, '') || ' ' || coalesce(description, '')) like any (
+                '%earnings%',
+                '%revenue%',
+                '%profit%',
+                '%forecast%'
+            ) then 'financial_performance'
+            when lower(coalesce(headline, '') || ' ' || coalesce(description, '')) like any (
+                '%rate%',
+                '%inflation%',
+                '%fed%',
+                '%market%'
+            ) then 'macro_market'
+            when lower(coalesce(headline, '') || ' ' || coalesce(description, '')) like any (
+                '%merger%',
+                '%acquisition%',
+                '%deal%',
+                '%ipo%'
+            ) then 'corporate_activity'
+            else 'general'
+        end as news_topic
+    from source
+
+),
+
+deduplicated as (
+
+    select *
+    from cleaned
+    qualify row_number() over (
+        partition by news_article_key
+        order by loaded_at desc
+    ) = 1
+
+),
+
+new_articles as (
+
+    select *
+    from deduplicated
     
 
-    merge into NEFINANCE_DB.DEV.int_market_news_sentiment as DBT_INTERNAL_DEST
-        using NEFINANCE_DB.DEV.int_market_news_sentiment__dbt_tmp as DBT_INTERNAL_SOURCE
-        on ((DBT_INTERNAL_SOURCE.news_article_key = DBT_INTERNAL_DEST.news_article_key))
+),
 
-    
-    when matched then update set
-        "NEWS_ARTICLE_KEY" = DBT_INTERNAL_SOURCE."NEWS_ARTICLE_KEY","SOURCE" = DBT_INTERNAL_SOURCE."SOURCE","PUBLISHED_DATE" = DBT_INTERNAL_SOURCE."PUBLISHED_DATE","HEADLINE" = DBT_INTERNAL_SOURCE."HEADLINE","DESCRIPTION" = DBT_INTERNAL_SOURCE."DESCRIPTION","NEWS_TOPIC" = DBT_INTERNAL_SOURCE."NEWS_TOPIC","SENTIMENT" = DBT_INTERNAL_SOURCE."SENTIMENT","SENTIMENT_RAW" = DBT_INTERNAL_SOURCE."SENTIMENT_RAW","SENTIMENT_CLASSIFIED_AT" = DBT_INTERNAL_SOURCE."SENTIMENT_CLASSIFIED_AT","LOADED_AT" = DBT_INTERNAL_SOURCE."LOADED_AT"
-    
+scored_raw as (
 
-    when not matched then insert
-        ("NEWS_ARTICLE_KEY", "SOURCE", "PUBLISHED_DATE", "HEADLINE", "DESCRIPTION", "NEWS_TOPIC", "SENTIMENT", "SENTIMENT_RAW", "SENTIMENT_CLASSIFIED_AT", "LOADED_AT")
-    values
-        ("NEWS_ARTICLE_KEY", "SOURCE", "PUBLISHED_DATE", "HEADLINE", "DESCRIPTION", "NEWS_TOPIC", "SENTIMENT", "SENTIMENT_RAW", "SENTIMENT_CLASSIFIED_AT", "LOADED_AT")
+    select
+        news_article_key,
+        source,
+        published_date,
+        headline,
+        description,
+        news_topic,
+        loaded_at,
+        SNOWFLAKE.CORTEX.COMPLETE(
+            'llama3.1-70b',
+            concat(
+                'Classify this financial news as Positive, Neutral, or Negative. Return only one word. News: ',
+                concat(coalesce(headline, ''), '. ', coalesce(description, ''))
+            )
+        ) as sentiment_raw,
+        current_timestamp as sentiment_classified_at
+    from new_articles
 
-;
-    commit;
+),
+
+scored as (
+
+    select
+        news_article_key,
+        source,
+        published_date,
+        headline,
+        description,
+        news_topic,
+        case
+            when lower(trim(sentiment_raw)) like 'positive%' then 'Positive'
+            when lower(trim(sentiment_raw)) like 'negative%' then 'Negative'
+            else 'Neutral'
+        end as sentiment,
+        sentiment_raw,
+        sentiment_classified_at,
+        loaded_at
+    from scored_raw
+
+)
+
+select * from scored
+        );
+      
+  

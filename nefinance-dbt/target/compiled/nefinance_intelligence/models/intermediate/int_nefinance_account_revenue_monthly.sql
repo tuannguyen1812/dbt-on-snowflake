@@ -2,7 +2,7 @@
 
 with movements as (
 
-    select * from NEFINANCE_DB.DEV.int_nefinance_subscription_mrr_movements
+    select * from NEFINANCE_DB.PROD.int_nefinance_subscription_mrr_movements
 
 ),
 

@@ -2,7 +2,7 @@
 
 with financials as (
 
-    select * from NEFINANCE_DB.DEV.stg_short_financials
+    select * from NEFINANCE_DB.PROD.stg_short_financials
 
 ),
 

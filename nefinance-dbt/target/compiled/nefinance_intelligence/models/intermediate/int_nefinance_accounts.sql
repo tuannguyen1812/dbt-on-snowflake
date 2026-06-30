@@ -2,7 +2,7 @@
 
 with accounts as (
 
-    select * from NEFINANCE_DB.DEV.stg_nefinance_accounts
+    select * from NEFINANCE_DB.PROD.stg_nefinance_accounts
 
 ),
 

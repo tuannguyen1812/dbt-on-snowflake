@@ -2,26 +2,21 @@
 
 with prices as (
 
-    select * from NEFINANCE_DB.DEV.fct_market_price_daily
-    
-        where price_date >= (
-            select dateadd(day, -7, coalesce(max(price_date), to_date('1900-01-01')))
-            from NEFINANCE_DB.DEV.mart_market_watchlist_daily
-        )
+    select * from NEFINANCE_DB.PROD.fct_market_price_daily
     
 
 ),
 
 companies as (
 
-    select * from NEFINANCE_DB.DEV.dim_market_company
+    select * from NEFINANCE_DB.PROD.dim_market_company
 
 ),
 
 latest_financials as (
 
     select *
-    from NEFINANCE_DB.DEV.fct_company_financials_yearly
+    from NEFINANCE_DB.PROD.fct_company_financials_yearly
     qualify row_number() over (
         partition by ticker
         order by fiscal_year desc, report_date desc
@@ -49,12 +44,7 @@ news_by_date as (
             ) then 'Negative'
             else 'Neutral'
         end as market_dominant_sentiment
-    from NEFINANCE_DB.DEV.fct_financial_news_daily
-    
-        where published_date >= (
-            select dateadd(day, -7, coalesce(max(price_date), to_date('1900-01-01')))
-            from NEFINANCE_DB.DEV.mart_market_watchlist_daily
-        )
+    from NEFINANCE_DB.PROD.fct_financial_news_daily
     
     group by 1
 

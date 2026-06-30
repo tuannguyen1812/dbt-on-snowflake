@@ -1,5 +1,5 @@
 
-  create or replace   view NEFINANCE_DB.DEV.stg_short_financials
+  create or replace   view NEFINANCE_DB.PROD.stg_short_financials
   
    as (
     

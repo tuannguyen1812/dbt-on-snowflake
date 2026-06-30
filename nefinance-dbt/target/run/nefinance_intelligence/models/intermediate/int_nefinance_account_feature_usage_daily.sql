@@ -1,30 +1,77 @@
--- back compat for old kwarg name
+
   
-  begin;
-    
-        
-            
-	    
-	    
-            
-        
     
 
+        create or replace transient table NEFINANCE_DB.PROD.int_nefinance_account_feature_usage_daily
+         as
+        (
+
+with usage as (
+
+    select * from NEFINANCE_DB.PROD.stg_nefinance_feature_usage
     
 
-    merge into NEFINANCE_DB.DEV.int_nefinance_account_feature_usage_daily as DBT_INTERNAL_DEST
-        using NEFINANCE_DB.DEV.int_nefinance_account_feature_usage_daily__dbt_tmp as DBT_INTERNAL_SOURCE
-        on ((DBT_INTERNAL_SOURCE.account_feature_usage_day_key = DBT_INTERNAL_DEST.account_feature_usage_day_key))
+),
 
-    
-    when matched then update set
-        "ACCOUNT_FEATURE_USAGE_DAY_KEY" = DBT_INTERNAL_SOURCE."ACCOUNT_FEATURE_USAGE_DAY_KEY","ACCOUNT_ID" = DBT_INTERNAL_SOURCE."ACCOUNT_ID","SUBSCRIPTION_ID" = DBT_INTERNAL_SOURCE."SUBSCRIPTION_ID","FEATURE_NAME" = DBT_INTERNAL_SOURCE."FEATURE_NAME","USAGE_DATE" = DBT_INTERNAL_SOURCE."USAGE_DATE","USAGE_COUNT" = DBT_INTERNAL_SOURCE."USAGE_COUNT","USAGE_DURATION_SECS" = DBT_INTERNAL_SOURCE."USAGE_DURATION_SECS","ERROR_COUNT" = DBT_INTERNAL_SOURCE."ERROR_COUNT","USAGE_EVENT_COUNT" = DBT_INTERNAL_SOURCE."USAGE_EVENT_COUNT","HAS_BETA_FEATURE_USAGE" = DBT_INTERNAL_SOURCE."HAS_BETA_FEATURE_USAGE","ERROR_RATE" = DBT_INTERNAL_SOURCE."ERROR_RATE","LATEST_LOADED_AT" = DBT_INTERNAL_SOURCE."LATEST_LOADED_AT"
-    
+subscriptions as (
 
-    when not matched then insert
-        ("ACCOUNT_FEATURE_USAGE_DAY_KEY", "ACCOUNT_ID", "SUBSCRIPTION_ID", "FEATURE_NAME", "USAGE_DATE", "USAGE_COUNT", "USAGE_DURATION_SECS", "ERROR_COUNT", "USAGE_EVENT_COUNT", "HAS_BETA_FEATURE_USAGE", "ERROR_RATE", "LATEST_LOADED_AT")
-    values
-        ("ACCOUNT_FEATURE_USAGE_DAY_KEY", "ACCOUNT_ID", "SUBSCRIPTION_ID", "FEATURE_NAME", "USAGE_DATE", "USAGE_COUNT", "USAGE_DURATION_SECS", "ERROR_COUNT", "USAGE_EVENT_COUNT", "HAS_BETA_FEATURE_USAGE", "ERROR_RATE", "LATEST_LOADED_AT")
+    select * from NEFINANCE_DB.PROD.int_nefinance_subscriptions
 
-;
-    commit;
+),
+
+usage_enriched as (
+
+    select
+        usage.usage_id,
+        subscriptions.account_id,
+        usage.subscription_id,
+        lower(trim(usage.feature_name)) as feature_name,
+        cast(usage.usage_date as date) as usage_date,
+        coalesce(usage.usage_count, 0) as usage_count,
+        coalesce(usage.usage_duration_secs, 0) as usage_duration_secs,
+        coalesce(usage.error_count, 0) as error_count,
+        coalesce(usage.is_beta_feature, false) as is_beta_feature,
+        usage.loaded_at
+    from usage
+    left join subscriptions
+        on usage.subscription_id = subscriptions.subscription_id
+
+),
+
+daily as (
+
+    select
+        account_id,
+        subscription_id,
+        feature_name,
+        usage_date,
+        sum(usage_count) as usage_count,
+        sum(usage_duration_secs) as usage_duration_secs,
+        sum(error_count) as error_count,
+        count(distinct usage_id) as usage_event_count,
+        boolor_agg(is_beta_feature) as has_beta_feature_usage,
+        case
+            when sum(usage_count) = 0 then 0
+            else sum(error_count) / nullif(sum(usage_count), 0)
+        end as error_rate,
+        max(loaded_at) as latest_loaded_at
+    from usage_enriched
+    group by 1, 2, 3, 4
+
+)
+
+select
+    concat(
+        coalesce(account_id, 'unknown'),
+        '|',
+        subscription_id,
+        '|',
+        feature_name,
+        '|',
+        to_varchar(usage_date, 'YYYY-MM-DD')
+    ) as account_feature_usage_day_key,
+    *
+from daily
+        );
+      
+  

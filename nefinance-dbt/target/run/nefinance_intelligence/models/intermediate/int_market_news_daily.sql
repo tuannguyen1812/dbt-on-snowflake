@@ -1,30 +1,78 @@
--- back compat for old kwarg name
+
   
-  begin;
-    
-        
-            
-	    
-	    
-            
-        
     
 
+        create or replace transient table NEFINANCE_DB.PROD.int_market_news_daily
+         as
+        (
+
+with all_news as (
+
+    select * from NEFINANCE_DB.PROD.int_market_news_sentiment
+
+),
+
+impacted_groups as (
+
+    select
+        source,
+        published_date,
+        news_topic
+    from all_news
     
+    group by 1, 2, 3
 
-    merge into NEFINANCE_DB.DEV.int_market_news_daily as DBT_INTERNAL_DEST
-        using NEFINANCE_DB.DEV.int_market_news_daily__dbt_tmp as DBT_INTERNAL_SOURCE
-        on ((DBT_INTERNAL_SOURCE.market_news_day_key = DBT_INTERNAL_DEST.market_news_day_key))
+),
 
-    
-    when matched then update set
-        "MARKET_NEWS_DAY_KEY" = DBT_INTERNAL_SOURCE."MARKET_NEWS_DAY_KEY","SOURCE" = DBT_INTERNAL_SOURCE."SOURCE","PUBLISHED_DATE" = DBT_INTERNAL_SOURCE."PUBLISHED_DATE","NEWS_TOPIC" = DBT_INTERNAL_SOURCE."NEWS_TOPIC","ARTICLE_COUNT" = DBT_INTERNAL_SOURCE."ARTICLE_COUNT","POSITIVE_ARTICLE_COUNT" = DBT_INTERNAL_SOURCE."POSITIVE_ARTICLE_COUNT","NEUTRAL_ARTICLE_COUNT" = DBT_INTERNAL_SOURCE."NEUTRAL_ARTICLE_COUNT","NEGATIVE_ARTICLE_COUNT" = DBT_INTERNAL_SOURCE."NEGATIVE_ARTICLE_COUNT","SENTIMENT_SCORE" = DBT_INTERNAL_SOURCE."SENTIMENT_SCORE","DOMINANT_SENTIMENT" = DBT_INTERNAL_SOURCE."DOMINANT_SENTIMENT","HEADLINE_ROLLUP" = DBT_INTERNAL_SOURCE."HEADLINE_ROLLUP","LATEST_SENTIMENT_CLASSIFIED_AT" = DBT_INTERNAL_SOURCE."LATEST_SENTIMENT_CLASSIFIED_AT","LATEST_LOADED_AT" = DBT_INTERNAL_SOURCE."LATEST_LOADED_AT"
-    
+news as (
 
-    when not matched then insert
-        ("MARKET_NEWS_DAY_KEY", "SOURCE", "PUBLISHED_DATE", "NEWS_TOPIC", "ARTICLE_COUNT", "POSITIVE_ARTICLE_COUNT", "NEUTRAL_ARTICLE_COUNT", "NEGATIVE_ARTICLE_COUNT", "SENTIMENT_SCORE", "DOMINANT_SENTIMENT", "HEADLINE_ROLLUP", "LATEST_SENTIMENT_CLASSIFIED_AT", "LATEST_LOADED_AT")
-    values
-        ("MARKET_NEWS_DAY_KEY", "SOURCE", "PUBLISHED_DATE", "NEWS_TOPIC", "ARTICLE_COUNT", "POSITIVE_ARTICLE_COUNT", "NEUTRAL_ARTICLE_COUNT", "NEGATIVE_ARTICLE_COUNT", "SENTIMENT_SCORE", "DOMINANT_SENTIMENT", "HEADLINE_ROLLUP", "LATEST_SENTIMENT_CLASSIFIED_AT", "LATEST_LOADED_AT")
+    select all_news.*
+    from all_news
+    inner join impacted_groups
+        on all_news.source = impacted_groups.source
+        and all_news.published_date = impacted_groups.published_date
+        and all_news.news_topic = impacted_groups.news_topic
 
-;
-    commit;
+),
+
+daily as (
+
+    select
+        source,
+        published_date,
+        news_topic,
+        count(*) as article_count,
+        count_if(sentiment = 'Positive') as positive_article_count,
+        count_if(sentiment = 'Neutral') as neutral_article_count,
+        count_if(sentiment = 'Negative') as negative_article_count,
+        avg(case
+            when sentiment = 'Positive' then 1
+            when sentiment = 'Negative' then -1
+            else 0
+        end) as sentiment_score,
+        case
+            when count_if(sentiment = 'Positive') >= greatest(
+                count_if(sentiment = 'Neutral'),
+                count_if(sentiment = 'Negative')
+            ) then 'Positive'
+            when count_if(sentiment = 'Negative') >= greatest(
+                count_if(sentiment = 'Positive'),
+                count_if(sentiment = 'Neutral')
+            ) then 'Negative'
+            else 'Neutral'
+        end as dominant_sentiment,
+        listagg(headline, ' | ') within group (order by headline) as headline_rollup,
+        max(sentiment_classified_at) as latest_sentiment_classified_at,
+        max(loaded_at) as latest_loaded_at
+    from news
+    group by 1, 2, 3
+
+)
+
+select
+    concat(source, '|', to_varchar(published_date, 'YYYY-MM-DD'), '|', news_topic) as market_news_day_key,
+    *
+from daily
+        );
+      
+  

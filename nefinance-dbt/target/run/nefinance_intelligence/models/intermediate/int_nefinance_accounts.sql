@@ -1,12 +1,12 @@
 
-  create or replace   view NEFINANCE_DB.DEV.int_nefinance_accounts
+  create or replace   view NEFINANCE_DB.PROD.int_nefinance_accounts
   
    as (
     
 
 with accounts as (
 
-    select * from NEFINANCE_DB.DEV.stg_nefinance_accounts
+    select * from NEFINANCE_DB.PROD.stg_nefinance_accounts
 
 ),
 

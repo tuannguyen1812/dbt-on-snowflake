@@ -1,30 +1,48 @@
--- back compat for old kwarg name
+
   
-  begin;
-    
-        
-            
-	    
-	    
-            
-        
     
 
+        create or replace transient table NEFINANCE_DB.PROD.fct_churn_event
+         as
+        (select * from (
+              
+
+with churn_events as (
+
+    select * from NEFINANCE_DB.PROD.int_nefinance_churn_events_enriched
     
 
-    merge into NEFINANCE_DB.DEV.fct_churn_event as DBT_INTERNAL_DEST
-        using NEFINANCE_DB.DEV.fct_churn_event__dbt_tmp as DBT_INTERNAL_SOURCE
-        on ((DBT_INTERNAL_SOURCE.churn_event_key = DBT_INTERNAL_DEST.churn_event_key))
+),
 
-    
-    when matched then update set
-        "CHURN_EVENT_KEY" = DBT_INTERNAL_SOURCE."CHURN_EVENT_KEY","ACCOUNT_KEY" = DBT_INTERNAL_SOURCE."ACCOUNT_KEY","CHURN_DATE_KEY" = DBT_INTERNAL_SOURCE."CHURN_DATE_KEY","CHURN_EVENT_ID" = DBT_INTERNAL_SOURCE."CHURN_EVENT_ID","ACCOUNT_ID" = DBT_INTERNAL_SOURCE."ACCOUNT_ID","CHURN_DATE" = DBT_INTERNAL_SOURCE."CHURN_DATE","CHURN_MONTH" = DBT_INTERNAL_SOURCE."CHURN_MONTH","REASON_CODE" = DBT_INTERNAL_SOURCE."REASON_CODE","REASON_CATEGORY" = DBT_INTERNAL_SOURCE."REASON_CATEGORY","PRECEDING_UPGRADE_FLAG" = DBT_INTERNAL_SOURCE."PRECEDING_UPGRADE_FLAG","PRECEDING_DOWNGRADE_FLAG" = DBT_INTERNAL_SOURCE."PRECEDING_DOWNGRADE_FLAG","IS_REACTIVATION" = DBT_INTERNAL_SOURCE."IS_REACTIVATION","FEEDBACK_TEXT" = DBT_INTERNAL_SOURCE."FEEDBACK_TEXT","REFUND_AMOUNT_USD" = DBT_INTERNAL_SOURCE."REFUND_AMOUNT_USD","RECORD_ID" = DBT_INTERNAL_SOURCE."RECORD_ID","LATEST_LOADED_AT" = DBT_INTERNAL_SOURCE."LATEST_LOADED_AT","TRANSFORMED_AT" = DBT_INTERNAL_SOURCE."TRANSFORMED_AT"
-    
+accounts as (
 
-    when not matched then insert
-        ("CHURN_EVENT_KEY", "ACCOUNT_KEY", "CHURN_DATE_KEY", "CHURN_EVENT_ID", "ACCOUNT_ID", "CHURN_DATE", "CHURN_MONTH", "REASON_CODE", "REASON_CATEGORY", "PRECEDING_UPGRADE_FLAG", "PRECEDING_DOWNGRADE_FLAG", "IS_REACTIVATION", "FEEDBACK_TEXT", "REFUND_AMOUNT_USD", "RECORD_ID", "LATEST_LOADED_AT", "TRANSFORMED_AT")
-    values
-        ("CHURN_EVENT_KEY", "ACCOUNT_KEY", "CHURN_DATE_KEY", "CHURN_EVENT_ID", "ACCOUNT_ID", "CHURN_DATE", "CHURN_MONTH", "REASON_CODE", "REASON_CATEGORY", "PRECEDING_UPGRADE_FLAG", "PRECEDING_DOWNGRADE_FLAG", "IS_REACTIVATION", "FEEDBACK_TEXT", "REFUND_AMOUNT_USD", "RECORD_ID", "LATEST_LOADED_AT", "TRANSFORMED_AT")
+    select account_key, account_id
+    from NEFINANCE_DB.PROD.dim_account
 
-;
-    commit;
+)
+
+select
+    md5(churn_events.churn_event_id) as churn_event_key,
+    accounts.account_key,
+   to_number(to_varchar(churn_events.churn_date, 'YYYYMMDD')) as churn_date_key,
+    churn_events.churn_event_id,
+    churn_events.account_id,
+    churn_events.churn_date,
+    churn_events.churn_month,
+    churn_events.reason_code,
+    churn_events.reason_category,
+    churn_events.preceding_upgrade_flag,
+    churn_events.preceding_downgrade_flag,
+    churn_events.is_reactivation,
+    churn_events.feedback_text,
+    churn_events.refund_amount_usd,
+    churn_events.record_id,
+    churn_events.loaded_at as latest_loaded_at,
+    current_timestamp as transformed_at
+from churn_events
+left join accounts
+    on churn_events.account_id = accounts.account_id
+              ) order by (churn_date, account_id)
+        );
+      alter  table NEFINANCE_DB.PROD.fct_churn_event cluster by (churn_date, account_id);
+  

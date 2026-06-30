@@ -2,15 +2,7 @@
 
 with churn_events as (
 
-    select * from NEFINANCE_DB.DEV.int_nefinance_churn_events_enriched
-    
-        where loaded_at >= (
-            select coalesce(
-                max(latest_loaded_at),
-                to_timestamp_tz('1900-01-01 00:00:00 +00:00')
-            )
-            from NEFINANCE_DB.DEV.fct_churn_event
-        )
+    select * from NEFINANCE_DB.PROD.int_nefinance_churn_events_enriched
     
 
 ),
@@ -18,7 +10,7 @@ with churn_events as (
 accounts as (
 
     select account_key, account_id
-    from NEFINANCE_DB.DEV.dim_account
+    from NEFINANCE_DB.PROD.dim_account
 
 )
 

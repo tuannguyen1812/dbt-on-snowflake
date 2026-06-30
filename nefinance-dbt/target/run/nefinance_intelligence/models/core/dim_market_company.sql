@@ -1,5 +1,5 @@
 
-  create or replace   view NEFINANCE_DB.DEV.dim_market_company
+  create or replace   view NEFINANCE_DB.PROD.dim_market_company
   
    as (
     
@@ -12,7 +12,7 @@ with financials as (
         fiscal_year,
         report_date,
         loaded_at
-    from NEFINANCE_DB.DEV.int_market_company_financials
+    from NEFINANCE_DB.PROD.int_market_company_financials
 
 ),
 
@@ -24,7 +24,7 @@ prices as (
         null as fiscal_year,
         null as report_date,
         fivetran_synced_at as loaded_at
-    from NEFINANCE_DB.DEV.int_market_prices_daily
+    from NEFINANCE_DB.PROD.int_market_prices_daily
 
 ),
 

@@ -2,12 +2,7 @@
 
 with revenue as (
 
-    select * from NEFINANCE_DB.DEV.int_nefinance_account_revenue_monthly
-    
-        where revenue_month >= (
-            select dateadd(month, -2, coalesce(max(revenue_month), to_date('1900-01-01')))
-            from NEFINANCE_DB.DEV.fct_account_revenue_monthly
-        )
+    select * from NEFINANCE_DB.PROD.int_nefinance_account_revenue_monthly
     
 
 ),
@@ -15,7 +10,7 @@ with revenue as (
 accounts as (
 
     select account_key, account_id
-    from NEFINANCE_DB.DEV.dim_account
+    from NEFINANCE_DB.PROD.dim_account
 
 )
 

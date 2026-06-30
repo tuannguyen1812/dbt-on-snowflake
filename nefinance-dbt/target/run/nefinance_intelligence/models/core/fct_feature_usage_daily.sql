@@ -1,30 +1,57 @@
--- back compat for old kwarg name
+
   
-  begin;
-    
-        
-            
-	    
-	    
-            
-        
     
 
+        create or replace transient table NEFINANCE_DB.PROD.fct_feature_usage_daily
+         as
+        (select * from (
+              
+
+with usage as (
+
+    select * from NEFINANCE_DB.PROD.int_nefinance_account_feature_usage_daily
     
 
-    merge into NEFINANCE_DB.DEV.fct_feature_usage_daily as DBT_INTERNAL_DEST
-        using NEFINANCE_DB.DEV.fct_feature_usage_daily__dbt_tmp as DBT_INTERNAL_SOURCE
-        on ((DBT_INTERNAL_SOURCE.account_feature_usage_day_key = DBT_INTERNAL_DEST.account_feature_usage_day_key))
+),
 
-    
-    when matched then update set
-        "ACCOUNT_FEATURE_USAGE_DAY_KEY" = DBT_INTERNAL_SOURCE."ACCOUNT_FEATURE_USAGE_DAY_KEY","ACCOUNT_KEY" = DBT_INTERNAL_SOURCE."ACCOUNT_KEY","SUBSCRIPTION_KEY" = DBT_INTERNAL_SOURCE."SUBSCRIPTION_KEY","FEATURE_KEY" = DBT_INTERNAL_SOURCE."FEATURE_KEY","USAGE_DATE_KEY" = DBT_INTERNAL_SOURCE."USAGE_DATE_KEY","ACCOUNT_ID" = DBT_INTERNAL_SOURCE."ACCOUNT_ID","SUBSCRIPTION_ID" = DBT_INTERNAL_SOURCE."SUBSCRIPTION_ID","FEATURE_NAME" = DBT_INTERNAL_SOURCE."FEATURE_NAME","USAGE_DATE" = DBT_INTERNAL_SOURCE."USAGE_DATE","USAGE_COUNT" = DBT_INTERNAL_SOURCE."USAGE_COUNT","USAGE_DURATION_SECS" = DBT_INTERNAL_SOURCE."USAGE_DURATION_SECS","ERROR_COUNT" = DBT_INTERNAL_SOURCE."ERROR_COUNT","USAGE_EVENT_COUNT" = DBT_INTERNAL_SOURCE."USAGE_EVENT_COUNT","HAS_BETA_FEATURE_USAGE" = DBT_INTERNAL_SOURCE."HAS_BETA_FEATURE_USAGE","ERROR_RATE" = DBT_INTERNAL_SOURCE."ERROR_RATE","LATEST_LOADED_AT" = DBT_INTERNAL_SOURCE."LATEST_LOADED_AT","TRANSFORMED_AT" = DBT_INTERNAL_SOURCE."TRANSFORMED_AT"
-    
+accounts as (
 
-    when not matched then insert
-        ("ACCOUNT_FEATURE_USAGE_DAY_KEY", "ACCOUNT_KEY", "SUBSCRIPTION_KEY", "FEATURE_KEY", "USAGE_DATE_KEY", "ACCOUNT_ID", "SUBSCRIPTION_ID", "FEATURE_NAME", "USAGE_DATE", "USAGE_COUNT", "USAGE_DURATION_SECS", "ERROR_COUNT", "USAGE_EVENT_COUNT", "HAS_BETA_FEATURE_USAGE", "ERROR_RATE", "LATEST_LOADED_AT", "TRANSFORMED_AT")
-    values
-        ("ACCOUNT_FEATURE_USAGE_DAY_KEY", "ACCOUNT_KEY", "SUBSCRIPTION_KEY", "FEATURE_KEY", "USAGE_DATE_KEY", "ACCOUNT_ID", "SUBSCRIPTION_ID", "FEATURE_NAME", "USAGE_DATE", "USAGE_COUNT", "USAGE_DURATION_SECS", "ERROR_COUNT", "USAGE_EVENT_COUNT", "HAS_BETA_FEATURE_USAGE", "ERROR_RATE", "LATEST_LOADED_AT", "TRANSFORMED_AT")
+    select account_key, account_id
+    from NEFINANCE_DB.PROD.dim_account
 
-;
-    commit;
+),
+
+subscriptions as (
+
+    select subscription_key, subscription_id
+    from NEFINANCE_DB.PROD.dim_subscription
+
+)
+
+select
+    usage.account_feature_usage_day_key,
+    accounts.account_key,
+    subscriptions.subscription_key,
+    md5(usage.feature_name) as feature_key,
+    to_number(to_varchar(usage.usage_date, 'YYYYMMDD')) as usage_date_key,
+    usage.account_id,
+    usage.subscription_id,
+    usage.feature_name,
+    usage.usage_date,
+    usage.usage_count,
+    usage.usage_duration_secs,
+    usage.error_count,
+    usage.usage_event_count,
+    usage.has_beta_feature_usage,
+    usage.error_rate,
+    usage.latest_loaded_at,
+    current_timestamp as transformed_at
+from usage
+left join accounts
+    on usage.account_id = accounts.account_id
+left join subscriptions
+    on usage.subscription_id = subscriptions.subscription_id
+              ) order by (usage_date, account_id)
+        );
+      alter  table NEFINANCE_DB.PROD.fct_feature_usage_daily cluster by (usage_date, account_id);
+  

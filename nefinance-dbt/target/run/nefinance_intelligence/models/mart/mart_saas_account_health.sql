@@ -2,20 +2,20 @@
   
     
 
-        create or replace transient table NEFINANCE_DB.DEV.mart_saas_account_health
+        create or replace transient table NEFINANCE_DB.PROD.mart_saas_account_health
          as
         (
 
 with accounts as (
 
-    select * from NEFINANCE_DB.DEV.dim_account
+    select * from NEFINANCE_DB.PROD.dim_account
 
 ),
 
 latest_revenue as (
 
     select *
-    from NEFINANCE_DB.DEV.fct_account_revenue_monthly
+    from NEFINANCE_DB.PROD.fct_account_revenue_monthly
     qualify row_number() over (
         partition by account_id
         order by revenue_month desc
@@ -32,7 +32,7 @@ usage_30d as (
         sum(usage_duration_secs) as usage_duration_secs_30d,
         sum(error_count) as error_count_30d,
         max(usage_date) as latest_usage_date
-    from NEFINANCE_DB.DEV.fct_feature_usage_daily
+    from NEFINANCE_DB.PROD.fct_feature_usage_daily
     where usage_date >= dateadd(day, -30, current_date)
     group by 1
 
@@ -47,7 +47,7 @@ support as (
         count_if(escalation_flag) as escalated_ticket_count,
         avg(satisfaction_score) as avg_satisfaction_score,
         max(submitted_at) as latest_ticket_submitted_at
-    from NEFINANCE_DB.DEV.fct_support_ticket
+    from NEFINANCE_DB.PROD.fct_support_ticket
     group by 1
 
 ),
@@ -60,7 +60,7 @@ churn as (
         count(*) as churn_event_count,
         count_if(is_reactivation) as reactivation_count,
         sum(refund_amount_usd) as refund_amount_usd
-    from NEFINANCE_DB.DEV.fct_churn_event
+    from NEFINANCE_DB.PROD.fct_churn_event
     group by 1
 
 )

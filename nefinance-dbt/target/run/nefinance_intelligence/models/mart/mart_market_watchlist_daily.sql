@@ -1,30 +1,114 @@
--- back compat for old kwarg name
+
   
-  begin;
-    
-        
-            
-	    
-	    
-            
-        
     
 
+        create or replace transient table NEFINANCE_DB.PROD.mart_market_watchlist_daily
+         as
+        (select * from (
+              
+
+with prices as (
+
+    select * from NEFINANCE_DB.PROD.fct_market_price_daily
     
 
-    merge into NEFINANCE_DB.DEV.mart_market_watchlist_daily as DBT_INTERNAL_DEST
-        using NEFINANCE_DB.DEV.mart_market_watchlist_daily__dbt_tmp as DBT_INTERNAL_SOURCE
-        on ((DBT_INTERNAL_SOURCE.market_price_day_key = DBT_INTERNAL_DEST.market_price_day_key))
+),
 
+companies as (
+
+    select * from NEFINANCE_DB.PROD.dim_market_company
+
+),
+
+latest_financials as (
+
+    select *
+    from NEFINANCE_DB.PROD.fct_company_financials_yearly
+    qualify row_number() over (
+        partition by ticker
+        order by fiscal_year desc, report_date desc
+    ) = 1
+
+),
+
+news_by_date as (
+
+    select
+        published_date,
+        sum(article_count) as market_article_count,
+        sum(positive_article_count) as market_positive_article_count,
+        sum(neutral_article_count) as market_neutral_article_count,
+        sum(negative_article_count) as market_negative_article_count,
+        avg(sentiment_score) as market_sentiment_score,
+        case
+            when sum(positive_article_count) >= greatest(
+                sum(neutral_article_count),
+                sum(negative_article_count)
+            ) then 'Positive'
+            when sum(negative_article_count) >= greatest(
+                sum(positive_article_count),
+                sum(neutral_article_count)
+            ) then 'Negative'
+            else 'Neutral'
+        end as market_dominant_sentiment
+    from NEFINANCE_DB.PROD.fct_financial_news_daily
     
-    when matched then update set
-        "MARKET_PRICE_DAY_KEY" = DBT_INTERNAL_SOURCE."MARKET_PRICE_DAY_KEY","COMPANY_KEY" = DBT_INTERNAL_SOURCE."COMPANY_KEY","PRICE_DATE_KEY" = DBT_INTERNAL_SOURCE."PRICE_DATE_KEY","TICKER" = DBT_INTERNAL_SOURCE."TICKER","CIK" = DBT_INTERNAL_SOURCE."CIK","PRICE_DATE" = DBT_INTERNAL_SOURCE."PRICE_DATE","OPEN_PRICE" = DBT_INTERNAL_SOURCE."OPEN_PRICE","HIGH_PRICE" = DBT_INTERNAL_SOURCE."HIGH_PRICE","LOW_PRICE" = DBT_INTERNAL_SOURCE."LOW_PRICE","CLOSE_PRICE" = DBT_INTERNAL_SOURCE."CLOSE_PRICE","ADJUSTED_CLOSE_PRICE" = DBT_INTERNAL_SOURCE."ADJUSTED_CLOSE_PRICE","VOLUME" = DBT_INTERNAL_SOURCE."VOLUME","DAILY_RETURN_PCT" = DBT_INTERNAL_SOURCE."DAILY_RETURN_PCT","ADJUSTED_CLOSE_30D_AVG" = DBT_INTERNAL_SOURCE."ADJUSTED_CLOSE_30D_AVG","VOLUME_30D_AVG" = DBT_INTERNAL_SOURCE."VOLUME_30D_AVG","VOLUME_VS_30D_AVG_RATIO" = DBT_INTERNAL_SOURCE."VOLUME_VS_30D_AVG_RATIO","HIGH_PRICE_52W" = DBT_INTERNAL_SOURCE."HIGH_PRICE_52W","LOW_PRICE_52W" = DBT_INTERNAL_SOURCE."LOW_PRICE_52W","PCT_OF_52W_HIGH" = DBT_INTERNAL_SOURCE."PCT_OF_52W_HIGH","CURRENT_RATIO" = DBT_INTERNAL_SOURCE."CURRENT_RATIO","LIABILITY_TO_ASSET_RATIO" = DBT_INTERNAL_SOURCE."LIABILITY_TO_ASSET_RATIO","RETURN_ON_ASSETS" = DBT_INTERNAL_SOURCE."RETURN_ON_ASSETS","RETURN_ON_EQUITY" = DBT_INTERNAL_SOURCE."RETURN_ON_EQUITY","EARNINGS_PER_SHARE_BASIC" = DBT_INTERNAL_SOURCE."EARNINGS_PER_SHARE_BASIC","MARKET_ARTICLE_COUNT" = DBT_INTERNAL_SOURCE."MARKET_ARTICLE_COUNT","MARKET_POSITIVE_ARTICLE_COUNT" = DBT_INTERNAL_SOURCE."MARKET_POSITIVE_ARTICLE_COUNT","MARKET_NEUTRAL_ARTICLE_COUNT" = DBT_INTERNAL_SOURCE."MARKET_NEUTRAL_ARTICLE_COUNT","MARKET_NEGATIVE_ARTICLE_COUNT" = DBT_INTERNAL_SOURCE."MARKET_NEGATIVE_ARTICLE_COUNT","MARKET_SENTIMENT_SCORE" = DBT_INTERNAL_SOURCE."MARKET_SENTIMENT_SCORE","MARKET_DOMINANT_SENTIMENT" = DBT_INTERNAL_SOURCE."MARKET_DOMINANT_SENTIMENT","MARKET_WATCH_SIGNAL" = DBT_INTERNAL_SOURCE."MARKET_WATCH_SIGNAL","TRANSFORMED_AT" = DBT_INTERNAL_SOURCE."TRANSFORMED_AT"
-    
+    group by 1
 
-    when not matched then insert
-        ("MARKET_PRICE_DAY_KEY", "COMPANY_KEY", "PRICE_DATE_KEY", "TICKER", "CIK", "PRICE_DATE", "OPEN_PRICE", "HIGH_PRICE", "LOW_PRICE", "CLOSE_PRICE", "ADJUSTED_CLOSE_PRICE", "VOLUME", "DAILY_RETURN_PCT", "ADJUSTED_CLOSE_30D_AVG", "VOLUME_30D_AVG", "VOLUME_VS_30D_AVG_RATIO", "HIGH_PRICE_52W", "LOW_PRICE_52W", "PCT_OF_52W_HIGH", "CURRENT_RATIO", "LIABILITY_TO_ASSET_RATIO", "RETURN_ON_ASSETS", "RETURN_ON_EQUITY", "EARNINGS_PER_SHARE_BASIC", "MARKET_ARTICLE_COUNT", "MARKET_POSITIVE_ARTICLE_COUNT", "MARKET_NEUTRAL_ARTICLE_COUNT", "MARKET_NEGATIVE_ARTICLE_COUNT", "MARKET_SENTIMENT_SCORE", "MARKET_DOMINANT_SENTIMENT", "MARKET_WATCH_SIGNAL", "TRANSFORMED_AT")
-    values
-        ("MARKET_PRICE_DAY_KEY", "COMPANY_KEY", "PRICE_DATE_KEY", "TICKER", "CIK", "PRICE_DATE", "OPEN_PRICE", "HIGH_PRICE", "LOW_PRICE", "CLOSE_PRICE", "ADJUSTED_CLOSE_PRICE", "VOLUME", "DAILY_RETURN_PCT", "ADJUSTED_CLOSE_30D_AVG", "VOLUME_30D_AVG", "VOLUME_VS_30D_AVG_RATIO", "HIGH_PRICE_52W", "LOW_PRICE_52W", "PCT_OF_52W_HIGH", "CURRENT_RATIO", "LIABILITY_TO_ASSET_RATIO", "RETURN_ON_ASSETS", "RETURN_ON_EQUITY", "EARNINGS_PER_SHARE_BASIC", "MARKET_ARTICLE_COUNT", "MARKET_POSITIVE_ARTICLE_COUNT", "MARKET_NEUTRAL_ARTICLE_COUNT", "MARKET_NEGATIVE_ARTICLE_COUNT", "MARKET_SENTIMENT_SCORE", "MARKET_DOMINANT_SENTIMENT", "MARKET_WATCH_SIGNAL", "TRANSFORMED_AT")
+)
 
-;
-    commit;
+select
+    prices.market_price_day_key,
+    prices.company_key,
+    prices.price_date_key,
+    prices.ticker,
+    companies.cik,
+    prices.price_date,
+    prices.open_price,
+    prices.high_price,
+    prices.low_price,
+    prices.close_price,
+    prices.adjusted_close_price,
+    prices.volume,
+    prices.daily_return_pct,
+    prices.adjusted_close_30d_avg,
+    prices.volume_30d_avg,
+    case
+        when prices.volume_30d_avg is null or prices.volume_30d_avg = 0 then null
+        else prices.volume / prices.volume_30d_avg
+    end as volume_vs_30d_avg_ratio,
+    prices.high_price_52w,
+    prices.low_price_52w,
+    prices.pct_of_52w_high,
+    latest_financials.current_ratio,
+    latest_financials.liability_to_asset_ratio,
+    latest_financials.return_on_assets,
+    latest_financials.return_on_equity,
+    latest_financials.earnings_per_share_basic,
+    coalesce(news_by_date.market_article_count, 0) as market_article_count,
+    coalesce(news_by_date.market_positive_article_count, 0) as market_positive_article_count,
+    coalesce(news_by_date.market_neutral_article_count, 0) as market_neutral_article_count,
+    coalesce(news_by_date.market_negative_article_count, 0) as market_negative_article_count,
+    news_by_date.market_sentiment_score,
+    coalesce(news_by_date.market_dominant_sentiment, 'Neutral') as market_dominant_sentiment,
+    case
+        when prices.daily_return_pct >= 0.03
+            and coalesce(news_by_date.market_sentiment_score, 0) >= 0 then 'bullish_watch'
+        when prices.daily_return_pct <= -0.03
+            or coalesce(news_by_date.market_sentiment_score, 0) < -0.25 then 'risk_watch'
+        when prices.pct_of_52w_high >= 0.95 then 'near_52w_high'
+        when prices.pct_of_52w_high <= 0.75 then 'below_52w_high'
+        else 'normal'
+    end as market_watch_signal,
+    current_timestamp as transformed_at
+from prices
+left join companies
+    on prices.company_key = companies.company_key
+left join latest_financials
+    on prices.company_key = latest_financials.company_key
+left join news_by_date
+    on prices.price_date = news_by_date.published_date
+              ) order by (price_date, ticker)
+        );
+      alter  table NEFINANCE_DB.PROD.mart_market_watchlist_daily cluster by (price_date, ticker);
+  

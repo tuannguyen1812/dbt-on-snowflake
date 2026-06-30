@@ -2,19 +2,14 @@
 
 with usage as (
 
-    select * from NEFINANCE_DB.DEV.fct_feature_usage_daily
-    
-        where usage_date >= (
-            select dateadd(month, -2, coalesce(max(usage_month), to_date('1900-01-01')))
-            from NEFINANCE_DB.DEV.mart_saas_feature_adoption_monthly
-        )
+    select * from NEFINANCE_DB.PROD.fct_feature_usage_daily
     
 
 ),
 
 features as (
 
-    select * from NEFINANCE_DB.DEV.dim_feature
+    select * from NEFINANCE_DB.PROD.dim_feature
 
 ),
 

@@ -2,64 +2,64 @@
   
     
 
-        create or replace transient table NEFINANCE_DB.DEV.dim_date
+        create or replace transient table NEFINANCE_DB.PROD.dim_date
          as
         (
 
 with source_dates as (
 
     select cast(signup_date as date) as observed_date
-    from NEFINANCE_DB.DEV.stg_nefinance_accounts
+    from NEFINANCE_DB.PROD.stg_nefinance_accounts
 
     union all
 
     select cast(start_date as date) as observed_date
-    from NEFINANCE_DB.DEV.stg_nefinance_subscriptions
+    from NEFINANCE_DB.PROD.stg_nefinance_subscriptions
 
     union all
 
     select cast(end_date as date) as observed_date
-    from NEFINANCE_DB.DEV.stg_nefinance_subscriptions
+    from NEFINANCE_DB.PROD.stg_nefinance_subscriptions
 
     union all
 
     select cast(usage_date as date) as observed_date
-    from NEFINANCE_DB.DEV.stg_nefinance_feature_usage
+    from NEFINANCE_DB.PROD.stg_nefinance_feature_usage
 
     union all
 
     select cast(submitted_at as date) as observed_date
-    from NEFINANCE_DB.DEV.stg_nefinance_support_tickets
+    from NEFINANCE_DB.PROD.stg_nefinance_support_tickets
 
     union all
 
     select cast(closed_at as date) as observed_date
-    from NEFINANCE_DB.DEV.stg_nefinance_support_tickets
+    from NEFINANCE_DB.PROD.stg_nefinance_support_tickets
 
     union all
 
     select cast(churn_date as date) as observed_date
-    from NEFINANCE_DB.DEV.stg_nefinance_churn_events
+    from NEFINANCE_DB.PROD.stg_nefinance_churn_events
 
     union all
 
     select price_date as observed_date
-    from NEFINANCE_DB.DEV.stg_sp500_prices
+    from NEFINANCE_DB.PROD.stg_sp500_prices
 
     union all
 
     select report_date as observed_date
-    from NEFINANCE_DB.DEV.stg_short_financials
+    from NEFINANCE_DB.PROD.stg_short_financials
 
     union all
 
     select price_date as observed_date
-    from NEFINANCE_DB.DEV.stg_short_financials
+    from NEFINANCE_DB.PROD.stg_short_financials
 
     union all
 
     select published_date as observed_date
-    from NEFINANCE_DB.DEV.stg_financial_news
+    from NEFINANCE_DB.PROD.stg_financial_news
 
 ),
 

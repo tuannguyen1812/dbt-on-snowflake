@@ -1,12 +1,12 @@
 
-  create or replace   view NEFINANCE_DB.DEV.int_nefinance_account_revenue_monthly
+  create or replace   view NEFINANCE_DB.PROD.int_nefinance_account_revenue_monthly
   
    as (
     
 
 with movements as (
 
-    select * from NEFINANCE_DB.DEV.int_nefinance_subscription_mrr_movements
+    select * from NEFINANCE_DB.PROD.int_nefinance_subscription_mrr_movements
 
 ),
 

@@ -1,12 +1,12 @@
 
-  create or replace   view NEFINANCE_DB.DEV.dim_feature
+  create or replace   view NEFINANCE_DB.PROD.dim_feature
   
    as (
     
 
 with usage as (
 
-    select * from NEFINANCE_DB.DEV.int_nefinance_account_feature_usage_daily
+    select * from NEFINANCE_DB.PROD.int_nefinance_account_feature_usage_daily
 
 ),
 

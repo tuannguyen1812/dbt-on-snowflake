@@ -2,7 +2,7 @@
 
 with subscriptions as (
 
-    select * from NEFINANCE_DB.DEV.stg_nefinance_subscriptions
+    select * from NEFINANCE_DB.PROD.stg_nefinance_subscriptions
 
 ),
 

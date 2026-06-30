@@ -1,30 +1,51 @@
--- back compat for old kwarg name
+
   
-  begin;
-    
-        
-            
-	    
-	    
-            
-        
     
 
+        create or replace transient table NEFINANCE_DB.PROD.fct_market_price_daily
+         as
+        (select * from (
+              
+
+with prices as (
+
+    select * from NEFINANCE_DB.PROD.int_market_prices_daily
     
 
-    merge into NEFINANCE_DB.DEV.fct_market_price_daily as DBT_INTERNAL_DEST
-        using NEFINANCE_DB.DEV.fct_market_price_daily__dbt_tmp as DBT_INTERNAL_SOURCE
-        on ((DBT_INTERNAL_SOURCE.market_price_day_key = DBT_INTERNAL_DEST.market_price_day_key))
+),
 
-    
-    when matched then update set
-        "MARKET_PRICE_DAY_KEY" = DBT_INTERNAL_SOURCE."MARKET_PRICE_DAY_KEY","COMPANY_KEY" = DBT_INTERNAL_SOURCE."COMPANY_KEY","PRICE_DATE_KEY" = DBT_INTERNAL_SOURCE."PRICE_DATE_KEY","TICKER" = DBT_INTERNAL_SOURCE."TICKER","PRICE_DATE" = DBT_INTERNAL_SOURCE."PRICE_DATE","OPEN_PRICE" = DBT_INTERNAL_SOURCE."OPEN_PRICE","HIGH_PRICE" = DBT_INTERNAL_SOURCE."HIGH_PRICE","LOW_PRICE" = DBT_INTERNAL_SOURCE."LOW_PRICE","CLOSE_PRICE" = DBT_INTERNAL_SOURCE."CLOSE_PRICE","ADJUSTED_CLOSE_PRICE" = DBT_INTERNAL_SOURCE."ADJUSTED_CLOSE_PRICE","VOLUME" = DBT_INTERNAL_SOURCE."VOLUME","PREVIOUS_ADJUSTED_CLOSE_PRICE" = DBT_INTERNAL_SOURCE."PREVIOUS_ADJUSTED_CLOSE_PRICE","DAILY_RETURN_PCT" = DBT_INTERNAL_SOURCE."DAILY_RETURN_PCT","ADJUSTED_CLOSE_30D_AVG" = DBT_INTERNAL_SOURCE."ADJUSTED_CLOSE_30D_AVG","VOLUME_30D_AVG" = DBT_INTERNAL_SOURCE."VOLUME_30D_AVG","HIGH_PRICE_52W" = DBT_INTERNAL_SOURCE."HIGH_PRICE_52W","LOW_PRICE_52W" = DBT_INTERNAL_SOURCE."LOW_PRICE_52W","PCT_OF_52W_HIGH" = DBT_INTERNAL_SOURCE."PCT_OF_52W_HIGH","FIVETRAN_SYNCED_AT" = DBT_INTERNAL_SOURCE."FIVETRAN_SYNCED_AT","TRANSFORMED_AT" = DBT_INTERNAL_SOURCE."TRANSFORMED_AT"
-    
+companies as (
 
-    when not matched then insert
-        ("MARKET_PRICE_DAY_KEY", "COMPANY_KEY", "PRICE_DATE_KEY", "TICKER", "PRICE_DATE", "OPEN_PRICE", "HIGH_PRICE", "LOW_PRICE", "CLOSE_PRICE", "ADJUSTED_CLOSE_PRICE", "VOLUME", "PREVIOUS_ADJUSTED_CLOSE_PRICE", "DAILY_RETURN_PCT", "ADJUSTED_CLOSE_30D_AVG", "VOLUME_30D_AVG", "HIGH_PRICE_52W", "LOW_PRICE_52W", "PCT_OF_52W_HIGH", "FIVETRAN_SYNCED_AT", "TRANSFORMED_AT")
-    values
-        ("MARKET_PRICE_DAY_KEY", "COMPANY_KEY", "PRICE_DATE_KEY", "TICKER", "PRICE_DATE", "OPEN_PRICE", "HIGH_PRICE", "LOW_PRICE", "CLOSE_PRICE", "ADJUSTED_CLOSE_PRICE", "VOLUME", "PREVIOUS_ADJUSTED_CLOSE_PRICE", "DAILY_RETURN_PCT", "ADJUSTED_CLOSE_30D_AVG", "VOLUME_30D_AVG", "HIGH_PRICE_52W", "LOW_PRICE_52W", "PCT_OF_52W_HIGH", "FIVETRAN_SYNCED_AT", "TRANSFORMED_AT")
+    select company_key, ticker
+    from NEFINANCE_DB.PROD.dim_market_company
 
-;
-    commit;
+)
+
+select
+    prices.market_price_day_key,
+    companies.company_key,
+      to_number(to_varchar(prices.price_date, 'YYYYMMDD')) as price_date_key,
+    prices.ticker,
+    prices.price_date,
+    prices.open_price,
+    prices.high_price,
+    prices.low_price,
+    prices.close_price,
+    prices.adjusted_close_price,
+    prices.volume,
+    prices.previous_adjusted_close_price,
+    prices.daily_return_pct,
+    prices.adjusted_close_30d_avg,
+    prices.volume_30d_avg,
+    prices.high_price_52w,
+    prices.low_price_52w,
+    prices.pct_of_52w_high,
+    prices.fivetran_synced_at,
+    current_timestamp as transformed_at
+from prices
+left join companies
+    on prices.ticker = companies.ticker
+              ) order by (price_date, ticker)
+        );
+      alter  table NEFINANCE_DB.PROD.fct_market_price_daily cluster by (price_date, ticker);
+  

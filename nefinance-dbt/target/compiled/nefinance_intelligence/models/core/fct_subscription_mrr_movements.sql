@@ -2,12 +2,7 @@
 
 with movements as (
 
-    select * from NEFINANCE_DB.DEV.int_nefinance_subscription_mrr_movements
-    
-        where movement_date >= (
-            select dateadd(month, -2, coalesce(max(movement_date), to_date('1900-01-01')))
-            from NEFINANCE_DB.DEV.fct_subscription_mrr_movements
-        )
+    select * from NEFINANCE_DB.PROD.int_nefinance_subscription_mrr_movements
     
 
 ),
@@ -15,14 +10,14 @@ with movements as (
 accounts as (
 
     select account_key, account_id
-    from NEFINANCE_DB.DEV.dim_account
+    from NEFINANCE_DB.PROD.dim_account
 
 ),
 
 subscriptions as (
 
     select subscription_key, subscription_id
-    from NEFINANCE_DB.DEV.dim_subscription
+    from NEFINANCE_DB.PROD.dim_subscription
 
 )
 

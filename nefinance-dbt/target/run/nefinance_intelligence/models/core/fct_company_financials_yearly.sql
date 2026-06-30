@@ -1,30 +1,59 @@
--- back compat for old kwarg name
+
   
-  begin;
-    
-        
-            
-	    
-	    
-            
-        
     
 
+        create or replace transient table NEFINANCE_DB.PROD.fct_company_financials_yearly
+         as
+        (select * from (
+              
+
+with financials as (
+
+    select * from NEFINANCE_DB.PROD.int_market_company_financials
     
 
-    merge into NEFINANCE_DB.DEV.fct_company_financials_yearly as DBT_INTERNAL_DEST
-        using NEFINANCE_DB.DEV.fct_company_financials_yearly__dbt_tmp as DBT_INTERNAL_SOURCE
-        on ((DBT_INTERNAL_SOURCE.company_financial_year_key = DBT_INTERNAL_DEST.company_financial_year_key))
+),
 
-    
-    when matched then update set
-        "COMPANY_FINANCIAL_YEAR_KEY" = DBT_INTERNAL_SOURCE."COMPANY_FINANCIAL_YEAR_KEY","COMPANY_KEY" = DBT_INTERNAL_SOURCE."COMPANY_KEY","REPORT_DATE_KEY" = DBT_INTERNAL_SOURCE."REPORT_DATE_KEY","TICKER" = DBT_INTERNAL_SOURCE."TICKER","CIK" = DBT_INTERNAL_SOURCE."CIK","FISCAL_YEAR" = DBT_INTERNAL_SOURCE."FISCAL_YEAR","PRICE" = DBT_INTERNAL_SOURCE."PRICE","PRICE_DATE" = DBT_INTERNAL_SOURCE."PRICE_DATE","REPORT_DATE" = DBT_INTERNAL_SOURCE."REPORT_DATE","ASSETS" = DBT_INTERNAL_SOURCE."ASSETS","ASSETS_CURRENT" = DBT_INTERNAL_SOURCE."ASSETS_CURRENT","CASH_AND_CASH_EQUIVALENTS" = DBT_INTERNAL_SOURCE."CASH_AND_CASH_EQUIVALENTS","COMMON_STOCK_SHARES_ISSUED" = DBT_INTERNAL_SOURCE."COMMON_STOCK_SHARES_ISSUED","COMMON_STOCK_VALUE" = DBT_INTERNAL_SOURCE."COMMON_STOCK_VALUE","INCOME_TAX_EXPENSE_BENEFIT" = DBT_INTERNAL_SOURCE."INCOME_TAX_EXPENSE_BENEFIT","LIABILITIES_CURRENT" = DBT_INTERNAL_SOURCE."LIABILITIES_CURRENT","OPERATING_INCOME_LOSS" = DBT_INTERNAL_SOURCE."OPERATING_INCOME_LOSS","STOCKHOLDERS_EQUITY" = DBT_INTERNAL_SOURCE."STOCKHOLDERS_EQUITY","NET_INCOME_LOSS" = DBT_INTERNAL_SOURCE."NET_INCOME_LOSS","LIABILITIES" = DBT_INTERNAL_SOURCE."LIABILITIES","ASSET_TO_LIABILITY_RATIO" = DBT_INTERNAL_SOURCE."ASSET_TO_LIABILITY_RATIO","CURRENT_RATIO" = DBT_INTERNAL_SOURCE."CURRENT_RATIO","LIABILITY_TO_ASSET_RATIO" = DBT_INTERNAL_SOURCE."LIABILITY_TO_ASSET_RATIO","RETURN_ON_ASSETS" = DBT_INTERNAL_SOURCE."RETURN_ON_ASSETS","RETURN_ON_EQUITY" = DBT_INTERNAL_SOURCE."RETURN_ON_EQUITY","EARNINGS_PER_SHARE_BASIC" = DBT_INTERNAL_SOURCE."EARNINGS_PER_SHARE_BASIC","LATEST_LOADED_AT" = DBT_INTERNAL_SOURCE."LATEST_LOADED_AT","TRANSFORMED_AT" = DBT_INTERNAL_SOURCE."TRANSFORMED_AT"
-    
+companies as (
 
-    when not matched then insert
-        ("COMPANY_FINANCIAL_YEAR_KEY", "COMPANY_KEY", "REPORT_DATE_KEY", "TICKER", "CIK", "FISCAL_YEAR", "PRICE", "PRICE_DATE", "REPORT_DATE", "ASSETS", "ASSETS_CURRENT", "CASH_AND_CASH_EQUIVALENTS", "COMMON_STOCK_SHARES_ISSUED", "COMMON_STOCK_VALUE", "INCOME_TAX_EXPENSE_BENEFIT", "LIABILITIES_CURRENT", "OPERATING_INCOME_LOSS", "STOCKHOLDERS_EQUITY", "NET_INCOME_LOSS", "LIABILITIES", "ASSET_TO_LIABILITY_RATIO", "CURRENT_RATIO", "LIABILITY_TO_ASSET_RATIO", "RETURN_ON_ASSETS", "RETURN_ON_EQUITY", "EARNINGS_PER_SHARE_BASIC", "LATEST_LOADED_AT", "TRANSFORMED_AT")
-    values
-        ("COMPANY_FINANCIAL_YEAR_KEY", "COMPANY_KEY", "REPORT_DATE_KEY", "TICKER", "CIK", "FISCAL_YEAR", "PRICE", "PRICE_DATE", "REPORT_DATE", "ASSETS", "ASSETS_CURRENT", "CASH_AND_CASH_EQUIVALENTS", "COMMON_STOCK_SHARES_ISSUED", "COMMON_STOCK_VALUE", "INCOME_TAX_EXPENSE_BENEFIT", "LIABILITIES_CURRENT", "OPERATING_INCOME_LOSS", "STOCKHOLDERS_EQUITY", "NET_INCOME_LOSS", "LIABILITIES", "ASSET_TO_LIABILITY_RATIO", "CURRENT_RATIO", "LIABILITY_TO_ASSET_RATIO", "RETURN_ON_ASSETS", "RETURN_ON_EQUITY", "EARNINGS_PER_SHARE_BASIC", "LATEST_LOADED_AT", "TRANSFORMED_AT")
+    select company_key, ticker
+    from NEFINANCE_DB.PROD.dim_market_company
 
-;
-    commit;
+)
+
+select
+    financials.company_financial_year_key,
+    companies.company_key,
+ to_number(to_varchar(financials.report_date, 'YYYYMMDD')) as report_date_key,
+    financials.ticker,
+    financials.cik,
+    financials.fiscal_year,
+    financials.price,
+    financials.price_date,
+    financials.report_date,
+    financials.assets,
+    financials.assets_current,
+    financials.cash_and_cash_equivalents,
+    financials.common_stock_shares_issued,
+    financials.common_stock_value,
+    financials.income_tax_expense_benefit,
+    financials.liabilities_current,
+    financials.operating_income_loss,
+    financials.stockholders_equity,
+    financials.net_income_loss,
+    financials.liabilities,
+    financials.asset_to_liability_ratio,
+    financials.current_ratio,
+    financials.liability_to_asset_ratio,
+    financials.return_on_assets,
+    financials.return_on_equity,
+    financials.earnings_per_share_basic,
+    financials.loaded_at as latest_loaded_at,
+    current_timestamp as transformed_at
+from financials
+left join companies
+    on financials.ticker = companies.ticker
+              ) order by (fiscal_year, ticker)
+        );
+      alter  table NEFINANCE_DB.PROD.fct_company_financials_yearly cluster by (fiscal_year, ticker);
+  

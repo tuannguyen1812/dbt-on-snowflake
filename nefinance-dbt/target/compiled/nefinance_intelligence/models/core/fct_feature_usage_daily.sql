@@ -2,12 +2,7 @@
 
 with usage as (
 
-    select * from NEFINANCE_DB.DEV.int_nefinance_account_feature_usage_daily
-    
-        where usage_date >= (
-            select dateadd(day, -3, coalesce(max(usage_date), to_date('1900-01-01')))
-            from NEFINANCE_DB.DEV.fct_feature_usage_daily
-        )
+    select * from NEFINANCE_DB.PROD.int_nefinance_account_feature_usage_daily
     
 
 ),
@@ -15,14 +10,14 @@ with usage as (
 accounts as (
 
     select account_key, account_id
-    from NEFINANCE_DB.DEV.dim_account
+    from NEFINANCE_DB.PROD.dim_account
 
 ),
 
 subscriptions as (
 
     select subscription_key, subscription_id
-    from NEFINANCE_DB.DEV.dim_subscription
+    from NEFINANCE_DB.PROD.dim_subscription
 
 )
 

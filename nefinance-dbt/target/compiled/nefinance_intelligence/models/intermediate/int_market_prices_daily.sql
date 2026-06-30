@@ -2,12 +2,7 @@
 
 with prices as (
 
-    select * from NEFINANCE_DB.DEV.stg_sp500_prices
-    
-        where price_date >= (
-            select dateadd(day, -370, coalesce(max(price_date), to_date('1900-01-01')))
-            from NEFINANCE_DB.DEV.int_market_prices_daily
-        )
+    select * from NEFINANCE_DB.PROD.stg_sp500_prices
     
 
 ),
@@ -77,8 +72,3 @@ select
     end as pct_of_52w_high,
     fivetran_synced_at
 from windowed
-
-    where price_date >= (
-        select dateadd(day, -7, coalesce(max(price_date), to_date('1900-01-01')))
-        from NEFINANCE_DB.DEV.int_market_prices_daily
-    )

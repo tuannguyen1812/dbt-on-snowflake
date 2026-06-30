@@ -2,15 +2,7 @@
 
 with financials as (
 
-    select * from NEFINANCE_DB.DEV.int_market_company_financials
-    
-        where loaded_at >= (
-            select coalesce(
-                max(latest_loaded_at),
-                to_timestamp_tz('1900-01-01 00:00:00 +00:00')
-            )
-            from NEFINANCE_DB.DEV.fct_company_financials_yearly
-        )
+    select * from NEFINANCE_DB.PROD.int_market_company_financials
     
 
 ),
@@ -18,7 +10,7 @@ with financials as (
 companies as (
 
     select company_key, ticker
-    from NEFINANCE_DB.DEV.dim_market_company
+    from NEFINANCE_DB.PROD.dim_market_company
 
 )
 

@@ -1,18 +1,18 @@
 
-  create or replace   view NEFINANCE_DB.DEV.int_nefinance_churn_events_enriched
+  create or replace   view NEFINANCE_DB.PROD.int_nefinance_churn_events_enriched
   
    as (
     
 
 with churn_events as (
 
-    select * from NEFINANCE_DB.DEV.stg_nefinance_churn_events
+    select * from NEFINANCE_DB.PROD.stg_nefinance_churn_events
 
 ),
 
 accounts as (
 
-    select * from NEFINANCE_DB.DEV.int_nefinance_accounts
+    select * from NEFINANCE_DB.PROD.int_nefinance_accounts
 
 ),
 

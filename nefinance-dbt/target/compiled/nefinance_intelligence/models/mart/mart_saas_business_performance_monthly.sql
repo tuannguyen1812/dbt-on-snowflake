@@ -2,12 +2,7 @@
 
 with revenue as (
 
-    select * from NEFINANCE_DB.DEV.fct_account_revenue_monthly
-    
-        where revenue_month >= (
-            select dateadd(month, -2, coalesce(max(performance_month), to_date('1900-01-01')))
-            from NEFINANCE_DB.DEV.mart_saas_business_performance_monthly
-        )
+    select * from NEFINANCE_DB.PROD.fct_account_revenue_monthly
     
 
 ),
@@ -47,12 +42,7 @@ usage_monthly as (
         sum(usage_count) as usage_count,
         sum(usage_duration_secs) as usage_duration_secs,
         sum(error_count) as error_count
-    from NEFINANCE_DB.DEV.fct_feature_usage_daily
-    
-        where usage_date >= (
-            select dateadd(month, -2, coalesce(max(performance_month), to_date('1900-01-01')))
-            from NEFINANCE_DB.DEV.mart_saas_business_performance_monthly
-        )
+    from NEFINANCE_DB.PROD.fct_feature_usage_daily
     
     group by 1
 
@@ -68,12 +58,7 @@ support_monthly as (
         avg(resolution_time_hours) as avg_resolution_time_hours,
         avg(first_response_time_minutes) as avg_first_response_time_minutes,
         avg(satisfaction_score) as avg_satisfaction_score
-    from NEFINANCE_DB.DEV.fct_support_ticket
-    
-        where submitted_date >= (
-            select dateadd(month, -2, coalesce(max(performance_month), to_date('1900-01-01')))
-            from NEFINANCE_DB.DEV.mart_saas_business_performance_monthly
-        )
+    from NEFINANCE_DB.PROD.fct_support_ticket
     
     group by 1
 
@@ -86,12 +71,7 @@ churn_monthly as (
         count(*) as churn_event_count,
         count_if(is_reactivation) as reactivation_count,
         sum(refund_amount_usd) as refund_amount_usd
-    from NEFINANCE_DB.DEV.fct_churn_event
-    
-        where churn_month >= (
-            select dateadd(month, -2, coalesce(max(performance_month), to_date('1900-01-01')))
-            from NEFINANCE_DB.DEV.mart_saas_business_performance_monthly
-        )
+    from NEFINANCE_DB.PROD.fct_churn_event
     
     group by 1
 

@@ -1,30 +1,86 @@
--- back compat for old kwarg name
+
   
-  begin;
-    
-        
-            
-	    
-	    
-            
-        
     
 
+        create or replace transient table NEFINANCE_DB.PROD.int_market_prices_daily
+         as
+        (select * from (
+              
+
+with prices as (
+
+    select * from NEFINANCE_DB.PROD.stg_sp500_prices
     
 
-    merge into NEFINANCE_DB.DEV.int_market_prices_daily as DBT_INTERNAL_DEST
-        using NEFINANCE_DB.DEV.int_market_prices_daily__dbt_tmp as DBT_INTERNAL_SOURCE
-        on ((DBT_INTERNAL_SOURCE.market_price_day_key = DBT_INTERNAL_DEST.market_price_day_key))
+),
 
-    
-    when matched then update set
-        "MARKET_PRICE_DAY_KEY" = DBT_INTERNAL_SOURCE."MARKET_PRICE_DAY_KEY","TICKER" = DBT_INTERNAL_SOURCE."TICKER","PRICE_DATE" = DBT_INTERNAL_SOURCE."PRICE_DATE","OPEN_PRICE" = DBT_INTERNAL_SOURCE."OPEN_PRICE","HIGH_PRICE" = DBT_INTERNAL_SOURCE."HIGH_PRICE","LOW_PRICE" = DBT_INTERNAL_SOURCE."LOW_PRICE","CLOSE_PRICE" = DBT_INTERNAL_SOURCE."CLOSE_PRICE","ADJUSTED_CLOSE_PRICE" = DBT_INTERNAL_SOURCE."ADJUSTED_CLOSE_PRICE","VOLUME" = DBT_INTERNAL_SOURCE."VOLUME","PREVIOUS_ADJUSTED_CLOSE_PRICE" = DBT_INTERNAL_SOURCE."PREVIOUS_ADJUSTED_CLOSE_PRICE","DAILY_RETURN_PCT" = DBT_INTERNAL_SOURCE."DAILY_RETURN_PCT","ADJUSTED_CLOSE_30D_AVG" = DBT_INTERNAL_SOURCE."ADJUSTED_CLOSE_30D_AVG","VOLUME_30D_AVG" = DBT_INTERNAL_SOURCE."VOLUME_30D_AVG","HIGH_PRICE_52W" = DBT_INTERNAL_SOURCE."HIGH_PRICE_52W","LOW_PRICE_52W" = DBT_INTERNAL_SOURCE."LOW_PRICE_52W","PCT_OF_52W_HIGH" = DBT_INTERNAL_SOURCE."PCT_OF_52W_HIGH","FIVETRAN_SYNCED_AT" = DBT_INTERNAL_SOURCE."FIVETRAN_SYNCED_AT"
-    
+windowed as (
 
-    when not matched then insert
-        ("MARKET_PRICE_DAY_KEY", "TICKER", "PRICE_DATE", "OPEN_PRICE", "HIGH_PRICE", "LOW_PRICE", "CLOSE_PRICE", "ADJUSTED_CLOSE_PRICE", "VOLUME", "PREVIOUS_ADJUSTED_CLOSE_PRICE", "DAILY_RETURN_PCT", "ADJUSTED_CLOSE_30D_AVG", "VOLUME_30D_AVG", "HIGH_PRICE_52W", "LOW_PRICE_52W", "PCT_OF_52W_HIGH", "FIVETRAN_SYNCED_AT")
-    values
-        ("MARKET_PRICE_DAY_KEY", "TICKER", "PRICE_DATE", "OPEN_PRICE", "HIGH_PRICE", "LOW_PRICE", "CLOSE_PRICE", "ADJUSTED_CLOSE_PRICE", "VOLUME", "PREVIOUS_ADJUSTED_CLOSE_PRICE", "DAILY_RETURN_PCT", "ADJUSTED_CLOSE_30D_AVG", "VOLUME_30D_AVG", "HIGH_PRICE_52W", "LOW_PRICE_52W", "PCT_OF_52W_HIGH", "FIVETRAN_SYNCED_AT")
+    select
+        ticker,
+        price_date,
+        open_price,
+        high_price,
+        low_price,
+        close_price,
+        adjusted_close_price,
+        volume,
+        lag(adjusted_close_price) over (
+            partition by ticker
+            order by price_date
+        ) as previous_adjusted_close_price,
+        avg(adjusted_close_price) over (
+            partition by ticker
+            order by price_date
+            rows between 29 preceding and current row
+        ) as adjusted_close_30d_avg,
+        avg(volume) over (
+            partition by ticker
+            order by price_date
+            rows between 29 preceding and current row
+        ) as volume_30d_avg,
+        max(high_price) over (
+            partition by ticker
+            order by price_date
+            rows between 251 preceding and current row
+        ) as high_price_52w,
+        min(low_price) over (
+            partition by ticker
+            order by price_date
+            rows between 251 preceding and current row
+        ) as low_price_52w,
+        fivetran_synced_at
+    from prices
 
-;
-    commit;
+)
+
+select
+    concat(ticker, '|', to_varchar(price_date, 'YYYY-MM-DD')) as market_price_day_key,
+    ticker,
+    price_date,
+    open_price,
+    high_price,
+    low_price,
+    close_price,
+    adjusted_close_price,
+    volume,
+    previous_adjusted_close_price,
+    case
+        when previous_adjusted_close_price is null or previous_adjusted_close_price = 0 then null
+        else (adjusted_close_price - previous_adjusted_close_price) / previous_adjusted_close_price
+    end as daily_return_pct,
+    adjusted_close_30d_avg,
+    volume_30d_avg,
+    high_price_52w,
+    low_price_52w,
+    case
+        when high_price_52w is null or high_price_52w = 0 then null
+        else adjusted_close_price / high_price_52w
+    end as pct_of_52w_high,
+    fivetran_synced_at
+from windowed
+
+              ) order by (price_date, ticker)
+        );
+      alter  table NEFINANCE_DB.PROD.int_market_prices_daily cluster by (price_date, ticker);
+  

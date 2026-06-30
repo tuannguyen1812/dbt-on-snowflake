@@ -1,12 +1,12 @@
 
-  create or replace   view NEFINANCE_DB.DEV.dim_subscription
+  create or replace   view NEFINANCE_DB.PROD.dim_subscription
   
    as (
     
 
 with subscriptions as (
 
-    select * from NEFINANCE_DB.DEV.int_nefinance_subscriptions
+    select * from NEFINANCE_DB.PROD.int_nefinance_subscriptions
 
 )
 

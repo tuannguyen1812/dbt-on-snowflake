@@ -1,5 +1,5 @@
 
-  create or replace   view NEFINANCE_DB.DEV.stg_sp500_prices
+  create or replace   view NEFINANCE_DB.PROD.stg_sp500_prices
   
    as (
     -- stg_sp500_prices.sql

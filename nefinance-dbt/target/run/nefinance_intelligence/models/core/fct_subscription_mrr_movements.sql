@@ -1,30 +1,73 @@
--- back compat for old kwarg name
+
   
-  begin;
-    
-        
-            
-	    
-	    
-            
-        
     
 
+        create or replace transient table NEFINANCE_DB.PROD.fct_subscription_mrr_movements
+         as
+        (select * from (
+              
+
+with movements as (
+
+    select * from NEFINANCE_DB.PROD.int_nefinance_subscription_mrr_movements
     
 
-    merge into NEFINANCE_DB.DEV.fct_subscription_mrr_movements as DBT_INTERNAL_DEST
-        using NEFINANCE_DB.DEV.fct_subscription_mrr_movements__dbt_tmp as DBT_INTERNAL_SOURCE
-        on ((DBT_INTERNAL_SOURCE.subscription_mrr_movement_key = DBT_INTERNAL_DEST.subscription_mrr_movement_key))
+),
 
-    
-    when matched then update set
-        "SUBSCRIPTION_MRR_MOVEMENT_KEY" = DBT_INTERNAL_SOURCE."SUBSCRIPTION_MRR_MOVEMENT_KEY","ACCOUNT_KEY" = DBT_INTERNAL_SOURCE."ACCOUNT_KEY","SUBSCRIPTION_KEY" = DBT_INTERNAL_SOURCE."SUBSCRIPTION_KEY","MOVEMENT_DATE_KEY" = DBT_INTERNAL_SOURCE."MOVEMENT_DATE_KEY","SUBSCRIPTION_ID" = DBT_INTERNAL_SOURCE."SUBSCRIPTION_ID","ACCOUNT_ID" = DBT_INTERNAL_SOURCE."ACCOUNT_ID","PLAN_TIER" = DBT_INTERNAL_SOURCE."PLAN_TIER","BILLING_FREQUENCY" = DBT_INTERNAL_SOURCE."BILLING_FREQUENCY","MOVEMENT_DATE" = DBT_INTERNAL_SOURCE."MOVEMENT_DATE","MOVEMENT_MONTH" = DBT_INTERNAL_SOURCE."MOVEMENT_MONTH","END_DATE" = DBT_INTERNAL_SOURCE."END_DATE","SEATS" = DBT_INTERNAL_SOURCE."SEATS","PREVIOUS_ACCOUNT_MRR" = DBT_INTERNAL_SOURCE."PREVIOUS_ACCOUNT_MRR","MRR_AMOUNT" = DBT_INTERNAL_SOURCE."MRR_AMOUNT","ARR_AMOUNT" = DBT_INTERNAL_SOURCE."ARR_AMOUNT","MRR_DELTA" = DBT_INTERNAL_SOURCE."MRR_DELTA","NEW_MRR" = DBT_INTERNAL_SOURCE."NEW_MRR","EXPANSION_MRR" = DBT_INTERNAL_SOURCE."EXPANSION_MRR","CONTRACTION_MRR" = DBT_INTERNAL_SOURCE."CONTRACTION_MRR","CHURN_MRR" = DBT_INTERNAL_SOURCE."CHURN_MRR","MRR_MOVEMENT_TYPE" = DBT_INTERNAL_SOURCE."MRR_MOVEMENT_TYPE","SUBSCRIPTION_STATUS" = DBT_INTERNAL_SOURCE."SUBSCRIPTION_STATUS","AUTO_RENEW_FLAG" = DBT_INTERNAL_SOURCE."AUTO_RENEW_FLAG","UPGRADE_FLAG" = DBT_INTERNAL_SOURCE."UPGRADE_FLAG","DOWNGRADE_FLAG" = DBT_INTERNAL_SOURCE."DOWNGRADE_FLAG","CHURN_FLAG" = DBT_INTERNAL_SOURCE."CHURN_FLAG","IS_TRIAL" = DBT_INTERNAL_SOURCE."IS_TRIAL","LOADED_AT" = DBT_INTERNAL_SOURCE."LOADED_AT","TRANSFORMED_AT" = DBT_INTERNAL_SOURCE."TRANSFORMED_AT"
-    
+accounts as (
 
-    when not matched then insert
-        ("SUBSCRIPTION_MRR_MOVEMENT_KEY", "ACCOUNT_KEY", "SUBSCRIPTION_KEY", "MOVEMENT_DATE_KEY", "SUBSCRIPTION_ID", "ACCOUNT_ID", "PLAN_TIER", "BILLING_FREQUENCY", "MOVEMENT_DATE", "MOVEMENT_MONTH", "END_DATE", "SEATS", "PREVIOUS_ACCOUNT_MRR", "MRR_AMOUNT", "ARR_AMOUNT", "MRR_DELTA", "NEW_MRR", "EXPANSION_MRR", "CONTRACTION_MRR", "CHURN_MRR", "MRR_MOVEMENT_TYPE", "SUBSCRIPTION_STATUS", "AUTO_RENEW_FLAG", "UPGRADE_FLAG", "DOWNGRADE_FLAG", "CHURN_FLAG", "IS_TRIAL", "LOADED_AT", "TRANSFORMED_AT")
-    values
-        ("SUBSCRIPTION_MRR_MOVEMENT_KEY", "ACCOUNT_KEY", "SUBSCRIPTION_KEY", "MOVEMENT_DATE_KEY", "SUBSCRIPTION_ID", "ACCOUNT_ID", "PLAN_TIER", "BILLING_FREQUENCY", "MOVEMENT_DATE", "MOVEMENT_MONTH", "END_DATE", "SEATS", "PREVIOUS_ACCOUNT_MRR", "MRR_AMOUNT", "ARR_AMOUNT", "MRR_DELTA", "NEW_MRR", "EXPANSION_MRR", "CONTRACTION_MRR", "CHURN_MRR", "MRR_MOVEMENT_TYPE", "SUBSCRIPTION_STATUS", "AUTO_RENEW_FLAG", "UPGRADE_FLAG", "DOWNGRADE_FLAG", "CHURN_FLAG", "IS_TRIAL", "LOADED_AT", "TRANSFORMED_AT")
+    select account_key, account_id
+    from NEFINANCE_DB.PROD.dim_account
 
-;
-    commit;
+),
+
+subscriptions as (
+
+    select subscription_key, subscription_id
+    from NEFINANCE_DB.PROD.dim_subscription
+
+)
+
+select
+    md5(
+        coalesce(movements.subscription_id, 'unknown')
+        || '|'
+        || coalesce(to_varchar(movements.movement_date, 'YYYY-MM-DD'), 'unknown')
+    ) as subscription_mrr_movement_key,
+    accounts.account_key,
+    subscriptions.subscription_key,
+    to_number(to_varchar(movements.movement_date, 'YYYYMMDD')) as movement_date_key,
+    movements.subscription_id,
+    movements.account_id,
+    movements.plan_tier,
+    movements.billing_frequency,
+    movements.movement_date,
+    movements.movement_month,
+    movements.end_date,
+    movements.seats,
+    movements.previous_account_mrr,
+    movements.mrr_amount,
+    movements.arr_amount,
+    movements.mrr_delta,
+    movements.new_mrr,
+    movements.expansion_mrr,
+    movements.contraction_mrr,
+    movements.churn_mrr,
+    movements.mrr_movement_type,
+    movements.subscription_status,
+    movements.auto_renew_flag,
+    movements.upgrade_flag,
+    movements.downgrade_flag,
+    movements.churn_flag,
+    movements.is_trial,
+    movements.loaded_at,
+    current_timestamp as transformed_at
+from movements
+left join accounts
+    on movements.account_id = accounts.account_id
+left join subscriptions
+    on movements.subscription_id = subscriptions.subscription_id
+              ) order by (movement_date, account_id)
+        );
+      alter  table NEFINANCE_DB.PROD.fct_subscription_mrr_movements cluster by (movement_date, account_id);
+  

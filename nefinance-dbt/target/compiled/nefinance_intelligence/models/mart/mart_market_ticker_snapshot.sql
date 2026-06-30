@@ -2,7 +2,7 @@
 
 with all_prices as (
 
-    select * from NEFINANCE_DB.DEV.fct_market_price_daily
+    select * from NEFINANCE_DB.PROD.fct_market_price_daily
 
 ),
 
@@ -35,14 +35,14 @@ previous_prices as (
 
 companies as (
 
-    select * from NEFINANCE_DB.DEV.dim_market_company
+    select * from NEFINANCE_DB.PROD.dim_market_company
 
 ),
 
 latest_financials as (
 
     select *
-    from NEFINANCE_DB.DEV.fct_company_financials_yearly
+    from NEFINANCE_DB.PROD.fct_company_financials_yearly
     qualify row_number() over (
         partition by ticker
         order by fiscal_year desc, report_date desc
@@ -56,7 +56,7 @@ latest_market_news as (
         published_date,
         sum(article_count) as market_article_count,
         avg(sentiment_score) as market_sentiment_score
-    from NEFINANCE_DB.DEV.fct_financial_news_daily
+    from NEFINANCE_DB.PROD.fct_financial_news_daily
     group by 1
     qualify row_number() over (
         order by published_date desc

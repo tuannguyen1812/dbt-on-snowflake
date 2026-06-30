@@ -1,30 +1,50 @@
--- back compat for old kwarg name
+
   
-  begin;
-    
-        
-            
-	    
-	    
-            
-        
     
 
+        create or replace transient table NEFINANCE_DB.PROD.fct_support_ticket
+         as
+        (select * from (
+              
+
+with tickets as (
+
+    select * from NEFINANCE_DB.PROD.stg_nefinance_support_tickets
     
 
-    merge into NEFINANCE_DB.DEV.fct_support_ticket as DBT_INTERNAL_DEST
-        using NEFINANCE_DB.DEV.fct_support_ticket__dbt_tmp as DBT_INTERNAL_SOURCE
-        on ((DBT_INTERNAL_SOURCE.ticket_key = DBT_INTERNAL_DEST.ticket_key))
+),
 
-    
-    when matched then update set
-        "TICKET_KEY" = DBT_INTERNAL_SOURCE."TICKET_KEY","ACCOUNT_KEY" = DBT_INTERNAL_SOURCE."ACCOUNT_KEY","SUBMITTED_DATE_KEY" = DBT_INTERNAL_SOURCE."SUBMITTED_DATE_KEY","CLOSED_DATE_KEY" = DBT_INTERNAL_SOURCE."CLOSED_DATE_KEY","TICKET_ID" = DBT_INTERNAL_SOURCE."TICKET_ID","ACCOUNT_ID" = DBT_INTERNAL_SOURCE."ACCOUNT_ID","PRIORITY" = DBT_INTERNAL_SOURCE."PRIORITY","SUBMITTED_AT" = DBT_INTERNAL_SOURCE."SUBMITTED_AT","SUBMITTED_DATE" = DBT_INTERNAL_SOURCE."SUBMITTED_DATE","CLOSED_AT" = DBT_INTERNAL_SOURCE."CLOSED_AT","CLOSED_DATE" = DBT_INTERNAL_SOURCE."CLOSED_DATE","IS_OPEN" = DBT_INTERNAL_SOURCE."IS_OPEN","RESOLUTION_TIME_HOURS" = DBT_INTERNAL_SOURCE."RESOLUTION_TIME_HOURS","FIRST_RESPONSE_TIME_MINUTES" = DBT_INTERNAL_SOURCE."FIRST_RESPONSE_TIME_MINUTES","ESCALATION_FLAG" = DBT_INTERNAL_SOURCE."ESCALATION_FLAG","SATISFACTION_SCORE" = DBT_INTERNAL_SOURCE."SATISFACTION_SCORE","RECORD_ID" = DBT_INTERNAL_SOURCE."RECORD_ID","LATEST_LOADED_AT" = DBT_INTERNAL_SOURCE."LATEST_LOADED_AT","TRANSFORMED_AT" = DBT_INTERNAL_SOURCE."TRANSFORMED_AT"
-    
+accounts as (
 
-    when not matched then insert
-        ("TICKET_KEY", "ACCOUNT_KEY", "SUBMITTED_DATE_KEY", "CLOSED_DATE_KEY", "TICKET_ID", "ACCOUNT_ID", "PRIORITY", "SUBMITTED_AT", "SUBMITTED_DATE", "CLOSED_AT", "CLOSED_DATE", "IS_OPEN", "RESOLUTION_TIME_HOURS", "FIRST_RESPONSE_TIME_MINUTES", "ESCALATION_FLAG", "SATISFACTION_SCORE", "RECORD_ID", "LATEST_LOADED_AT", "TRANSFORMED_AT")
-    values
-        ("TICKET_KEY", "ACCOUNT_KEY", "SUBMITTED_DATE_KEY", "CLOSED_DATE_KEY", "TICKET_ID", "ACCOUNT_ID", "PRIORITY", "SUBMITTED_AT", "SUBMITTED_DATE", "CLOSED_AT", "CLOSED_DATE", "IS_OPEN", "RESOLUTION_TIME_HOURS", "FIRST_RESPONSE_TIME_MINUTES", "ESCALATION_FLAG", "SATISFACTION_SCORE", "RECORD_ID", "LATEST_LOADED_AT", "TRANSFORMED_AT")
+    select account_key, account_id
+    from NEFINANCE_DB.PROD.dim_account
 
-;
-    commit;
+)
+
+select
+    md5(tickets.ticket_id) as ticket_key,
+    accounts.account_key,
+    to_number(to_varchar(cast(tickets.submitted_at as date), 'YYYYMMDD')) as submitted_date_key,
+    to_number(to_varchar(cast(tickets.closed_at as date), 'YYYYMMDD')) as closed_date_key,
+    tickets.ticket_id,
+    tickets.account_id,
+    lower(trim(tickets.priority)) as priority,
+    cast(tickets.submitted_at as timestamp_ntz(9)) as submitted_at,
+    cast(tickets.submitted_at as date) as submitted_date,
+    cast(tickets.closed_at as timestamp_ntz(9)) as closed_at,
+    cast(tickets.closed_at as date) as closed_date,
+    iff(tickets.closed_at is null, true, false) as is_open,
+    coalesce(tickets.resolution_time_hours, 0) as resolution_time_hours,
+    coalesce(tickets.first_response_time_minutes, 0) as first_response_time_minutes,
+    coalesce(tickets.escalation_flag, false) as escalation_flag,
+    tickets.satisfaction_score,
+    tickets.record_id,
+    tickets.loaded_at as latest_loaded_at,
+    current_timestamp as transformed_at
+from tickets
+left join accounts
+    on tickets.account_id = accounts.account_id
+              ) order by (submitted_date, account_id)
+        );
+      alter  table NEFINANCE_DB.PROD.fct_support_ticket cluster by (submitted_date, account_id);
+  

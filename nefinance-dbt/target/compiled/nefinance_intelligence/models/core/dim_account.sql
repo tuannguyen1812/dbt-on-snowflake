@@ -2,7 +2,7 @@
 
 with accounts as (
 
-    select * from NEFINANCE_DB.DEV.int_nefinance_account_health
+    select * from NEFINANCE_DB.PROD.int_nefinance_account_health
 
 )
 

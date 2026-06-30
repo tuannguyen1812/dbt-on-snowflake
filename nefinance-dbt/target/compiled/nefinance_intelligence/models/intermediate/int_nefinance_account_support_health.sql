@@ -2,7 +2,7 @@
 
 with tickets as (
 
-    select * from NEFINANCE_DB.DEV.stg_nefinance_support_tickets
+    select * from NEFINANCE_DB.PROD.stg_nefinance_support_tickets
 
 ),
 

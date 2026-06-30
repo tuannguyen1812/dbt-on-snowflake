@@ -2,15 +2,7 @@
 
 with tickets as (
 
-    select * from NEFINANCE_DB.DEV.stg_nefinance_support_tickets
-    
-        where loaded_at >= (
-            select coalesce(
-                max(latest_loaded_at),
-                to_timestamp_tz('1900-01-01 00:00:00 +00:00')
-            )
-            from NEFINANCE_DB.DEV.fct_support_ticket
-        )
+    select * from NEFINANCE_DB.PROD.stg_nefinance_support_tickets
     
 
 ),
@@ -18,7 +10,7 @@ with tickets as (
 accounts as (
 
     select account_key, account_id
-    from NEFINANCE_DB.DEV.dim_account
+    from NEFINANCE_DB.PROD.dim_account
 
 )
 

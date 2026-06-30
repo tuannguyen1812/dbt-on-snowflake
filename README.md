@@ -94,3 +94,50 @@ TUANNM
 +-- Note: Overprivileged default role
 ```
 
+## 4. Cost Control and Scale Plan
+Generated: 2026-06-30
+### Summary
+Current usage is compute-driven at about **23.34 credits/month** with minimal storage of about **0.1 TB**. `COMPUTE_WH` is the primary cost driver at **18.56 credits**, or **79.4%** of compute. The goal is to reduce idle time, prevent runaway spend, optimize expensive queries, right-size warehouses, and scale only when usage data supports it.
+### breakdown
+| Area | Usage | Risk |
+| --- | ---: | --- |
+| `COMPUTE_WH` | 18.56 credits, 79.4% | High |
+| `NEFINANCE_DBT_WH` | 3.65 credits, 15.6% | Medium |
+| `SIGMA_WH` | 0.96 credits, 4.1% | Low |
+| Other warehouses | 0.17 credits, 0.7% | Low |
+| Storage | ~0.1 TB | Low |
+### Cost Thresholds
+| Threshold | Limit | Action |
+| --- | ---: | --- |
+| Daily anomaly | > 3 credits/day | Investigate top queries and warehouses |
+| Monthly warning | 50 credits | Notify owners and review usage |
+| Monthly critical | 80 credits | Pause non-critical workloads if needed |
+
+### Storage Management
+Storage is currently low, but controls should be set early. Use permanent tables only where recovery or compliance requires them. Use transient tables with short Time Travel for staging and intermediate dbt models. Use temporary or transient tables for scratch work, drop development objects regularly, and review growth monthly with `SNOWFLAKE.ACCOUNT_USAGE.TABLE_STORAGE_METRICS`.
+
+### Cost control and scaling plan
+- Auto-Suspend and Timeouts: Use 60 seconds for interactive, dbt, and ingestion warehouses. Use 120 seconds for BI dashboards to balance cost and user experience.
+
+- Query Optimization
+```text
+- Focus first on `COMPUTE_WH` because it drives nearly 80% of compute cost.
+- Review top queries by elapsed time, bytes scanned, warehouse, user, and query tag.
+- Add date and business-key filters to improve pruning.
+- Replace repeated dashboard full-table scans with BI-ready marts.
+- Convert large append-style dbt models to incremental.
+- Validate joins to prevent row explosion.
+- Add query tags for dbt, Sigma, Fivetran, and ad hoc analysis.
+```
+
+## 5. Cost Control and Scale Plan
+
+- Currently, only dbt had github pipeline -> the rest still working in snowflake UI 
+- Next plan: Create Terraform using Infrastructure as Code (IaC) 
+
+## 6. Plan to Improve
+
+- Improve dbt transformation 
+- Use text discover in .txt file
+- Deploy Terraform using Infrastructure as Code (IaC) 
+- Improve dashboard Visualization and metrics

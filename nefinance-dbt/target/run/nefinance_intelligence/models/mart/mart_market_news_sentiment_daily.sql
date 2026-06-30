@@ -1,42 +1,30 @@
-
+-- back compat for old kwarg name
   
+  begin;
+    
+        
+            
+	    
+	    
+            
+        
     
 
-        create or replace transient table NEFINANCE_DB.DEV.mart_market_news_sentiment_daily
-         as
-        (select * from (
-              
-
-with news as (
-
-    select * from NEFINANCE_DB.DEV.fct_financial_news_daily
     
 
-)
+    merge into NEFINANCE_DB.DEV.mart_market_news_sentiment_daily as DBT_INTERNAL_DEST
+        using NEFINANCE_DB.DEV.mart_market_news_sentiment_daily__dbt_tmp as DBT_INTERNAL_SOURCE
+        on ((DBT_INTERNAL_SOURCE.market_news_day_key = DBT_INTERNAL_DEST.market_news_day_key))
 
-select
-    market_news_day_key,
-    published_date_key,
-    source,
-    published_date,
-    news_topic,
-    article_count,
-    positive_article_count,
-    neutral_article_count,
-    negative_article_count,
-    sentiment_score,
-    dominant_sentiment,
-    case
-        when sentiment_score >= 0.25 then 'positive_market_tone'
-        when sentiment_score <= -0.25 then 'negative_market_tone'
-        else 'neutral_market_tone'
-    end as market_tone_signal,
-    headline_rollup,
-    latest_sentiment_classified_at,
-    latest_loaded_at,
-    current_timestamp as transformed_at
-from news
-              ) order by (published_date, source)
-        );
-      alter  table NEFINANCE_DB.DEV.mart_market_news_sentiment_daily cluster by (published_date, source);
-  
+    
+    when matched then update set
+        "MARKET_NEWS_DAY_KEY" = DBT_INTERNAL_SOURCE."MARKET_NEWS_DAY_KEY","PUBLISHED_DATE_KEY" = DBT_INTERNAL_SOURCE."PUBLISHED_DATE_KEY","SOURCE" = DBT_INTERNAL_SOURCE."SOURCE","PUBLISHED_DATE" = DBT_INTERNAL_SOURCE."PUBLISHED_DATE","NEWS_TOPIC" = DBT_INTERNAL_SOURCE."NEWS_TOPIC","ARTICLE_COUNT" = DBT_INTERNAL_SOURCE."ARTICLE_COUNT","POSITIVE_ARTICLE_COUNT" = DBT_INTERNAL_SOURCE."POSITIVE_ARTICLE_COUNT","NEUTRAL_ARTICLE_COUNT" = DBT_INTERNAL_SOURCE."NEUTRAL_ARTICLE_COUNT","NEGATIVE_ARTICLE_COUNT" = DBT_INTERNAL_SOURCE."NEGATIVE_ARTICLE_COUNT","SENTIMENT_SCORE" = DBT_INTERNAL_SOURCE."SENTIMENT_SCORE","DOMINANT_SENTIMENT" = DBT_INTERNAL_SOURCE."DOMINANT_SENTIMENT","MARKET_TONE_SIGNAL" = DBT_INTERNAL_SOURCE."MARKET_TONE_SIGNAL","HEADLINE_ROLLUP" = DBT_INTERNAL_SOURCE."HEADLINE_ROLLUP","LATEST_SENTIMENT_CLASSIFIED_AT" = DBT_INTERNAL_SOURCE."LATEST_SENTIMENT_CLASSIFIED_AT","LATEST_LOADED_AT" = DBT_INTERNAL_SOURCE."LATEST_LOADED_AT","TRANSFORMED_AT" = DBT_INTERNAL_SOURCE."TRANSFORMED_AT"
+    
+
+    when not matched then insert
+        ("MARKET_NEWS_DAY_KEY", "PUBLISHED_DATE_KEY", "SOURCE", "PUBLISHED_DATE", "NEWS_TOPIC", "ARTICLE_COUNT", "POSITIVE_ARTICLE_COUNT", "NEUTRAL_ARTICLE_COUNT", "NEGATIVE_ARTICLE_COUNT", "SENTIMENT_SCORE", "DOMINANT_SENTIMENT", "MARKET_TONE_SIGNAL", "HEADLINE_ROLLUP", "LATEST_SENTIMENT_CLASSIFIED_AT", "LATEST_LOADED_AT", "TRANSFORMED_AT")
+    values
+        ("MARKET_NEWS_DAY_KEY", "PUBLISHED_DATE_KEY", "SOURCE", "PUBLISHED_DATE", "NEWS_TOPIC", "ARTICLE_COUNT", "POSITIVE_ARTICLE_COUNT", "NEUTRAL_ARTICLE_COUNT", "NEGATIVE_ARTICLE_COUNT", "SENTIMENT_SCORE", "DOMINANT_SENTIMENT", "MARKET_TONE_SIGNAL", "HEADLINE_ROLLUP", "LATEST_SENTIMENT_CLASSIFIED_AT", "LATEST_LOADED_AT", "TRANSFORMED_AT")
+
+;
+    commit;

@@ -4,6 +4,14 @@ with news as (
 
     select * from NEFINANCE_DB.DEV.fct_financial_news_daily
     
+        where latest_sentiment_classified_at >= (
+            select coalesce(
+                max(latest_sentiment_classified_at),
+                to_timestamp_tz('1900-01-01 00:00:00 +00:00')
+            )
+            from NEFINANCE_DB.DEV.mart_market_news_sentiment_daily
+        )
+    
 
 )
 

@@ -30,38 +30,31 @@ enriched as (
         stockholders_equity,
         net_income_loss,
         liabilities,
-        case
-            when liabilities = 0 then null
-            else assets / liabilities
-        end as asset_to_liability_ratio,
-        case
-            when liabilities_current = 0 then null
-            else assets_current / liabilities_current
-        end as current_ratio,
-        case
-            when assets = 0 then null
-            else liabilities / assets
-        end as liability_to_asset_ratio,
-        case
-            when assets = 0 then null
-            else net_income_loss / assets
-        end as return_on_assets,
-        case
-            when stockholders_equity = 0 then null
-            else net_income_loss / stockholders_equity
-        end as return_on_equity,
-        case
-            when common_stock_shares_issued = 0 then null
-            else net_income_loss / common_stock_shares_issued
-        end as earnings_per_share_basic,
+        (assets / nullif(liabilities, 0)) as asset_to_liability_ratio,
+        (assets_current / nullif(liabilities_current, 0)) as current_ratio,
+        (liabilities / nullif(assets, 0)) as liability_to_asset_ratio,
+        (net_income_loss / nullif(assets, 0)) as return_on_assets,
+        (net_income_loss / nullif(stockholders_equity, 0)) as return_on_equity,
+        (net_income_loss / nullif(common_stock_shares_issued, 0)) as earnings_per_share_basic,
         loaded_at
     from financials
+
+),
+
+deduplicated as (
+
+    select *
+    from enriched
+    qualify row_number() over (
+        partition by ticker, fiscal_year
+        order by report_date desc, price_date desc, loaded_at desc
+    ) = 1
 
 )
 
 select
     concat(ticker, '|', fiscal_year) as company_financial_year_key,
     *
-from enriched
+from deduplicated
   );
 

@@ -25,7 +25,7 @@ accounts as (
 select
     md5(churn_events.churn_event_id) as churn_event_key,
     accounts.account_key,
-    to_number(to_varchar(churn_events.churn_date, 'YYYYMMDD')) as churn_date_key,
+   to_number(to_varchar(churn_events.churn_date, 'YYYYMMDD')) as churn_date_key,
     churn_events.churn_event_id,
     churn_events.account_id,
     churn_events.churn_date,

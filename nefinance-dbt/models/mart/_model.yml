@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: mart_market__watchlist_daily
+  - name: mart_market_watchlist_daily
     description: Market watching mart at ticker and trading day grain, combining price action, rolling indicators, fundamentals, and cached market news sentiment.
     columns:
       - name: market_price_day_key
@@ -27,7 +27,7 @@ models:
           - accepted_values:
               values: ['bullish_watch', 'risk_watch', 'near_52w_high', 'below_52w_high', 'normal']
 
-  - name: mart_market__news_sentiment_daily
+  - name: mart_market_news_sentiment_daily
     description: Market news mart at source, published date, and topic grain using cached Snowflake Cortex sentiment from the intermediate layer.
     columns:
       - name: market_news_day_key
@@ -52,7 +52,7 @@ models:
           - accepted_values:
               values: ['positive_market_tone', 'neutral_market_tone', 'negative_market_tone']
 
-  - name: mart_market__ticker_snapshot
+  - name: mart_market_ticker_snapshot
     description: Current market snapshot at one row per ticker for watchlist cards and executive monitoring.
     columns:
       - name: company_key
@@ -74,7 +74,7 @@ models:
           - accepted_values:
               values: ['risk_watch', 'momentum_watch', 'near_high', 'normal']
 
-  - name: mart_saas__business_performance_monthly
+  - name: mart_saas_business_performance_monthly
     description: SaaS performance mart at company-month grain for MRR, ARR, NRR, GRR, churn, expansion, product usage, support, and account health.
     columns:
       - name: business_performance_month_key
@@ -98,7 +98,7 @@ models:
           - accepted_values:
               values: ['needs_attention', 'expanding', 'stable']
 
-  - name: mart_saas__account_health
+  - name: mart_saas_account_health
     description: SaaS account health mart at one row per account for Customer Success prioritization and revenue risk workflows.
     columns:
       - name: account_key
@@ -120,7 +120,7 @@ models:
           - accepted_values:
               values: ['churned', 'at_risk', 'growth_opportunity', 'healthy']
 
-  - name: mart_saas__feature_adoption_monthly
+  - name: mart_saas_feature_adoption_monthly
     description: SaaS product mart at feature and month grain for adoption, engagement, beta usage, and quality monitoring.
     columns:
       - name: feature_adoption_month_key

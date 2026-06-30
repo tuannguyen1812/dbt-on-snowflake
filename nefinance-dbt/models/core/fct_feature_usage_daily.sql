@@ -37,7 +37,7 @@ select
     accounts.account_key,
     subscriptions.subscription_key,
     md5(usage.feature_name) as feature_key,
-    to_number(to_varchar(usage.usage_date, 'YYYYMMDD')) as usage_date_key,
+    {{ date_key('usage.usage_date') }} as usage_date_key,
     usage.account_id,
     usage.subscription_id,
     usage.feature_name,

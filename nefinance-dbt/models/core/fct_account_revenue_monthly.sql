@@ -28,7 +28,7 @@ accounts as (
 select
     revenue.account_revenue_month_key,
     accounts.account_key,
-    to_number(to_varchar(revenue.revenue_month, 'YYYYMMDD')) as revenue_month_date_key,
+    {{ date_key('revenue.revenue_month') }} as revenue_month_date_key,
     revenue.account_id,
     revenue.revenue_month,
     revenue.subscription_events,
@@ -47,23 +47,14 @@ select
     revenue.churn_count,
     revenue.trial_subscription_count,
     revenue.starting_mrr + revenue.expansion_mrr - revenue.contraction_mrr - revenue.churn_mrr as retained_mrr,
-    case
-        when revenue.starting_mrr = 0 then null
-        else (
-            revenue.starting_mrr
-            + revenue.expansion_mrr
-            - revenue.contraction_mrr
-            - revenue.churn_mrr
-        ) / revenue.starting_mrr
-    end as net_revenue_retention_rate,
-    case
-        when revenue.starting_mrr = 0 then null
-        else (
-            revenue.starting_mrr
-            - revenue.contraction_mrr
-            - revenue.churn_mrr
-        ) / revenue.starting_mrr
-    end as gross_revenue_retention_rate,
+    {{ safe_divide(
+        '(revenue.starting_mrr + revenue.expansion_mrr - revenue.contraction_mrr - revenue.churn_mrr)',
+        'revenue.starting_mrr'
+    ) }} as net_revenue_retention_rate,
+    {{ safe_divide(
+        '(revenue.starting_mrr - revenue.contraction_mrr - revenue.churn_mrr)',
+        'revenue.starting_mrr'
+    ) }} as gross_revenue_retention_rate,
     revenue.latest_loaded_at,
     current_timestamp as transformed_at
 from revenue

@@ -1,0 +1,25 @@
+
+    
+    
+
+with child as (
+    select performance_month_date_key as from_field
+    from NEFINANCE_DB.DEV.mart_saas_business_performance_monthly
+    where performance_month_date_key is not null
+),
+
+parent as (
+    select date_key as to_field
+    from NEFINANCE_DB.DEV.dim_date
+)
+
+select
+    from_field
+
+from child
+left join parent
+    on child.from_field = parent.to_field
+
+where parent.to_field is null
+
+

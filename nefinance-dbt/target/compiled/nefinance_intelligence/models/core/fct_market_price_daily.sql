@@ -22,7 +22,7 @@ companies as (
 select
     prices.market_price_day_key,
     companies.company_key,
-    to_number(to_varchar(prices.price_date, 'YYYYMMDD')) as price_date_key,
+      to_number(to_varchar(prices.price_date, 'YYYYMMDD')) as price_date_key,
     prices.ticker,
     prices.price_date,
     prices.open_price,

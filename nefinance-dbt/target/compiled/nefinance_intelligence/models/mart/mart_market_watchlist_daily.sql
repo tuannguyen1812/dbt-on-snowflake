@@ -4,6 +4,11 @@ with prices as (
 
     select * from NEFINANCE_DB.DEV.fct_market_price_daily
     
+        where price_date >= (
+            select dateadd(day, -7, coalesce(max(price_date), to_date('1900-01-01')))
+            from NEFINANCE_DB.DEV.mart_market_watchlist_daily
+        )
+    
 
 ),
 
@@ -45,6 +50,11 @@ news_by_date as (
             else 'Neutral'
         end as market_dominant_sentiment
     from NEFINANCE_DB.DEV.fct_financial_news_daily
+    
+        where published_date >= (
+            select dateadd(day, -7, coalesce(max(price_date), to_date('1900-01-01')))
+            from NEFINANCE_DB.DEV.mart_market_watchlist_daily
+        )
     
     group by 1
 

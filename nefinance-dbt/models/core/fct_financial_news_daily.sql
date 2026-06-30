@@ -24,7 +24,7 @@ with news as (
 select
     market_news_day_key,
     md5(coalesce(source, 'unknown') || '|' || coalesce(news_topic, 'unknown')) as market_news_topic_key,
-    to_number(to_varchar(published_date, 'YYYYMMDD')) as published_date_key,
+    {{ date_key('published_date') }} as published_date_key,
     source,
     published_date,
     news_topic,

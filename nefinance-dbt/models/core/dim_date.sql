@@ -87,7 +87,7 @@ date_spine as (
 )
 
 select
-    to_number(to_varchar(date_day, 'YYYYMMDD')) as date_key,
+    {{ date_key('date_day') }} as date_key,
     date_day,
     year(date_day) as calendar_year,
     quarter(date_day) as calendar_quarter,

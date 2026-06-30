@@ -31,7 +31,7 @@ companies as (
 select
     financials.company_financial_year_key,
     companies.company_key,
-    to_number(to_varchar(financials.report_date, 'YYYYMMDD')) as report_date_key,
+ {{ date_key('financials.report_date') }} as report_date_key,
     financials.ticker,
     financials.cik,
     financials.fiscal_year,

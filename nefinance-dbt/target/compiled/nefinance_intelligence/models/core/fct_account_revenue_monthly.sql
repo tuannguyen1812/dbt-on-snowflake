@@ -41,23 +41,8 @@ select
     revenue.churn_count,
     revenue.trial_subscription_count,
     revenue.starting_mrr + revenue.expansion_mrr - revenue.contraction_mrr - revenue.churn_mrr as retained_mrr,
-    case
-        when revenue.starting_mrr = 0 then null
-        else (
-            revenue.starting_mrr
-            + revenue.expansion_mrr
-            - revenue.contraction_mrr
-            - revenue.churn_mrr
-        ) / revenue.starting_mrr
-    end as net_revenue_retention_rate,
-    case
-        when revenue.starting_mrr = 0 then null
-        else (
-            revenue.starting_mrr
-            - revenue.contraction_mrr
-            - revenue.churn_mrr
-        ) / revenue.starting_mrr
-    end as gross_revenue_retention_rate,
+    ((revenue.starting_mrr + revenue.expansion_mrr - revenue.contraction_mrr - revenue.churn_mrr) / nullif(revenue.starting_mrr, 0)) as net_revenue_retention_rate,
+    ((revenue.starting_mrr - revenue.contraction_mrr - revenue.churn_mrr) / nullif(revenue.starting_mrr, 0)) as gross_revenue_retention_rate,
     revenue.latest_loaded_at,
     current_timestamp as transformed_at
 from revenue

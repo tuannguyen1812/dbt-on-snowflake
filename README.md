@@ -28,3 +28,13 @@ This project's goal is to build an end-to-end data pipeline for NE Finance Intel
 ## 1. Pipeline Description
 
 ![Data Pipeline Architecture](nefinance_data_pipeline.png)
+
+- Step 1: Extract data from Database, google drive using Fivetran and load file Earning call to Snowflake stage. 
+- Step 2: Transform data by using dbt
+- Step 3: Storage transformed data in snowflake database
+- Step 4: Visulization data using Sigma 
+
+## 2. Snowflake Data Structure
+
+![Database Structure](nefinance_database_structure.png)
+
